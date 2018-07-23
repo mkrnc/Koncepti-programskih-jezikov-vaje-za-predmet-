@@ -1,0 +1,1436 @@
+\chapter{Lambda ra\v cun}
+
+\begin{ex}
+Napi\v si izraz v lambda ra\v cunu, ki za dana parametra x in y izra\v cuna povpre\v cno vrednost x in y.
+
+Apliciraj prej definiran lambda izraz na konkretnih parametrih in zapi\v si redukcijo izraza do vrednosti.
+\end{ex}
+\begin{ex}
+Uporabi alfa konverzijo in beta redukcijo za ovrednotenje naslednjega stavka zapisanega z $\lambda$-ra\v cunom
+$$(\lambda a.\lambda b.a (a b)) (\lambda a.a + 1)\,1.$$
+
+a) Izra\v cunaj vrednost izraza.
+
+b) Kaj naredi funkcija?
+
+\end{ex}
+\begin{ex}
+Evaluiraj naslednje lambda izraze do vrednosti.
+
+1) $( \lambda f.f( \lambda x.x))( \lambda x.x) $
+
+2) $( \lambda x. \lambda y.x) z w$
+
+\end{ex}
+\begin{ex}
+Dane imamo naslednje standardne kombinatorje lambda ra\v cuna.
+\begin{align*}
+I& \equiv \lambda x.x;\\
+K& \equiv \lambda x.\lambda y.x;\\
+K^*& \equiv \lambda x.\lambda y.y;\\
+S& \equiv \lambda x. \lambda y.\lambda z.xz(yz)
+\end{align*}
+Poenostavi naslednje izraze:
+\begin{align*}
+M &\equiv (\lambda x.\lambda y.\lambda z.zyx)aa(\lambda p.\lambda q.q);\\
+M &\equiv (\lambda y.\lambda z.zy)((\lambda x.xxx)(\lambda x.xxx))(\lambda w.I);\\
+M &\equiv SKSKSK
+\end{align*}
+\end{ex}
+
+\chapter{Elementi funkcijskih jezikov}
+
+\section{Matemati\v cne funkcije}
+
+\begin{ex}
+Napi\v si funkcijo v ML, ki izra\v cuna vsoto vrste: 
+$$1+4+9+16+...+n^2.$$
+
+\begin{sol}
+\begin{verbatim}
+function n -> n * (n + 1) * (2*n + 1)/6
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+
+
+\begin{ex}
+Napi\v si funkcijo v ML, ki izra\v cuna vsoto vrste 
+$$\sum_{x=0}^n 1/(2^x) = 1/1+1/2+1/4+1/8+1/16+...+1/(2^n).$$
+
+Preveri delovanje funkcije z implementacijo v Ocaml.
+\begin{sol}
+\begin{verbatim}
+    
+let rec vsota_vrste n = match n with
+| 1 -> 1.
+| _ -> 1./.2.**(float_of_int n) +. (vsota_vrste (n-1))
+\end{verbatim}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+V Ocaml napi\v si funkcijo, ki izra\v cuna n-to Fibonaccijevo \v stevilo definirano na slede\v c na\v cin:
+\begin{center}
+$F_n = 1$, \v ce $n\in \left\{ 0,1\right\}$, ter 
+$F_n$ = $F_n-1 + F_n-2$, 
+\end{center}
+pri \v cemer zapis $F_i$ predstavlja i-to Fibonaccijevo \v stevilo. 
+
+Fibonaccijevo zaporedje: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, ...
+
+\begin{sol}
+\begin{verbatim}
+let rec fib n = match n with
+| 0 -> 1
+| 1 -> 1
+| _ -> fib (n-2) + fib (n-1);;
+\end{verbatim}
+\end{sol}
+
+
+
+\end{ex}
+\begin{ex}
+Dana je OCaml funkcija naslednik (\texttt{let naslednik n = n+1}). Z uporabo funkcije naslednik in brez uporabe artimeti\v cnih operacij naredi funkcijo \texttt{jeVsota(a:int, b:int, c:int)}, ki preveri ali je c vsota a in b (pri \v cemer velja $a,b\geq 0$).
+
+
+\begin{sol}
+\begin{verbatim}
+let rec jeVsota (a, b, c) = match b with
+| 0 -> if (a = c) then true
+else false
+| b -> jeVsota ((naslednjik a), b-1, c)
+\end{verbatim}
+\end{sol}
+
+
+
+\end{ex}
+\begin{ex}
+Funkcija \texttt{pfib: int*int -> int*int} je definirana na slede\v c na\v cin:
+$$
+\mathtt{pfib}(i,j)=\begin{cases}
+(1,1); & i,j\le0;\\
+\mathtt{pfib}(i-1,0); & j=0;\\
+\mathtt{pfib}(0,j-1); & i=0;\\
+\mathtt{pfib}(i-1,j-1)+\mathtt{pfib}(i-2,j-2); & else.
+\end{cases}
+$$
+Operacija '+' je definirana nad pari na obi\v cajen na\v cin. Definiraj funkcijo \texttt{pfib} v Ocaml.
+
+\begin{sol}
+\begin{verbatim}
+let vsota (a,b)(c,d) = (a+c, b+d)
+
+let rec pfib (a,b) = match (a,b) with
+| (i, j) when i <= 0 && j<=0 -> (1,1)
+| (i, 0) -> pfib (i-1, 0)
+| (0, j) -> pfib (0, j-1)
+| (i, j) -> vsota (pfib (i-1, j-1)) (pfib (i-2, j-2))    
+\end{verbatim}
+\end{sol}
+
+
+
+\end{ex}
+\begin{ex}
+Dana je naslednja funkcija, ki je definirana z rekurzivnimi ena\v cbami.
+\begin{align*}
+A(0, n) &= n+1 \\
+A(m + 1, 0) &= A(m, 1) \\ 
+A(m + 1, n + 1) &= A(m, A(m + 1, n)) 
+\end{align*}
+
+Napi\v si funkcijo \texttt{A : int -> int -> int}, ki izra\v cuna za dana parametra $m$ in $n$ vrednost zgoraj definirane rekurzivne funkcije.
+\end{ex}
+
+\section{Seznami}
+
+\begin{ex}
+Napi\v si funkcijo sestej: \texttt{int list -> int}, ki se\v steje elemente celo\v stevilskega seznama.
+
+Primer: 
+\begin{verbatim}
+# sestej [1;2;3;4;5];;
+- : int = 15 
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec sestej sez = match sez with
+| []->0
+| hd::tl -> hd+(sestej tl)
+\end{verbatim}
+\end{sol}
+
+
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo \texttt{unija : int list -> int list -> int list}, ki za dana seznama celih \v stevil vrne unijo. Pazi na duplikate!
+
+Primer: \begin{verbatim} 
+# unija [1;2;4;7] [2;4;7;9];; 
+- : int list = [1;2;4;7;9]
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec najdi e = function
+| [] -> false
+| h::t ->if( h == e) then true else najdi e t
+
+let rec unija l1 l2 =
+match l1 with
+| [] -> l2
+| h::t -> if najdi h l2 then unija t l2
+else unija t (h::l2)
+\end{verbatim}
+\end{sol}
+
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo \texttt{zdruzi : int list -> int list -> int list}, ki sprejeme urejena seznama kot parametra in vrne urejen seznam, ki vsebuje elemente obeh vhodnih seznamov.
+
+Primer: \begin{verbatim}
+# zdruzi [2;3;4] [5;7;9;10;13];;
+- : int list = [2;3;4;5;7;9;10;13]
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let zdruzi sez1 sez2 = sez1 @sez2
+
+(* ali *)
+
+let rec zdruzi sez1 sez2 = match (sez1, sez2) with
+| ([], s) -> s
+| (t, []) -> t
+| (a::b, c::d) -> if a<=c then [a]@ (zdruzi b (c::d))
+else [c]@(zdruzi (a::b) d)
+\end{verbatim}
+\end{sol}
+
+
+\end{ex}
+\begin{ex} 
+Napi\v si funkcijo \texttt{zdruzi : int list -> int list -> int list}, ki zdru\v zi dva seznama v tretji seznam tako, da vzame najprej en element iz prvega seznama potem dva elementa iz drugega seznama in tako naprej dokler ne pride do konca enega izmed vhodnih seznamov. Preostanek nepraznega seznama se da na konec novega seznama.
+
+Primer: \begin{verbatim}
+# zdruzi [1;2;3] [5;6;7;8];;
+- : int list = [1;5;6;2;7;8;3]
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+et rec zdruzi (sez1,sez2) = match (sez1,sez2) with
+| ([],x) -> x 
+| (x,[]) -> x 
+| (g1::[],g2::r2) -> g1::g2::r2 
+| (g1::r1,g2::[]) -> g1::g2::r1 
+| (g1::r1,g2::g22::r2) -> g1::g2::g22:: zdruzi (r1,r2);;
+\end{verbatim}
+\end{sol}
+
+
+
+\end{ex}
+\begin{ex} 
+Napi\v si funkcijo \texttt{vecjeod : int list -> int -> int list}, ki dobi seznam in \v stevilo, vrne pa seznam, ki vsebuje samo elemente ve\v cje od podanega \v stevila.
+
+Primer: \begin{verbatim}
+# vecjeod [2;5;26;87;2;6]  5;;
+- : int list = [26;87;6] 
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec vecjeod sez n = match sez with
+| []->[]
+| hd::tl -> if(hd>n) then hd::(vecjeod tl n) else (vecjeod tl n)
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Napi\v site funkcijo \texttt{seznamnm : int -> int list}, ki izpi\v se seznam \v stevil od \v stevila n do m. Velja $n\le m$.
+
+Primer: \begin{verbatim}
+# seznamnm 5 11;;
+- : int list = [5;6;7;8;9;10;11] 
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec seznamnm n m =
+if n > m then []
+else n :: seznamnm (n+1) m;;
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo \texttt{palindrom: int list -> bool}, ki preveri, \v ce je podan seznam celih \v stevil palindrom.
+
+Primer: \begin{verbatim}
+# palindrom [1;2;3;2;1];;
+- : bool = true
+# palindrom [1;2;3];;
+- : bool = false
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let palindrom sez =
+sez = List.rev sez
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo \texttt{vsotaSodeLihe: int list -> int*int}, ki za dani seznam posebej se\v steje soda in liha \v stevila, ter vrne par, ki ima na prvem polo\v zaju vsoto lihih \v stevil, na drugem pa vsoto sodih \v stevil.
+
+Primer: \begin{verbatim}
+# vsotaSodeLihe [1;1;1;2;4];;
+- : int*int = (3,6)
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec vsotaSodeLihe sez = match sez with
+| [] -> (0, 0)
+| a::b -> let (l,s) = vsotaSodeLihe b in 
+if (a mod 2 = 1) then 
+(l+a, s) 
+else 
+(l, s+a)
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo \texttt{podseznam : int list -> int list -> bool}, ki preveri ali je seznam podan kot prvi parameter podseznam seznama podanega kot drugi parameter funkcije.
+
+Primer: \begin{verbatim}
+# podseznam [1;2] [3;4;1;2];;
+- : bool = true
+# podseznam [1;2] [1;2;3];;
+- : bool = true
+# podseznam [1;2] [4;2];;
+- : bool = false
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec podseznam sez1 sez2 = match (sez1, sez2) with
+| ([], _) -> true
+| (a::b, c::d) when List.length sez1 <= List.length sez2 -> if (a=c) then podseznam b d else false
+| _ -> false
+\end{verbatim}
+\end{sol}
+
+
+\end{ex}
+\begin{ex}
+Funkcijo za sortiranje seznama implementiraj na slede\v c na\v cin:
+
+\begin{enumerate}
+\item Napi\v si pomo\v zno funkcijo zamenjaj : \texttt{int list -> int list}, ki poi\v s\v ce v seznamu prvi zaporeden par \texttt{...::x::y::rep}, ki ni pravilno urejen: $x>y$. Funkcija naj vrne par sestavljen iz 
+	\begin{enumerate}
+	\item istega seznama, kjer sta x in y zamenjana ter 
+    \item true v primeru, da je bila zamenjava narejena in false sicer.
+	\end{enumerate}
+    \item Napisi funkcijo \texttt{sortiraj : int list -> int list}, ki ponavlja izvajanje funkcije zamenjaj tako dolgo dokler ni seznam urejen.
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Dan je seznam, ki vsebuje znake tipa char. Napi\v si funkcijo \texttt{ace}, ki sprejme seznam znakov in vrne true v primeru, da seznam znakov vsebuje znake seznama ['a';'c';'e'] v danem vrstnem redu in false sicer. 
+
+\begin{verbatim}
+# ace ['a';'b';'r';'a';'k';'a';'d';'a';'b';'r';'a'];;
+- : bool = false
+# ace ['a';'b';'e';'c';'e';'d';'a'];;
+- : bool = true
+# ace ['c';'e';'d';'r';'a'];;
+- : bool = false
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec ace1 sez count = match sez with
+| [] -> false
+| a::b -> if (count = 0 && a = 'a') then ace1 b 1
+else if(count = 1 && a = 'c') then ace1 b 2
+else if (count = 2 && a = 'e') then true
+else ace1 b count
+
+let ace sez = ace1 sez 0
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Dan je seznam, ki vsebuje vrednosti 0 in 1. Napi\v si funkcijo, ki naredi naslednjo transformacijo na seznamu. Vse pojavitve vzorca 111 zamenja z vrednostjo 3, vse pojavitve vzorca 11 z vrednostjo 2 ter ohrani samostojne enice 1 in ni\v cle 0. 
+\begin{verbatim}
+1 1 1 -> 3
+1 1 -> 2
+1 -> 1
+0 -> 0
+\end{verbatim}
+
+Funkcija vedno posku\v sa najprej zamenjati dalj\v si niz enic.
+
+Na primer, seznam \texttt{[1;1;0;1;1;1;1;1;0;1;0]} se pretvori v seznam \texttt{[2;0;3;2;0;1;0]}.
+
+\begin{sol}
+\begin{verbatim}
+let rec fja list = match list with
+| [] -> []
+| a::[] -> [a]
+| a::b when a=0 -> a::(fja b)
+| a::b::c when a=1 && b=0 ->[a; b]@(fja c)
+| a::b::c when a=1 && b=1 && c=[] -> [2]@(fja c)
+| a::b::c::d when a=1 && b=1 -> if c=1 then [3]@(fja d)
+else [2; c]@(fja d)
+\end{verbatim}
+\end{sol}
+
+
+
+\end{ex}
+
+\section{Polimorfizem}
+
+\begin{ex}
+Napi\v si polimorfi\v cno funkcijo 
+
+\begin{center}
+\texttt{zdruzi : 'a list -> 'a list -> ('a*'a->'a) -> 'a list}, 
+\end{center}
+
+ki zdruzi dva enako dolga seznama poljubnih objektov, tako da zdru\v zi istole\v zne objekte seznamov. Par istole\v znih objektov seznamov zdru\v zimo z uporabo tretjega parametra funkcije zdruzi, funkcijo tipa \texttt{'a*'a->'a}.
+
+Napi\v si primer uporabe funkcije zdruzi nad seznamoma celih \v stevil. Zdru\v zitev dveh \v stevil implementiraj z obi\v cajno vsoto. 
+\end{ex}
+
+
+\section{Funkcije vi\v sjega reda}
+
+\begin{ex}
+Napi\v si funkcijo vi\v sjega reda 
+\begin{center}
+\texttt{urediPar : 'a*'a -> ('a*'a->bool) -> 'a*'a}, 
+\end{center}
+ki za dan par vrednosti tipa 'a*'a vrne isti par vrednosti urejen po velikosti. Za dolo\v citev vrstnega reda komponent para napi\v si funkcijo 
+\texttt{vecji : 'a*'a -> bool}, 
+ki vrne \texttt{true}, \v ce je prva komponenta ve\v cja od druge. Uporabi funkcijo ve\v cji kot parameter funkcije \texttt{urediPar}.
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo vi\v sjega reda 
+\begin{center}
+\texttt{izberi l f: 'a list -> ('a -> bool) -> 'a list},
+\end{center}
+ki iz seznama l izbere samo
+tiste elemente a za katere funkcija f vrne true.
+Primer: 
+\begin{verbatim}
+# let f a = if a>2 then true else false;;
+val f : int -> bool = <fun>
+# izberi [1;2;3;5] f;;
+- : int list = [3; 5]
+\end{verbatim}
+
+\section{Implementacija funkcij}
+
+\end{ex}
+\begin{ex}
+Dana je funkcija:
+\begin{verbatim}
+let rec vsota a = match a with 0 -> 0 | x -> x + vsota (x-1);;
+\end{verbatim}
+
+Predstavi sklad aktivacijskih zapisov, ki se razvijejo ob klicu vsota 3;;
+
+\begin{sol}
+\begin{verbatim}
+vsota(3) = 3 + vsota(2)
+vsota(2) = 2+ vsota(1)
+vsota(1) = 1+ vsota (0)
+vsota (0) = 0
+vsota(1) = 1+0=1
+vsota(2) = 2+1=3
+vsota(3) = 3+3=6
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Dana je funkcija fib, ki izra\v cuna Fibonaccijevo \v stevilo.
+
+\begin{verbatim}
+	# let rec fib n =
+if n < 2 then 1 else fib(n-1) + fib(n-2);;
+val fib : int -> int = <fun>
+\end{verbatim}
+Predstavi zaporedje aktivacijskih zapisov, ki se aktivirajo pri izvajanju funkcije fib 4.
+
+\begin{sol}
+\begin{verbatim}
+fib(4) = fib(3) + fib(2)
+fib(3) = fib(2) + fib(1)
+fib(2) = fib(1) + fib(0)=1
+fib(2) = 1+0 = 1
+fib(3) = 1+1 = 2
+fib(4) = 2+1 = 3
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Dana je funkcija se\v stej : a' list -> int, ki se\v steje elemente danega seznama.
+
+\begin{verbatim}
+# let rec sestej l = match l with
+ | [] -> 0
+ | a::r -> a+sestej r;; 
+val sestej : int list -> int = <fun> 
+# sestej [1;2;3];; 
+- : int = 6 
+
+\end{verbatim}
+Predstavi vsa stanja aktivacijskih zapisov ob klicu funkcije sestej [1;2;3].
+
+\begin{sol}
+\begin{verbatim}
+sestej [1;2;3] = 1+ sestej [2;3]
+sestej [2;3] = 2+ sestej[1]
+sestej[1] = 1+ sestej []
+sestej[] = 0
+sestej[1] = 1+ 0=1
+sestej [2;3] = 2+ 1=3
+sestej [1;2;3] = 1+ 3=4
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+
+\section{Rekurzivne podatkovne strukture}
+
+
+\begin{ex}
+Dan imamo seznam, definiran z rekurzivnim podatkovnim tipom izraz. 
+\begin{verbatim}
+type izraz = 
+      Nil 
+    | Stevilo of int * izraz 
+    | Oper of char * izraz ;; 
+\end{verbatim}
+Izraz vsebuje aritmeti\v cne izraze, ki so lahko sestavljeni iz \v stevil (Stevilo) in operacij (Oper). Dovoljene operacije so plus '+' in minus '-'. Predpostavljamo, da izrazi opisujejo pravilne aritmeti\v cne izraze.
+
+Napi\v si funkcijo ovrednoti : izraz -> int, ki izra\v cuna vrednost izraza.
+
+Primer: 
+\begin{verbatim} 
+e = 10 + 5 - 3
+\end{verbatim}
+
+
+\end{ex}
+\begin{ex}
+Dan imamo seznam, definiran z naslednjim tipom. 
+\begin{verbatim}
+type 'a seznam = 
+      Nil 
+    | Vrednost of 'a * 'a seznam;; 
+\end{verbatim}
+
+Seznam je urejen v nara\v s\v cajo\v cem vrstnem redu glede na vrednost primerjalne funkcije primerjaj : 'a -> 'a -> int , ki vrne -1 \v ce je prvi parameter ve\v cji od drugega, 0 \v ce sta enaka in 1 v primeru, da je drugi parameter ve\v cji od prvega.
+
+Napi\v si parametri\v cno funkcijo:
+\begin{verbatim}
+dodaj : 'a seznam -> ('a -> 'a -> int) -> 'a
+\end{verbatim}
+kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija primerjaj in tretji parameter vrednost tipa 'a, ki jo dodajamo v seznam.
+
+
+
+\end{ex}
+\begin{ex}
+Dano je drevo definirano z naslednjo podatkovno strukturo:
+
+\begin{verbatim}
+	# type 'a tree = Empty | Node of 'a * 'a tree list ;;
+\end{verbatim}
+Napi\v si funkcijo "prestej : 'a tree -> int" , ki pre\v steje vozli\v s\v ca drevesa.
+
+
+
+\end{ex}
+\begin{ex}
+Dano je drevo, ki je definirano z naslednjim razredom.
+
+\begin{verbatim}
+class Drevo {
+  int elm;
+  int vsota;
+  Drevo levo = null;
+  Drevo desno = null;
+}
+\end{verbatim}
+
+a) Napi\v si metodo vsote(), ki v vsakem vozli\v s\v cu izra\v cuna vsoto vseh vozli\v s\v c poddrevesa.
+
+b) Izpi\v si korene poddreves s vsoto < 10.
+
+
+
+\end{ex}
+\begin{ex}
+Dano je drevo, ki je definirano z naslednjim razredom.
+
+\begin{verbatim}
+class Drevo {
+ int elm;
+ int vsota;
+ Drevo levo = null;
+ Drevo desno = null;
+ }
+\end{verbatim}
+
+Napi\v si metodo preveriUrejenost(), ki preveri ali je dano drevo urejeno: za dano vozli\v s\v ce so vsa vozli\v s\v ca levega pod-drevesa manj\v sa od korena in vozli\v s\v ca desnega poddervesa ve\v cja od korena. 
+
+Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, \v ce ima\v s dano metodo za vstavljanje v urejeno drevo?
+\end{ex}
+
+\begin{ex}
+Dana je definicija parametri\v cnega binarnega drevesa. Parameter tipa bindrevo je spremenljivka tipa 'a, ki predstavlja tip elementov v listih drevesa.
+
+\begin{verbatim}
+	type 'a bindrevo = List of 'a | Drevo of 'a bindrevo * 'a bindrevo ;;
+\end{verbatim}
+
+a) Napi\v si funkcijo izpis: 'a bindrevo -> ('a -> bool) -> unit, ki zpi\v se vse liste drevesa za katere vrne drugi parameter funkcije izpis -- funkcija tipa 'a -> bool -- vrednost true. 
+
+b) Napi\v si funkcijo obrni: 'a bindrevo -> 'a bindrevo, ki obrne vhodno drevo tako, da vsa leva poddrevesa zamenja z desnimi poddrevesi. 
+
+\end{ex}
+\begin{ex} 
+Dano imamo splo\v sno planarno drevo, ki je predstavljeno z naslednjim tipom:
+
+\begin{verbatim}
+	type 'a tree = Empty 
+               | Node of 'a * 'a tree list ;; 
+\end{verbatim}
+Napi\v si funkcijo filter : 'a tree -> ('a -> bool) -> 'a tree , ki pome\v ce ven iz drevesa vsa poddrevesa s korenom za katerega vrne funkcija tipa 'a -> bool, podana kot drugi parameter, vrednost false. Rezultat je torej novo drevo brez izbranih poddreves. 
+\end{ex}
+
+
+
+
+
+\section{Parametrizirani tipi}
+
+
+\begin{ex} 
+Napi\v si polimorfi\v cno rekurzivno funkcijo obrni: 'a array -> 'a array, ki obrne vsebino polja.
+
+Primer: 
+\begin{verbatim}
+# obrni [|1;2;3|];;
+- : int array = [| 3; 2; 1 |]
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let obrni polje = let len=Array.length polje in
+for i=0 to (len/2) do 
+let temp = polje.(i) in
+polje.(i) <- polje.(len-i-1);
+polje.(len-i-1) <- temp 
+done;
+polje;;
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+S poljem \v zelimo implementirati parametri\v cno podatkovno strukturo minvrsta, ki hrani zadnjih n najmanj\v sih vrednosti vstavljenih v podatkovno strukturo. Podatkovno strukturo minvrsta definiramo na slede\v c na\v cin:
+
+\begin{verbatim}
+# type 'a minvrsta = 'a array;; 
+type minvrsta = 'a array 
+\end{verbatim}
+Z naslednjo funkcijo kreiramo primerek minvrsta.
+
+\begin{verbatim}
+# let kreiraj n v = Array.create n v;;   
+val kreiraj : int -> int array = <fun> 
+# let a : int minvrsta = kreiraj 10 0;; 
+val a : int minvrsta = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|] 
+\end{verbatim}
+Napi\v si parametri\v cno funkcijo dodaj : 'a -> 'a minvrsta -> unit, ki doda novo vrednost v polje. Paziti je potrebno, da polje vedno vsebuje n najmanj\v sih vrednosti.
+\end{ex}
+
+\begin{ex}
+Dano je drevo, ki vsebuje dve vrsti elementov. Definirano je z naslednjo podatkovno strukturo:
+
+
+\begin{verbatim}
+	type ('a,'b) drevo = 
+     Prazno 
+   | Vozliscea of 'a * ('a,'b) drevo list;;  
+   | Vozlisceb of 'b * ('a,'b) drevo list;; 
+\end{verbatim}
+Napi\v si funkcijo razcepi : ('a,'b) drevo -> 'a list * 'b list, ki prepi\v se vse elemente Vozliscea v prvi seznam in vse elemente Vozlisceb v drugi seznam.
+
+\begin{sol}
+\begin{verbatim}
+let razcepi drevo =
+let a = ref[] in
+let b = ref[] in
+let rec raz dr = match dr with
+| Prazno ->(!a,!b)
+| Vozliscea(x,y) -> a := !a @ [x]; raz y
+| Vozlisceb(x,y) -> b := !b @ [x]; raz y
+in
+raz drevo;;
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+\begin{enumerate}
+    \item Definiraj parametri\v cno podatkovno strukturo 'a splosnoDrevo, kjer spremenljivka tipa 'a predstavlja tip vrednosti vozli\v s\v ca. Splo\v sno drevo ima poljubno \v stevilo poddreves. 
+    
+    \item Napi\v si funkcijo prestejOtroke : 'a splosnoDrevo -> int, ki izra\v cuna povpre\v cno \v stevilo otrok za vsa vozli\v s\v ca, ki niso listi drevesa.
+\end{enumerate}
+
+\end{ex}
+
+
+
+
+\section{Unije}
+
+\begin{ex}
+Dan imamo tip 
+
+\begin{verbatim}
+	type geo_objekt = Tocka | Premica | Krog | Trikotnik 
+\end{verbatim}
+in seznam geometrijskih objektov, npr.
+
+\begin{verbatim}
+	let gl: geo_objekt list = 
+         [ Tocka; Tocka; Premica; Krog; Krog; ... ] 
+\end{verbatim}
+
+Napi\v si funkcijo, ki pre\v steje \v stevilo pojavitev posameznega geometrijskega objekta v seznamu:
+
+\begin{verbatim}
+	val prestej: geo_objekt list -> 
+                 geo_objekt -> int = <fun>
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec prestej sez geo_objekt= match sez with
+| [] -> 0
+| hd::tl -> if(hd = geo_objekt)then 1 + (prestej tl geo_objekt) else prestej tl geo_objekt;;
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Definiraj podatkovne strukture v Ocaml, ki predstavijo karte Bri\v skole ali neke druge igre s kartami, ki jo dobro pozna\v s.
+
+
+
+\end{ex}
+\begin{ex}
+Seznam vrednosti in operacij je definiran s tipom formula: 
+\begin{verbatim}
+# type oper = PLUS | MINUS;; 
+type oper = PLUS | MINUS 
+# type elm = LP | RP | Vr of int | Op of oper;; 
+type elm = LP | RP | Vr of int | Op of oper 
+# type formula = Nil | Form of elm * formula;; 
+type formula = Nil | Form of elm * formula 
+\end{verbatim}
+
+
+Napi\v si funkcijo izpis : formula -> unit, ki izpi\v se formulo. Predpostavljamo, da je formula podana v pravilni obliki.
+
+
+
+\end{ex}
+\begin{ex}
+Seznam vrednosti in operacij je definiran s tipom formula: 
+
+\begin{verbatim}
+# type oper = PLUS | MINUS;; 
+type oper = PLUS | MINUS 
+# type elm = Vr of int | Op of oper;; 
+type elm = Vr of int | Op of oper 
+# type formula = Nil | Form of elm * formula;; 
+type formula = Nil | Form of elm * formula 
+\end{verbatim}
+
+Primer: 
+\begin{verbatim}
+# let s = Form(Vr(1),Form(Op(PLUS),Form(Vr(5),
+          Form(Op(MINUS),Form(Vr(3),Nil)))));;
+val s : formula = Form (Vr 1, Form (Op PLUS, Form 
+      (Vr 5, Form (Op MINUS, Form (Vr 3, Nil))))) 
+\end{verbatim}
+Vrednost formule s predstavlja izraz $1+5-3$. 
+
+Napi\v si funkcijo izracunaj : formula -> int, ki izra\v cuna vrednost seznama. Predpostavljamo, da je formula podana v pravilni obliki.
+
+
+
+\end{ex}
+\begin{ex}
+Definiraj podatkovni tip \texttt{simplKarta} s katerim predstavimo enostavne igralne karte. 
+\begin{enumerate}
+\item Imamo \v stiri vrste kart: kraljica, kralj, fant in punca. 
+\item Karte imajo \v stiri barve: srce, kara, pik in kri\v z. 
+\item Pri definiciji tipa \texttt{simplKarta} uporabi unijo!
+\end{enumerate}
+
+Definiraj seznam kart tipa simplKarta, ki vsebuje naslednje karte: sr\v cevo punco, kri\v zevega kralja in pikovega fanta. 
+
+\begin{sol}
+\begin{verbatim}
+type vrstaKarte = Kraljica | Kralj | Fant | Punca
+type barvaKarte = Srce | Kara | Pik | Kriz
+type simplKarta = Vrsta of vrstaKarte*barvaKarte
+let seznamKart = [(Punca,Srce);(Kralj,Kriz);(Fant,Pik)]
+\end{verbatim}
+\end{sol}
+
+
+\end{ex}
+
+\chapter{Elementi imperativnih jezikov}
+
+\section{Nizi}
+\begin{ex} 
+V programskem jeziku Ocaml napi\v site funkcijo obrniBesede: string -> string, ki izpi\v se vse besede vhodnega niza v obratnem vrstnem redu!
+
+Primer:
+\begin{verbatim}
+# obrniBesede "banana je lepa";;
+- : string = "ananab ej apel"
+\end{verbatim}
+
+\end{ex}
+\begin{ex}
+Napi\v si funkcijo v Ocaml, ki preveri ali je nek niz podniz nekega drugega niza. Pri tem ni nujno, da znaki drugega niza v prvem stoje zaporedoma, ujemati se mora le vrstni red.
+
+Dva primera:                    
+\begin{verbatim}
+MATI MATEMATIKA    |   SENO SOSEDNOST 
+     MAT    I      |        S  E NO 
+     MA    TI      |          SE NO 
+     M    ATI      |
+         MATI      |
+\end{verbatim}
+\textbf{Dodatna naloga:} napi\v si funkcijo, ki vrne \v stevilo vseh tak\v snih podnizov v danem nizu.
+\end{ex}
+
+\begin{ex} 
+Dan je niz znakov. Va\v sa naloga je izdelati metodo, ki za vhodni niz izpi\v se vse podnize danega niza.
+
+Podpis funkcije:
+\begin{verbatim}
+podnizi: string -> unit 
+\end{verbatim}
+
+Oglejmo si primer niza "miza":
+\begin{verbatim}
+"miza"; "miz"; "mi"; "m"; "iza"; "iz"; "i"; "za"; "z"; "a" 
+\end{verbatim}
+
+Iz primera lahko razberete enega od mo\v znih algoritmov.
+\end{ex}
+
+\begin{ex} 
+Napi\v si funkcijo v ML, ki za dan vhodni niz znakov vrne true samo v primeru, da niz vsebuje vzorec "a+b+" t.j. enemu ali ve\v c znakov \texttt{a} sledi eden ali ve\v c znakov \texttt{b}.
+
+Primer pravilnega niza: \texttt{"uzgaaabbbbdvcg"}
+
+\end{ex}
+
+
+
+
+
+\section{Polja in matrike}
+
+
+\begin{ex} 
+Napi\v si funkcijo v programskem jeziku ML, ki vrne \v stevilo enic v polju poljubne dol\v zine sestavljeno iz ni\v cel in enic. Funkcija naj ima naslednjo signaturo: prestejEnice: int array -> int.
+
+\begin{sol}
+\begin{verbatim}
+let stEnic polje = 
+let count = Array.make 1 0 in
+for i = 0 to Array.length polje - 1 do 
+if (polje.(i) = 1) then count.(0) <- count.(0) + 1 done; count.(0);;
+\end{verbatim}
+\end{sol}
+
+\end{ex}
+\begin{ex}
+Kreiraj dve celo\v stevilski polji a in b velikosti 5 in definiraj svojo vsebino polj. Napi\v si funkcijo produkt, ki izra\v cna novo polje velikosti 5, katerega vsebina so produkti istole\v znih komponent a in b.
+
+Primer: \begin{verbatim}
+
+# let a = [|1;2;3;2;1|];;
+- : int array = [| 1; 2; 3; 2; 1 |]
+# let b = [|2;3;1;2;3|];;
+- : int array = [| 2; 3; 1; 2; 3 |]
+# produkt a b;; 
+- : [| 2; 6; 3; 4; 3 |]
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let produkt a b = 
+let polje = Array.make 5 0 in
+for i=0 to 4 do
+polje.(i) <- a.(i)*b.(i)
+done;
+polje;;
+\end{verbatim}
+\end{sol}
+
+
+\end{ex}
+\begin{ex}
+Zaslon mobilnega telefona ima dimenzijo 500x700 barvnih to\v ck. Barve ene to\v cke predstavimo z zapisom, ki ima tri komponente tipa int. Komponente to\v cke predstavljajo RGB zapis: intenzivnost rde\v ce, zelene in modre barve. 
+
+Napisati moramo funkcijo, ki na zaslonu prika\v ze delujo\v ce stanje mobilnega telefona med zagonom, izbiro operaterja, itd. Funkcija naj premika piko velikosti 3x3 po sredini zaslona od leve proti desni. 
+
+\begin{enumerate}
+\item  Definiraj podatkovne strukture v Ocaml s katerimi predstavimo zaslon mobilnega telefona.
+\item  Napi\v si funkcijo "delam", ki iterativno premika piko velikosti 3x3 po sredini zaslona od leve proti desni. Ko pika pride na rob desne strani se spet pojavi na robu leve strani.
+\end{enumerate}
+
+\end{ex}
+\begin{ex}
+Dana je matrika edit: char array, ki vsebuje tekst urejevalnika besedil. Predpostavljamo, da je tekst formatiran: besede so lo\v cene z enim samim presledkom in ni drugih kontrolnih znakov (npr. LF, CR,...).
+
+Definiraj funkcijo pre\v stej, ki izra\v cuna za vsako posamezno besedo iz polja edit \v stevilo znakov v predponi besede, ki se ujemajo z nizom \texttt{zanka}. 
+
+\v Stevilo besed, ki se ujemajo v 0, 1, 2, ... znakih shranimo v polje rezultat: int array in \v stevilo ujemanj uporabimo za indeks polja. 
+
+Predpostavi, da sta obe polji \v ze definirani.
+
+Primer: \begin{verbatim} 
+# prestej [|'z';'a';'n';'k';'a';' ';'j';'e';' ';
+          'z';'a';'d';'n';'j';'i';'\v c';' ';'b';'i';
+          'l';'a';' ';'z';'a';'n';'i';'\v c'|];;
+- : unit = ()
+# rezultat;;
+- : int array = [|2; 0; 1; 1; 0; 1|]
+\end{verbatim}
+
+
+\end{ex}
+\begin{ex}
+Dano je dvodimenzionalno polje tipa int array array, ki predstavlja \v crno-belo sliko in posamezen element predstavlja intenziteto ene pike. Slika je predstavljena s tipom slika.
+
+\texttt{type slika = { x: int; y: int; p: int array array };;} 
+
+Vzorci so manj\v se slike (tipa slika), ki jih lahko i\v s\v cemo v kompletnih slikah. Vzorec se ujema z delom slike na lokaciji (i,j), \v ce se intenzitete vseh pik vzorca ujemajo s delom slike pokritim z vzorcem.
+
+a) Napi\v si funkcijo ujemanje : slika -> slika -> int*int, ki za dano sliko (prvi argument) poi\v s\v ce pojavitev vzorca (drugi argument) v sliki.
+
+b) Kako bi poiskali vsa ujemanja vzorca s sliko? Opi\v si v kontekstu re\v sitve naloge a).
+
+c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnosti posameznih pik. \v Ce se dve pike razlikujeta manj kot je vrednost konstante Toleranca, potem so pike enake. Kako bi raz\v sirili metodo tako, da bi iskala podobne vzorce?
+\end{ex}
+
+\section{Zapisi}
+
+\begin{ex}
+Dana je n-terica, ki predstavlja naslednje podatke \v student-a/ke:
+\begin{enumerate}
+\item ime in priimek,
+\item letnik (1 - prvi, 2 - drugi, 3 - tretji),
+\item povpre\v cna ocena (6 - zadostno; 7 -dobro; 8,9 - prav dobro; 10 - odli\v cno) in
+\item hobiji.
+\end{enumerate}
+
+Tip n-terice je predstavljen z naslednjo definicijo.
+
+\begin{verbatim}
+# type student = string*int*int*(string list);;
+type student = string * int * int * string list
+\end{verbatim}
+
+Napi\v si funkcijo izpis: student -> unit, ki pretvori podatke o \v studentu v tekstovno obliko. Poskusite uporabiti vzorce, da bi dobili kratko in razumljivo kodo.
+
+Primer: \begin{verbatim}
+
+# izpis ("Tone Novak",20,1,8,("kolesarjenje"));; 
+\v Student Tone Novak obiskuje prvi letnik. 
+Njegova povre\v cna ocena je prav dobro.
+Hobiji student-a/ke so: kolesarjenje.
+\end{verbatim}
+\end{ex}
+
+\section{Klasi\v cne podatkovne strukture}
+
+\begin{ex} 
+Dana je polimorfi\v cna izvedba sklada, ki je implementirana v ocaml modulu Stack. Osnovne operacije za delo s skladom so razvidne iz naslednjega primera uporabe modula Stack.
+
+
+\begin{verbatim}
+	# let s = Stack.create ();;
+val s : '_a Stack.t = <abstr>
+# Stack.push 'a' s; Stack.push 'b' s; Stack.push 'a' s;;
+- : unit = ()
+# Stack.iter print_char s;;
+aba- : unit = ()
+\end{verbatim}
+
+Napi\v site program, ki s pomo\v cjo uporabe modula \texttt{Stack} ugotovi ali predstavlja vne\v seni niz oklepajev pravilno gnezdeno zaporedje:
+
+\begin{verbatim}
+() OK
+()() OK
+(())() OK
+())( NEOK
+()()(())) NEOK
+\end{verbatim}
+
+\end{ex}
+\begin{ex}
+Implementirati moramo enostaven "poljski" kalkulator (HP sintaksa), ki deluje na naslednji na\v cin:
+- v primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada,
+- \v ce vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva operanda iz sklada in izvede \v zeljeno operacijo in rezultat postavi na vrh sklada.
+
+Primer izvajanja kalkulatorja:
+\begin{verbatim}
+> 1
+1
+> 2
+2
+> plus
+3
+> 2
+2
+> minus
+1
+>
+\end{verbatim}
+\end{ex}
+
+\chapter{Delo z razredi}
+
+\section{Definicija razredov}
+
+
+\begin{ex}
+Definiraj naslednja dva razreda za delo s celimi \v stevili:
+
+1) Cela \v stevila bi radi obravnavali kot objekte. Definiraj osnovno aritmetiko za delo s celimi \v stevili: se\v stevanje, od\v stevanje, celo\v stevilsko deljenje in mno\v zenje.
+
+2) Pozitivna cela \v stevila skupaj z ni\v clo so poseben primer celih \v stevil, ki jih imenujemo naravna \v stevila. Vse operacije prilagodi tako, da v primeru, da je parameter operacije negativen, operacija najprej zamenja parameter z absolutno vrednostjo, ga pomno\v zi s 100 ter \v sele nato opravi \v zeljeno operacijo.
+
+Napi\v si tudi konstruktorja celih in naravnih \v stevil. Bodi pozorna(-en) na uporabo dedovanja pri konstrukciji re\v sitve.
+
+
+
+\end{ex}
+\begin{ex}
+Definiraj razred v Javi, ki vsebuje polje celih \v stevil sortirano po velikosti. Napi\v si metodo "zdruzi(a)", ki pridru\v zi polju celih \v stevil na\v sega razreda \v ze sortirano polje a tako, da je rezultat sortiran.
+
+
+
+\end{ex}
+\begin{ex} 
+Definirajte razred matrika s katerim predstavimo dvodimenzionalno matriko. Katere atribute potrebujemo?
+
+a) Napi\v site metodo invertirajx2(), ki invertira matriko po obeh diagonalah.
+
+b) Napi\v site metodo main() razreda Matrika, ki definira matriko A in pokli\v ce motodo invertirajx2() na A.
+
+
+
+\end{ex}
+\begin{ex}
+Firma iz avtomobilske industrije bi \v zelela predstaviti motorje, ki jih izdeluje v programskem jeziku Ocaml. Podatkovna struktura naj predstavi hierarhi\v cno kompozicijo motorja iz komponent. 
+
+Vsaka komponenta motorja ima identifikator, ime, stanje in seznam pod-komponent, ki jih predstavimo spet kot komponente. Imamo \v se naslednje podatke:
+- Stanje komponente pove ali je komponenta delujo\v ca (Dela|Nedela). 
+- Celoten motor je predstavljen kot komponenta. 
+- Osnovne komponente (osnovni deli) nimajo pod-komponent.
+
+a) Definiraj objektno predstavitev motorja oz. komponent motorja.
+
+b) Predpostavimo, da imamo na voljo funkcijo "test", ki za dano OSNOVNO komponento (identifikator) vrne  vrednost Dela oz. Nedela. 
+
+Napi\v si funkcijo "oznaci", ki ozna\v ci vse komponente motorja z Dela oz. Nedela. Edino pravilo, ki ga moramo upo\v stevati: komponenta, ki ima vse delujo\v ce pod-komponente je tudi sama delujo\v ca (Dela) sicer pa ni delujo\v ca (Nedela). 
+
+
+
+
+
+\section{Hierarhije razredov}
+
+
+\end{ex}
+\begin{ex}
+Vrsto (FIFO) in sklad (FILO) \v zelimo implementirati z uporabo polja. Uporabi hierarhijo razredov za implementacijo vrste in sklada. 
+
+Namig: Najprej definiraj razred, ki realizira vrsto kjer lahko dodajamo in odvzemamo elemente na za\v cetku in na koncu. Definiraj razreda vrsta in sklad kot specializacije tega razreda.
+
+
+
+\end{ex}
+\begin{ex}
+Definiraj hierarhijo razredov za predstavitev geometrijskih objektov: to\v cka, premica in krog. 
+
+Vsak geometrijski objekt naj ima funkcijo \texttt{premakni\_se : int -> int -> unit}, kjer predstavljata parametra premika po $x$ in $y$ osi. 
+
+\end{ex}
+\begin{ex}
+Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati x=1..100 in y=1..100. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
+
+1) Osnovni robot, ki je definiran z za\v cetno to\v cko x,y in odmikom dx po osi x in odmikom dy po osi y, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati x se dx zamenja z -dx in ko prispe do konca sveta po koordinati y se dy zamenja z -dy.
+
+2) Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih k premikov ponikne in se ne nari\v se.
+
+3) Cikcak robot, ki se prav tako premika enako kot osnovni robot le da \v se ska\v ce po x osi dve to\v cki od premika osnovnega robota na levo in v naslednjem koraku dve to\v cki na desno in tako naprej.
+
+Definiraj svet robotov v programskem jeziku Ocaml. 
+
+a) Vsak robot naj se predstavi ob kreaciji, tako da uporabnik vidi katerim razredom robot pripada.
+
+b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda premik najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko x,y) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
+
+
+
+\end{ex}
+\begin{ex}
+Definirati je potrebno hierarhijo razredov za predstavitev podatkov o \v studentih v informacijskem sistemu \v SIS. Splo\v sne podatke o \v studentih predstavimo v razredu Oseba. Bolj specifi\v cne podatke predstavimo v razredih Student, PodiplomskiStudent in Asistent.
+
+Asistent je poseben primer podiplomskega \v studenta. 
+
+V razredih bi \v zeleli hraniti naslednje podatke: 
+- ime in priimek, 
+- naslov, 
+- tel.stevilka, 
+- vpisan letnik, 
+- vpisan program, 
+- obstoje\v ca izobrazba in 
+- povpre\v cna ocena. 
+
+a) Definiraj razrede v programskem jeziku Ocaml.
+
+b) Realiziraj razrede tako, da inicializatorji razreda inicializirajo objekt z za\v cetnimi vrednostmi.
+
+c) V hierarhiji razredov implementiraj metodo predstavi, ki predstavi vse lastnosti poljubnega primerka razredov v hierarhiji. Uporabljaj dedovanje in prekrivanje metod!
+
+
+
+\end{ex}
+\begin{ex}
+Hi\v sa je sestavljena iz N nadstropij in podstre\v sja. Vsako nadstropje ima M sob.
+
+V vsaki sobi in na podstre\v sju imamo termometer. Temperaturo hi\v se dolo\v cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah in na podstre\v sju. 
+
+Predpostavimo, da imamo dano funkcijo temperatura : int -> int -> int, ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. Podstre\v sje identificiramo kot N+1 nadstropje (soba=0).
+
+a) Definiraj razrede s katerimi predstavimo: sobe, nadstropja, podstre\v sje in celotno hi\v so.
+b) Vsak razred mora imeti metodo odcitajTemperaturo, ki vrne temperaturo objekta in postavi trenutno vrednost temperature za dan objekt.
+c) Razred hisa mora izra\v cunati temperaturo hise po zgoraj opisanem postopku.
+
+
+
+
+
+\section{Abstraktni razredi}
+
+
+\end{ex}
+\begin{ex}
+Geometrijski objekt je definiran z virtualnim razredom geo, ki vsebuje
+definiciji virtualnih metod:
+
+- predstavi : string
+  predstavi geometrijski objekt z nizom znakov, in 
+- nari\v si : unit 
+  nari\v se objekt in izpi\v se niz s katerim je predstavljen objekt. 
+
+Definiraj abstraktni razred geo in razrede to\v cka, krog in premica kot
+implementacije abstraktnega razreda geo. Uporabi dedovanje kjer je mogo\v ce. 
+
+Implementiraj metodi predstavi in narisi za vse tri konkretne razrede. 
+Predpostavi, da imamo \v ze napisane funkcije: 
+\begin{verbatim}
+- narisi_tocko : int*int -> unit
+- narisi_premico : int*int -> int*int -> unit
+- narisi_krog : int*int -> int -> unit
+\end{verbatim}
+
+Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode uporabijo prekrite metode, kjer je mogo\v ce.
+
+
+
+
+
+\section{Parametri\v cni razredi}
+
+
+\end{ex}
+\begin{ex}
+Implementiraj razred class \texttt{['tip\_sez] seznam}, ki naredi ovojnico okoli vgrajenega tipa list. Implementiraj metode, ki realizirajo obi\v cajne operacije nad seznami: ::, @, member, itd.
+
+
+
+\end{ex}
+\begin{ex}
+
+\begin{enumerate}
+\item Definiraj parametriziran razred \texttt{['a] polje}, ki realizira ovojnico okoli tipa \texttt{array}. Razred Polje naj ima definirane metode:
+
+- popravi, ki za dan indeks in vrednost tipa 'a postavi vsebino elementa polja z danim indeksom na novo vrednost in
+
+- preberi, ki vrne za dan indeks vsebino elementa polja. 
+
+Polje naj bo kreirano ob kreaciji objekta. Ob kreaciji podamo tudi velikost polja.
+
+\item Z uporabo prej definiranega razreda Polje definiraj razred RealPolje, ki vsebuje realna \v stevila. Re-definiraj metodo preberi tako, da vrne samo celo vrednost realnega \v stevila.
+\end{enumerate}
+
+
+
+\end{ex}
+\begin{ex}
+Slika je predstavljena s trojicami, ki vsebujejo x in y koordinati ter barvo.
+
+a) Definiraj parametriziran abstraktni razred class ['a] tocka, s katero definiramo to\v cke predstavljene z dvema koordinatama tipa int in barvo tipa 'a. 
+
+Definiraj abstraktno metodo 
+
+enakost : ['a] tocka -> bool, 
+
+ki primerja dano to\v cko s to\v cko, ki je podana kot parameter metode enakost. 
+
+Definiraj konkreten razred itocka, kjer je tip barve celo \v stevilo (int). Razred itocka podeduje vse lastnosti razreda tocka in implementira metodo enakost.
+
+b) Z uporabo pred definiranega abstraktnega razreda tocka definiraj parametriziran razred class ['a] slika, kjer tip 'a spet predstavlja tip barve to\v ck slike. 
+
+Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, kjer je spremenljivka tipa 'a enaka tipu int.
+\end{ex}
+
+\chapter{Delo z moduli}
+
+\section{Definicija modula}
+
+
+\begin{ex}
+Definiraj modul za delo s pari celih \v stevil. Tip par je definiran z
+naslednjim stavkom: type par = int*int. Modul naj vsebuje funkcije:
+
+\begin{verbatim}
+sestej a b: par -> par -> par
+odstej a b: par -> par -> par
+mnozi a b: par -> par -> par
+\end{verbatim}
+
+Pomen operacij "sestej", "odstej" in "mnozi" je obi\v cajen:
+\begin{verbatim}
+sestej (2,3) (1,2) -> (3,5)
+odstej (2,3) (1,2) -> (1,1)
+odstej (2,3) (1,2) -> (2,6)
+\end{verbatim}
+
+\end{ex}
+
+\begin{ex}
+
+Imlementiraj modul za delo z vrsto. V vrsto dodajamo na za\v cetek in
+odvzemamo objekte na koncu vrste. Bodi pozoren/a na naslednje vidike:
+
+- Tip elementa vrste naj se definira ob kreaciji vrste. Tip elementa
+  je torej poljuben tip 'a in vrsta je parametri\v cni tip 'a vrsta.
+  
+- Dodaj kodo, ki bo prepre\v cevala pisanje v polno vrsto ter branje iz
+  prazne vrste.
+  
+- Za implementacijo vrste lahko uporabi\v s poljubno podatkovno strukturo.
+
+\end{ex}
+\begin{ex}
+Turisti\v cna Agencija po\v citni\v skih aran\v zmajev bo implementirala
+informacijski sistem.
+
+Definirajte modul Aranzma, ki vsebuje kodo za delo z
+aran\v zmaji. Aran\v zma je opisan z:
+
+- destinacija (opisno), 
+- tip\_namestitve (opisno), 
+- trajanje (\v stevilo), in 
+- cena (\v stevilo).
+
+Modul mora poleg same kreacije in ogleda aran\v zmaja omogo\v cati \v se
+popravljanje imena destinacije, popravljanje tipa namestitve, trajanja
+in cene.
+
+Za aran\v zma definiraj modula Agent in Stranka, kjer Agent v aran\v zmaju
+lahko pogleda aran\v zma preimenuje destinacijo, dolo\v ci nov tip
+namestitve ter popravi trajanje in ceno. Stranka lahko zgolj pogleda
+dolo\v ceni aran\v zma.
+
+
+
+\end{ex}
+\begin{ex}
+Novo leto je za nami, vendar se \v zelimo letos \v ze zgodaj pripraviti na
+naslednje novoletno praznovanje. V ta namen boste naredili modul, ki
+nam bo pomagal pri izbiri jelke. Jelka naj bo sestavljena iz krosnje
+in debla. Modul naj zna narediti jelko s poljubno visokim deblom in
+kro\v snjo.
+
+a) Naredi funkcijo ustvari(), ki ustvari prazno jelko, funkcijo
+povejVisino, ki vrne vsoto vi\v sine debla in kro\v snje, ter funkciji za
+nastavljanje vi\v sine debla in kro\v snje.
+
+b) Naredi funkcijo za izris jelke (glej primer). Krosnja naj bo
+sestavljena iz zvezdic ( * ), deblo pa iz minusov (-). Bodi pozoren/a
+na presledke.
+
+
+
+\end{ex}
+\begin{ex}
+Potrebujemo modul za delo s podatkovno strukturo, ki hrani urejeno sekvenco elementov danega parametri\v cnega tipa 'a v nara\v s\v cajo\v cem vrstnem redu. Modul bomo imenovali Usekvenca. Tip podatkovne strukture, ki predstavlja urejeno sekvenco imenuj Usekvenca.t.
+
+Ob kreiranju podatkovne strukture tipa Usekvenca.t podamo kot parameter funkcijo primerjaj : 'a -> 'a -> int, ki vrne -1 v primeru da je prvi parameter manj\v si od drugega, 0 v primeru, da sta parametra enaka in 1 v primeru, da je drugi parameter ve\v cji od prvega. Pozor, funkcijo primerjaj si mora modul zapomniti, ker jo potrebuje pri
+dodajanju, brisanju in iskanju elementov.
+
+Definiraj naslednje funkcije modula: 
+
+- kreiraj : ('a -> 'a -> int) -> Usekvenca.t 
+- dodaj : Usekvenca.t -> 'a -> unit 
+- izbrisi : Usekvenca.t -> 'a -> unit   
+- min : Usekvenca.t -> 'a 
+- max : Usekvenca.t -> 'a 
+
+Implementiraj funkcijo kreiraj, eno izmed funkcij dodaj in izbri\v si ter
+eno izmed funkcij min ali max.
+
+
+
+\end{ex}
+\begin{ex}
+Implementirati moramo enostaven kalkulator za ra\v cunanje s celimi
+\v stevili, ki uporablja poljsko notacijo. Kalkulator deluje na naslednji
+na\v cin:
+
+V primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada, in \v ce
+vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva
+operanda iz sklada, izvede \v zeljeno operacijo in rezultat postavi na
+vrh sklada.
+
+Primer izvajanja kalkulatorja: 
+\begin{verbatim}
+> 1 
+1 
+> 2 
+2 
+> plus 
+3 
+> 2 
+2 
+> minus 
+1 
+> 
+\end{verbatim}
+
+a) Definiraj modul Poljski, ki implementira poljski kalkulator. Modul
+naj vsebuje naslednje funkcije:
+
+\begin{verbatim}
+(*inicializacija: *)
+kreiraj: unit -> Poljski.t      
+(*vnese \v stevilo na sklad in ga vrne:*)
+vnos: Poljski.t -> int -> int   
+(*se\v steje vrhnja dva elem iz sklada in vrne rezultat:*)
+plus: Poljski.t -> int    
+(*od\v steje:  *)
+minus: Poljski.t -> int         
+(*zmno\v zi:  *)
+mnozi: Poljski.t -> int         
+(*deli:  *)
+deli: Poljski.t -> int          
+\end{verbatim}
+
+b) Kako bi posplo\v sili kalkulator, da bi znal delati s poljubnim tipom \v stevil npr. tudi z realnimi \v stevili? Skiciraj na kratko re\v sitev. 
+
+c) Dodatna naloga: implementacija b)  
+
+\end{ex}
+\begin{ex}
+Napisati \v zelimo modul Slika za delo s slikami, ki so definirane z naslednjim parametri\v cnim tipom:
+
+\begin{verbatim}
+
+type 'a slika = { mutable x: int; mutable y: int;
+					mutable p: 'a array array };; 
+\end{verbatim}
+
+Slika je torej dvodimenzionalno polje tipa 'a array array. Posamezna to\v cka slike je predstavljena kot vrednost tipa 'a---uporabljamo lahko razli\v cne tipe za predstavitev ene to\v cke slike.
+
+Napi\v si naslednje funkcije modula:
+
+- kreiraj: kreira novo sliko z danimi parametri,
+
+- zrcali\_x: zrcali sliko po x osi in
+
+- zrcali\_y: zrcali sliko po y osi.
+
+Definiraj vmesnik modula, ki omogo\v ca dostop do predstavljenih funkcij.
+
+\end{ex}
+\begin{ex}
+Definiraj modul za obdelovo dvodimenzionalnih slik Slika. 
+
+a) Slika je predstavljena s trojicami, ki vsebujejo x in y koordinati ter barvo. Vse tri vrednosti so predstavljene s celimi \v stevili.   
+
+Definirati je potrebno tip Slika.tip, s katero predstavimo sliko.
+
+Definiraj funkcijo Slika.kreiraj s katero kreiramo novo sliko. Sam dolo\v ci parametre in rezultat funkcije Slika.kreiraj. 
+
+b) Vzorce lahko predstavimo z manj\v simi slikami. To\v cka na sliki se ujema s to\v cko vzorca, \v ce se ujemata v barvah. Napi\v si funkcijo 
+
+Slika.ujemanje : 'a Slika.tip -> 'a Slika.tip -> (init*int) -> bool, 
+
+ki za dano sliko (1.parameter) in vzorec (2.parameter) ter koordinati (x,y) (3.parameter) vrne true v primeru, da se vzorec ujema s sliko na koordinatah (x,y) in false sicer.
+
+c) (dodatna naloga) Recimo, da bi \v zeleli definirati fleksibilen modul Slika, ki zna delati z razli\v cnimi predstavitvami barv. 
+
+Za delo z barvami si definiramo majhen modul Barva, ki vsebuje definicijo tipa Barva.tip in operacijo Barva.enakost : Barva.tip -> Barva.tip -> bool, ki pove ali sta dve barvi enaki. 
+
+Skiciraj definicijo funktorja Slika in modula Barva.
+
+\section{Funkcionali}
+
+
+\end{ex}
+\begin{ex}
+Implementiraj parametri\v cni modul za delo z urejenimi seznami UrejenSeznam. 
+
+Modul UrejenTip, ki slu\v zi kot parameter modulu UrejenSeznam naj bo uporabljen za definicijo tipa elementov seznama ter definicjo funkcije UrejenTip.primerjaj a b, ki vrne 0 v primeru a=b, 1 v primeru a>b in -1 v primeru a<b. Funkcija UrejenTip.primerjaj definira urejenost elementov urejenega seznama.
+\end{ex}

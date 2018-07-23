@@ -1,0 +1,43 @@
+\RequirePackage{silence} % :-\
+    \WarningFilter{scrbook}{Usage of package `titlesec'}
+    \WarningFilter{hyperref}{Composite letter}
+    \WarningFilter{titlesec}{Non standard sectioning command detected}
+\documentclass[11pt,paper=a4,footinclude=true,headinclude=true]{scrbook} % KOMA-Script book
+\usepackage[T1]{fontenc}
+\usepackage[slovene]{babel}
+\usepackage{xspace}
+\usepackage[  linedheaders=false,%
+              parts=true]{classicthesis} % ,manychapters
+%\usepackage[osf]{libertine}
+\usepackage{answers}
+\Newassociation{sol}{Odgovor}{ans}
+\usepackage{amssymb,amsmath,amsthm}
+\newtheorem{ex}{Vaja}[chapter]
+\usepackage{mathtools} % Bonus
+
+\usepackage{hyperref}
+\input{ext/info-config}
+\begin{document}
+	\input{ext/Titlepage}
+   % \input{ext/kolofon}
+    \tableofcontents
+%    \input{ext/uvod}
+
+%   \automark[section]{chapter}
+%   \renewcommand{\chaptermark}[1]{\markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}}
+%   \renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\spacedlowsmallcaps{#1}}}
+
+    % use \cleardoublepage here to avoid problems with pdfbookmark
+    \cleardoublepage
+    \part{Vaje}\label{part:testpart}
+    \Opensolutionfile{ans}[ans1]
+	\input{ext/naloge}
+    \input{ext/vreca}
+    \Closesolutionfile{ans}
+    %\cleardoublepage
+    \part{Dodatek}
+    \chapter{Re\v sitve}
+    \input{ans1}
+
+
+\end{document}
