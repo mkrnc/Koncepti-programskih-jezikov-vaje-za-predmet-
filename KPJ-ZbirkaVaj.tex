@@ -9,13 +9,23 @@
 \usepackage[  linedheaders=false,%
               parts=true]{classicthesis} % ,manychapters
 %\usepackage[osf]{libertine}
-\usepackage{answers}
-\Newassociation{sol}{Odgovor}{ans}
+\usepackage{hyperref}
 \usepackage{amssymb,amsmath,amsthm}
-\newtheorem{ex}{Vaja}[chapter]
+\usepackage{answers}
+
+\newcounter{moncompteur}
+\theoremstyle{definition}
+\newtheorem{ex}{%
+	\hyperlink{ex:\theex}{Vaja}\hypertarget{sol:\theex}{}}
+\Newassociation{sol}{Odgovor}{ans}
+\renewenvironment{Odgovor}[1]
+{\par\bigskip\noindent{\bfseries \hypertarget{ex:#1}{}\hyperlink{sol:#1}{Resitev za vajo #1}}\quad}
+{\par\bigskip}
+
+%\Newassociation{sol}{Odgovor}{ans}
+%\newtheorem{ex}{Vaja}[chapter]
 \usepackage{mathtools} % Bonus
 
-\usepackage{hyperref}
 \input{ext/info-config}
 \begin{document}
 	\input{ext/Titlepage}
