@@ -335,6 +335,38 @@ let rec podseznam sez1 sez2 = match (sez1, sez2) with
 
 \end{ex}
 \begin{ex}
+  Dan imamo seznam znakov tipa \texttt{char list} v katerem se lahko
+  pojavijo samo znaka \texttt{'a'} in \texttt{'b'}. Napi\v si funkcijo
+  \texttt{cnta : char list -> int list}, ki pretvori sekvence znakov v
+  seznam celih \v stevil po naslednjih pravilih:
+
+    -- \texttt{aaa -> 3},
+    
+    -- \texttt{aa -> 2},
+    
+    -- \texttt{a -> 1} in
+    
+    -- \texttt{x -> 0}, kjer je \texttt{x} poljuben znak.
+
+\noindent\/Primer:
+\begin{verbatim}
+# cnta ['a','a','a','a','a','b','a','a'];;
+- : int list = [3,2,0,2]
+\end{verbatim}
+
+\begin{sol}
+\begin{verbatim}
+let rec cnta sez = match sez with
+| [] -> []
+| 'a'::'a'::'a'::r -> 3 :: cnta r 
+| 'a'::'a'::r -> 2 :: cnta r 
+| 'a'::r -> 1 :: cnta r 
+| _::r -> 0 :: cnta r;;
+\end{verbatim}
+\end{sol}
+
+\end{ex} 
+\begin{ex}
 Funkcijo za sortiranje seznama implementiraj na slede\v c na\v cin:
 
 \begin{enumerate}
