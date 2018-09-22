@@ -361,15 +361,17 @@ and 'a bin_drevo = Prazen 	| Vozlisce of 'a drevo ;;
 
 
 
-
 \end{ex} 
 \begin{ex}
   Napi\v si funkcijo
 
+  \begin{verbatim}
   zdruzi : int list -> int list -> int list,
+  \end{verbatim}
 
   ki zdru\v zi urejena seznama tako, da je rezultat urejen in hkrati
   izlo\v ci ve\v ckratne ponovite elementov.
+
 
 \begin{sol}
 \begin{verbatim}
@@ -495,23 +497,34 @@ type expr = list element
    pravilno napisan.
 
 
-\end{ex} 
+
+\end{ex}
 \begin{ex}
-  Binarno drevo je definirano s tipom
+Binarno drevo je definirano s tipom
+\begin{verbatim}
+type bdrevo = List of int | Drevo of bdrevo * int * bdrevo,
+\end{verbatim}
+ki ima vrednosti v listih definirane kot \texttt{List}$(v)$, kjer je $v$ celo \v stevilo.  Notranja vozli\v s\v ca so definirana kot trojica \texttt{Drevo}$(l, v, d)$, kjer sta $l$ in $d$ levo in desno poddrevo, $v$ pa je vrednost, ki je za\v cetno $0$ za vsa notranja vozli\v s\v ca.
 
-  type bdrevo = List of int | Drevo of bdrevo * int * bdrevo,
+\begin{itemize}
+    \item[a.)] Napi\v si funkcijo 
+        \begin{verbatim}
+        prestej : bdrevo -> bdrevo,
+        \end{verbatim}
+        ki drugo komponento vseh notranjih vozli\v s\v c izhodnega drevesa zamenja z vsoto vseh listov poddrevesa.
+    \item[b.)] Napi\v si funkcijo 
+        \begin{verbatim}
+        prestej : bdrevo -> int, 
+        \end{verbatim}
+        ki se\v steje vrednosti podane  v listih vhodnega drevesa. 
+\end{itemize}
 
-  ki ima vrednosti v listih definirane kot List(v), kjer je v celo \v
-  stevilo.  Notranja vozli\v s\v ca so definirana kot trojica Drevo(l,
-  v, d), kjer sta l in d levo in desno poddrevo, v pa je vrednost, ki
-  je za\v cetno 0 za vsa notranja vozli\v s\v ca.
-
-  a) (25) Napi\v si funkcijo prestej : bdrevo -> bdrevo, ki drugo
-  komponento vseh notranjih vozli\v s\v c izhodnega drevesa zamenja z
-  vsoto vseh listov poddrevesa.
-
-  b) (15) Napi\v si funkcijo prestej : bdrevo -> int, ki se\v steje
-  vrednosti podane v listih vhodnega drevesa.
+\end{ex} \begin{ex}
+Napi\v si polimorfi\v cno funkcijo 
+\begin{verbatim}
+ostevilci : 'a list -> (int * 'a) list, 
+\end{verbatim}
+ki o\v stevil\v ci elemente od 1 do n, \v ce je n dol\v zina vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je prva komponenta indeks in druga komponenta orginalna vrednost iz seznama.
 
 \end{ex} 
 \begin{ex}
