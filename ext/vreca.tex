@@ -10,10 +10,23 @@
   type tekst = char array array;;
   \end{verbatim}
 
-  Napi\v si funkcijo \texttt{poisci : tekst -> unit}, ki izpi\v se vse
-  pojavitve vzorca ''ban*ana'' kjer ''*'' pomeni poljubno \v stevilo
-  poljubnih znakov.
+  Napi\v si funkcijo \texttt{poisci : tekst -> string -> int*int
+    list}, ki vrne seznam koordinat kjer se začne v tekstu iskani niz
+  podan kot drugi parameter. 
 
+
+\end{ex} 
+\begin{ex}
+  Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
+  matriko znakov tipa \texttt{tekst}.
+
+  \begin{verbatim}
+  type tekst = char array array;;
+  \end{verbatim}
+
+  Napi\v si funkcijo \texttt{poisci\_vertikalno : tekst -> string ->
+    int*int list}, ki vrne seznam koordinat kjer se v tekstu za\v cne
+  vertikalni niz znakov podan kot drugi parameter.
 
 
 \end{ex} 
@@ -56,6 +69,7 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 \section{Seznami}
 
 \begin{ex}
+  \label{dnk-naloga}
   Dano imamo sekvenco DNK v obliki seznama znakov tipa \texttt{dnk list},
   kjer je tip \texttt{dnk} definiran kot
 
@@ -64,11 +78,28 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
   \end{verbatim}
  
   Na primer, niz znakov "ACAAGT" je predstavljen s seznamom 
-  \texttt{[A;C;A;A;G;T]}. 
+  \texttt{[A;\-C;A;A;G;T]}. 
 
-  Napi\v si funkcijo \texttt{najniz : dnk list -> int*int}, ki poi\v s\v
-  ce najdalj\v si podniz istih znakov tipa \texttt{dnk} in izpiše 
-  pozicijo prvega znaka in dol\v zino niza. 
+  Napi\v si funkcijo \texttt{najpodniz : dnk list -> int*int}, ki
+  poi\v s\v ce najdalj\v si podniz istih znakov tipa \texttt{dnk} ter
+  izpi\v se pozicijo prvega znaka in dol\v zino niza.
+
+
+\end{ex} 
+\begin{ex}
+  Dano imamo sekvenco DNK v obliki seznama znakov tipa \texttt{dnk list},
+  kjer je tip \texttt{dnk} definiran kot v Nalogi \ref{dnk-naloga}.
+
+  Napi\v si funkcijo \texttt{prestej : dnk list -> dnk*int list}, ki
+  se\v steje enake zaporedne znake v sekvenci in za vsako skupino
+  kreira par, ki vsebuje \texttt{dnk} znak in \v stevilo pojavitev
+  znaka.
+
+  \emph{Primer}: 
+  \begin{verbatim}
+  # prestej [A;C;A;A;G;C;C];;
+  val - : dnk*int list = [(A,1);(C,1);(A,2);(G,1);(C,2)]
+  \end{verbatim}
 
 
 \end{ex} 
@@ -95,12 +126,7 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
   \end{verbatim}
 
   Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem
-  redu. Napi\v si funkcijo
-
-  \begin{verbatim}
-  dodaj : 2seznam -> int -> 2seznam
-  \end{verbatim}
-
+  redu. Napi\v si funkcijo \texttt{odaj : 2seznam -> int -> 2seznam}
   ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
 
 
@@ -142,7 +168,7 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
   Dan je tip \texttt{grm}, ki je definiran na slede\v c na\v cin:
 
 \begin{verbatim}
-# type 'a grm = 
+type 'a grm = 
     Nic 
   | Ena of 'a * 'a grm 
   | Dva of 'a grm * 'a * 'a grm;;
@@ -152,9 +178,29 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
   se dol\v zine vej grma po principu levo-v-globino.
 
 
-\section{Razredi}
+\end{ex} 
+\begin{ex} 
+  Podan je tip \texttt{'a drevo} s katerim je predstavljeno binarno
+  drevo.
+
+  \begin{verbatim}
+  type 'a drevo = { 
+      mutable levo:'a bin_drevo; 
+      mutable vozlisce:'a; 
+     mutable desno:'a bin_drevo 
+  } 
+  and 'a bin_drevo = Prazen | Vozlisce of 'a drevo ;;
+  \end{verbatim}
+
+  Napi\v si funkcijo, ki izpi\v se vsa vozli\v s\v ca tretjega nivoja
+  drevesa, ki obstajajo v drevesu.
+
 
 \end{ex} 
+
+\section{Razredi}
+
+
 \begin{ex}
   V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov:
   x-robota, ki se premika samo po x-osi in y-robota, ki se premika
@@ -214,27 +260,21 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 \subsection{Parametrizirani razredi}
 
 \begin{ex}
-  Definiraj razred \texttt{vozlisce} s katerim bo predstavljeno
-  navadno binarno drevo. Vozli\v s\v ca drevesa so torej primerki
-  razreda \texttt{vozlisce}.
+  Definiraj binarno drevo z objekti, ki predstavljajo vozli\v s\v
+  ca drevesa. Definiraj parametriziran razred \texttt{vozlisce}
+  katerega parameter tip \texttt{'a} naj predstavlja tip vrednosti
+  vozli\v s\v ca.
 
-  \begin{enumerate}
-  \item Vrednost vozli\v s\v ca naj bo primerek poljubnega tipa \texttt{'a}
-    definiranega kot parameter razreda \texttt{vozlisce}.
-    
-  \item Pod-drevesi danega vozli\v s\v ca definiraj kot opcijske
-    vrednosti s \v cimer se izognemo definiciji praznega
-    pod-drevesa. Opcijske vrednosti definiramo z uporabo tipa
-    \texttt{'a option}.
+  Pod-drevesi danega vozli\v s\v ca definiraj kot opcijske vrednosti s
+  \v cimer se izognemo definiciji praznega pod-drevesa. Opcijske
+  vrednosti definiramo z uporabo tipa \texttt{'a option}.
 
-    \begin{verbatim}
-    type `a option = Some of `a | None
-    \end{verbatim}
+  \begin{verbatim}
+  type `a option = Some of `a | None
+  \end{verbatim}
 
-  \item Napi\v si metodo, ki vstavi novo vozli\v s\v ce v skrajno levo
-    vejo drevesa.
-  \end{enumerate}
-
+  Napi\v si metodo, ki vstavi novo vozli\v s\v ce v skrajno levo vejo
+  drevesa.
 
 
 \end{ex} 
@@ -244,65 +284,6 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 -----------------------------------------------------------------------
 
 
-\begin{ex}
-  Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
-  matriko znakov tipa tekst.
-
-  type tekst = char array array;;
-
-  Napi\v si funkcijo poisci : tekst -> unit, ki izpi\v se vse besede
-  teksta, ki se kon\v cajo z nizom "ana''.
-
-
-\end{ex} 
-\begin{ex} 
-  V programskem jeziku Ocaml imamo definirano podatkovno strukturo
-  binarno drevo.
-
-\begin{verbatim}
-type 'a drevo = { 
-    mutable levo:'a bin_drevo; 
-    mutable vozlisce:'a; 
-    mutable desno:'a bin_drevo 
-   } 
-and 'a bin_drevo = Prazen 	| Vozlisce of 'a drevo ;;
-
-\end{verbatim}
-  Napi\v si funkcijo, ki izpi\v se vsa vozli\v s\v ca tretjega nivoja
-  drevesa, \v ce obstaja.
-
-
-\end{ex} 
-\begin{ex}
-  a) Binarno drevo naj bo definirano z objekti, ki predstavljajo
-  vozli\v s\v ca drevesa. Definiraj parametriziran razred Vozlisce
-  katerega parameter tip 'a naj predstavlja tip vrednosti vozli\v s\v
-  ca.
-
-  b) Pod-drevesi danega vozli\v s\v ca definiraj kot opcijske
-  vrednosti s \v cimer se izognemo definiciji praznega pod-drevesa.
-
-  c) Napi\v si metodo, ki vstavi novo vozli\v s\v ce v skrajno levo
-  vejo drevesa.
-
-
-
-\end{ex} 
-\begin{ex}
-  Dano imamo sekvenco DNK v obliki seznama znakov.  Na primer, niz
-  znakov \texttt{ACAAGATGCCATTGTCCCCCGACAACCCCAGCCACAC} spremenjen v
-  seznam znakov.
-
-  Napi\v site funkcijo prestej : char list -> char*int list, ki se\v
-  steje enake zaporedne znake v sekvenci in za vsako skupino kreira
-  par, ki vsebuje znak in \v stevilo pojavitev znaka.
-
-  Primer:
-
-  seznam "ACAAGCC" --> [('A',1);('C',1);('A',2);('G',1);('C',2)]
-
-
-\end{ex} 
 \begin{ex}
   Program za obdelavo slik ima sliko predstavljeno kot
   dvo-dimenzionalno polje celih \v stevil:
