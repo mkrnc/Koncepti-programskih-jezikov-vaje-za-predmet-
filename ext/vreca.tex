@@ -3,6 +3,29 @@
 \section{Polja}
 
 \begin{ex}
+  Slika ra\v cunalni\v ske naprave je definirana z naslednjim tipom
+
+  \begin{verbatim}
+  type slika = int array array,
+  \end{verbatim}
+
+  kjer so pike, ki sestavljajo sliko predstaljene z 0 ali 1. Pika je
+  osvetljena, \v ce ima vrednost 1.
+
+  Napi\v si funkcijo
+
+  \begin{verbatim}
+  xor : slika -> slika -> slika,
+  \end{verbatim}
+
+  ki dve slike kombinira tako, da naredi operacijo \texttt{xor} nad
+  istole\v znimi pikami.
+
+  Predpostavimo, da so vhodne slike istih dimenzij.
+
+
+\end{ex} 
+\begin{ex}
   Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
   matriko znakov tipa \texttt{tekst}.
 
@@ -27,6 +50,30 @@
   Napi\v si funkcijo \texttt{poisci\_vertikalno : tekst -> string ->
     int*int list}, ki vrne seznam koordinat kjer se v tekstu za\v cne
   vertikalni niz znakov podan kot drugi parameter.
+
+
+\end{ex} 
+\begin{ex}
+  Slika neke ra\v cunalni\v ske naprave je definirana z naslednjim
+  tipom
+
+  \begin{verbatim}
+  type slika = int array array,
+  \end{verbatim}
+
+  kjer so pike, ki sestavljajo sliko predstavljene z 0 ali 1. Pika je
+  osvetljena, \v ce ima vrednost 1.
+
+  \begin{enumerate}[label=(\roman*)]
+  \item Napi\v si funkcijo \texttt{zasukaj90 : slika -> slika}, ki
+    zasu\v ce sliko za 90 stopinj v smeri urinega kazalca.
+
+  \item Napi\v si funkcijo \texttt{zasukaj90xn : slika -> int ->
+      slika}, ki zasu\v ce sliko za kot \texttt{n*90°} v smeri urinega
+    kazalca, kjer je \texttt{n} drugi parameter funkcije.
+  \end{enumerate}
+
+  Pazi na dimenzije slik!
 
 
 \end{ex} 
@@ -64,7 +111,6 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 
 
 \end{ex} 
-
 
 \section{Seznami}
 
@@ -114,25 +160,6 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 
 \end{ex} 
 \begin{ex}
-  Dan je tip \texttt{2seznam} s katerim je predstavljen dvojno povezan
-  seznam.
-
-  \begin{verbatim}
-  type 2seznam = {
-     value: int;
-     mutable next: 2seznam;
-     mutable prev: 2seznam
-  } ;;
-  \end{verbatim}
-
-  Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem
-  redu. Napi\v si funkcijo \texttt{odaj : 2seznam -> int -> 2seznam}
-  ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
-
-
-
-\end{ex} 
-\begin{ex}
   Relacijo \texttt{R} predstavimo s seznamom parov celih \v
   stevil. Napi\v si funkcijo
 
@@ -148,21 +175,210 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 
 
 \end{ex} 
+\begin{ex}
+  Napi\v si funkcijo
 
-\section{Parametrizirani tipi}
+  \begin{verbatim}
+  zdruzi : int list -> int list -> int list,
+  \end{verbatim}
+
+  ki zdru\v zi urejena seznama celih \v stevil tako, da je rezultat
+  urejen in hkrati izlo\v ci ve\v ckratne ponovite elementov.
+
+
+  \begin{sol}
+  \begin{verbatim}
+  let rec zdruzi list1 list2 = match (list1, list2) with
+  | ([], []) -> []
+  | (a, []) -> a
+  | ([], b) -> b
+  | (a::b, c::d) -> 
+       if (a < c ) then a::(zdruzi b (c::d))
+       else if (c<a) then c::(zdruzi (a::b) d)
+            else a::(zdruzi b d)
+  \end{verbatim}
+  \end{sol}
+
+\end{ex} 
+
+\section{Tipi}
 
 \begin{ex}
-  Definiraj parametriziran tip \texttt{'a seznamVrednosti} z uporabo zapisov!
+   Izrazi zelo enostavnega jezika \texttt{TP} so sestavljeni iz
+   vrednosti med katerimi so postavljene operaciji \texttt{TIMES} ali
+   \texttt{PLUS}. Obe operaciji sta levo asociativne vendar ima
+   operaicija \texttt{TIMES} vi\v sjo prioriteto od
+   \texttt{PLUS}. Primer izraza je:
+
+   \begin{verbatim}
+   1 PLUS 2 TIMES 3 TIMES 4,
+   \end{verbatim}
+
+   kar ustreza aritmeti\v cnem izrazu 1 + ((2 * 3) * 4). Izraze jezika
+   TP lahko definiramo z naslednjimi tipi:
+ 
+   \begin{verbatim}
+   # type operation = PLUS | TIMES;; 
+   type operation = PLUS | TIMES 
+   # type element = Val of int | Op of operation;; 
+   type element = Val of int | Op of operation
+   # type expr = list element;;
+   type expr = list element
+   \end{verbatim}
+
+   \begin{enumerate}[label=(\roman*)]
+   \item Napi\v si funkcijo \texttt{check : expr -> bool}, ki preveri
+     ali je izraz pravilno napisan.
+
+   \item Napi\v si funkcijo \texttt{calc : expr -> int}, ki izra\v
+     cuna vrednost izraza.
+   \end{enumerate}
+
+
+\end{ex}
+
+\subsection{Parametrizirani tipi}
+
+\begin{ex}
+  Definiraj parametriziran tip \texttt{'a seznam} z uporabo zapisov!
   Zapis naj ima dve komponenti: vrednost tipa \texttt{'a} in kazalec na
   naslednji zapis v seznamu oz. prazen seznam.
 
-  Napi\v si funkcijo \texttt{dolzina : 'a seznamVrednosti -> int}, ki
+  Napi\v si funkcijo \texttt{dolzina : 'a seznam -> int}, ki
   pre\v steje \v stevilo vrednosti v seznamu.
 
 
 \end{ex} 
+\begin{ex}
+  Definiraj parametri\v cni tip \texttt{slika}, ki predstavlja
+  dvo-dimenzionalno ra\v cunalni\v sko sliko z neznanim tipom
+  elementov (pik) polja, ki ga ozna\v cimo z \texttt{'a}.
 
-\section{Drevesa}
+  Napi\v si funkcijo vi\v sjega reda
+
+  \begin{verbatim}
+  zdruzi : 'a slika -> 'a slika -> ('a->'a->'a) -> 'a slika,
+  \end{verbatim}
+
+  ki ima prva dva parametra sliki \texttt{s1} in \texttt{s2} ter
+  tretji parameter funkcijo \texttt{f : 'a->'a->'a}, ki zdru\v zi dve
+  piki v eno piko. Funkcija \texttt{zdruzi} zdru\v zi istole\v zne
+  pike iz slik \texttt{s1} in \texttt{s2} z uporabo funkcije
+  \texttt{f}.
+
+
+\end{ex} 
+
+\subsection{Polimorfične funkcije}
+
+\begin{ex}
+  Napi\v si polimorfi\v cno funkcijo
+  \begin{verbatim}
+  ostevilci : 'a list -> (int * 'a) list, 
+  \end{verbatim}
+  ki o\v stevil\v ci elemente od 1 do n, \v ce je n dol\v zina
+  vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je
+  prva komponenta indeks in druga komponenta orginalna vrednost iz
+  seznama.
+
+\end{ex} 
+
+\section{Funkcije vi\v sjega reda}
+
+\begin{ex} 
+  Napi\v si funkcijo vi\v sjega reda
+
+  \begin{verbatim}
+  skrci : (int * int -> int) -> list int -> int,
+  \end{verbatim}
+
+  katere prvi parameter \texttt{f : int*int -> int} je funkcija, ki
+  zdru\v zi dve vrednost iz seznama v en samo vrednost tipa
+  \texttt{int}. Drugi parameter \texttt{skrci} je seznam celih \v
+  stevil.
+
+  Naj bo funkcija \texttt{f} prvi parameter in seznam \texttt{l = [i1;
+    i2; ...; in] } drugi parameter. Pomen funkcije \texttt{skrci}
+  lahko zapi\v semo na naslednji na\v cin.
+
+  \begin{verbatim}
+  skrci f l = f i1 (f i2 f(...(f in-1 in)))
+  \end{verbatim}
+
+  Predpostavi, da ima seznam \texttt{l} vsaj dva elementa!
+
+
+\end{ex}
+
+\section{Rekurzivni tipi}
+
+\subsection{Seznami}
+
+\begin{ex}
+  Seznam definiramo z zapisom, ki ima dve komponenti: vrednost tipa
+  \texttt{'a} in kazalec na naslednji element seznama tipa \texttt{'a
+    seznam}, ki je bodisi prazen ali pa ima še vsaj en element.
+
+  \begin{verbatim}
+  type 'a element = { 
+     mutable vrednost:'a; 
+     mutable naslednji:'a seznam 
+  }
+  and 'a seznam = Prazen | Element of 'a element ;;
+  \end{verbatim}
+
+  Napi\v si funkcijo \texttt{podvoji : 'a seznam -> 'a seznam}, ki
+  podvoji vse vrednosti v seznamu.
+
+
+\end{ex} 
+\begin{ex}
+  Podatkovna struktura \texttt{seznam} je definirana na naslednji na\v
+  cin.
+
+  \begin{verbatim}
+  type 'a element = { 
+     mutable vrednost: 'a; 
+     mutable naslednji: 'a seznam 
+  }
+  and 'a seznam = Prazen | Element of 'a element ;;
+  \end{verbatim}
+
+  Napi\v si funkcijo \texttt{zdruzi : 'a seznam -> 'a seznam -> 'a
+    seznam}, ki ima za argumenta dva seznama tipa \texttt{'a seznam}.
+
+  \begin{enumerate}[label=(\roman*)]
+  \item Funkcija naj zdru\v zi seznama tako, da pove\v ze konec prvega
+    seznama z začetkom drugega ter kot rezultat vrne za\v cetek prvega
+    seznama.
+
+  \item Funkcija naj zdru\v zi seznama tako, da naredi kopijo obeh
+    seznamov v novem seznamu, ki vsebuje na novo konstruirane
+    elemente.
+  \end{enumerate}
+
+
+\end{ex} 
+\begin{ex}
+  Dan je tip \texttt{2seznam} s katerim je predstavljen dvojno povezan
+  seznam.
+
+  \begin{verbatim}
+  type 2seznam = {
+     value: int;
+     mutable next: 2seznam;1
+     mutable prev: 2seznam
+  } ;;
+  \end{verbatim}
+
+  Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem
+  redu. Napi\v si funkcijo \texttt{odaj : 2seznam -> int -> 2seznam}
+  ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
+
+
+\end{ex} 
+
+\subsection{Drevesa}
 
 \begin{ex}
   Dan je tip \texttt{grm}, ki je definiran na slede\v c na\v cin:
@@ -197,10 +413,68 @@ type 'a grm =
 
 
 \end{ex} 
+\begin{ex}
+  Binarno drevo je definirano s tipom
+  \begin{verbatim}
+  type bdrevo = List of int | Drevo of bdrevo * int * bdrevo,
+  \end{verbatim}
+  ki ima vrednosti v listih definirane kot \texttt{List}$(v)$, kjer je
+  $v$ celo \v stevilo.  Notranja vozli\v s\v ca so definirana kot
+  trojica \texttt{Drevo}$(l, v, d)$, kjer sta $l$ in $d$ levo in desno
+  poddrevo, $v$ pa je vrednost, ki je za\v cetno $0$ za vsa notranja
+  vozli\v s\v ca.
+
+  \begin{enumerate}[label=(\roman*)]
+  \item Napi\v si funkcijo
+    \begin{verbatim}
+    prestej : bdrevo -> int, 
+    \end{verbatim}
+    ki vrne vsoto vrednosti podanih v listih vhodnega drevesa.
+
+  \item Napi\v si funkcijo
+    \begin{verbatim}
+    oznaci : bdrevo -> bdrevo,
+    \end{verbatim}
+    ki drugo komponento vseh notranjih vozli\v s\v c izhodnega drevesa
+    zamenja z vsoto vseh listov poddrevesa.
+  \end{enumerate}
+
+
+\end{ex} 
 
 \section{Razredi}
 
 
+\begin{ex}
+  V svetu eno-dimenzionalnih robotov se roboti pomikajo po premici
+  levo in desno. Premica ima izhodi\v s\v ce, ki ima vrednost
+  0. Roboti se lahko pomikajo za korak levo ali korak desno. 
+
+  Imamo dve vrsti robotov, ki se premikajo po podro\v cju [-100..100]:
+
+  \begin{enumerate}
+  \item Robot se premakne za eno enoto v izbrano smer. Ko pride do
+    meje se obrne. To vrsto robota predstavimo z razredom
+    \texttt{robot1}.
+
+  \item Robot se premika naklju\v cno za eno enoto desno ali levo. To
+    vrsto robota predstavimo z razredom \texttt{robot2}.
+  \end{enumerate}
+
+  \begin{enumerate}[label=(\roman*)]
+  \item Definiraj robote z razredi povezanimi v hierarhijo
+    dedovanja. Vrh hierarhije dedovanja naj bo razred \texttt{robot}.
+
+  \item Definiraj za vse robote metodo \texttt{premik}, ki naredi
+    naslednji premik robota.
+
+  \item Definiraj razred \texttt{robot3} kot podrazred razreda
+    \texttt{robot1}. Z uporabo prekrivanja definiraj premik tega
+    robota kot dvakraten premik robota iz razreda \texttt{robot1}.
+  \end{enumerate}
+
+
+\end{ex} 
 \begin{ex}
   V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov:
   x-robota, ki se premika samo po x-osi in y-robota, ki se premika
@@ -222,12 +496,9 @@ type 'a grm =
     abstraktnega razreda.
 
   \item V abstraktnem razredu robot definiraj virtualno metodo
-    \texttt{premaknise}. Implementiraj metodo \texttt{premaknise} v
+    \texttt{premik}. Implementiraj metodo \texttt{premik} v
     okviru obeh konkretnih razredov.
   \end{enumerate}
-
-  %\emph{Nasvet}: definiraj \v cim bolj preprosto re\v sitev!
-
 
 
 \end{ex} 
@@ -254,6 +525,20 @@ type 'a grm =
   cim bolj enostavno podatkovno strukturo!
 
 
+\end{ex} 
+\begin{ex}
+  Naprave so sestavljene iz manj\v sih naprav, ki so spet lahko
+  sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje ime,
+  tip in te\v zo.
+  
+  \begin{enumerate}[label=(\Alph*)]
+  \item Definiraj razred \texttt{naprava}.
+
+  \item Definiraj metodo \texttt{listi : naprava list} razreda
+    \texttt{naprava}, ki v seznamu vrne liste drevesa vsebovanosti
+    naprav za dano napravo (objekt).
+  \end{enumerate}
+
 
 \end{ex} 
 
@@ -276,7 +561,7 @@ type 'a grm =
   Napi\v si metodo, ki vstavi novo vozli\v s\v ce v skrajno levo vejo
   drevesa.
 
-
+ 
 \end{ex} 
 
 
@@ -284,262 +569,6 @@ type 'a grm =
 -----------------------------------------------------------------------
 
 
-\begin{ex}
-  Program za obdelavo slik ima sliko predstavljeno kot
-  dvo-dimenzionalno polje celih \v stevil:
-
-  type slika = int array array;;
-
-  Napi\v si funkcijo zasukaj : slika n -> slika, ki zasu\v ce sliko za
-  kot n*90° v smeri urinega kazalca.
-
-
-\end{ex} 
-\begin{ex}
-  V programskem jeziku Ocaml imamo definirano podatkovno strukturo
-  seznam na naslednji na\v cin:
-
-  type 'a element = { 
-     mutable vrednost:'a; 
-     mutable naslednji:'a seznam 
-  }
-  and 'a seznam = Prazen | Element of 'a element ;;
-
-  Recimo, da smo pretvorili DNK sekvenco znakov v seznam znakov
-  definiran kot 'a seznam. Napi\v si funkcijo podvoji : 'a seznam ->
-  'a seznam, ki podvoji vsako pojavitev znaka v seznamu.
-
-  Primer:
-
-  ACCAGA C --> ACCCCAGA
-
-
-\end{ex} 
-\begin{ex}
-  V svetu eno-dimenzionalnih robotov se roboti pomikajo po premici
-  levo in desno. Premica ima izhodi\v s\v ce, ki ima vrednost
-  0. Roboti se lahko pomikajo za korak levo ali korak desno. Vsak
-  korak ima N enot.
-
-  Imamo dve vrsti robotov, ki se premikajo po podro\v cju [-100..100]:
-
-  1) Robot se premakne za eno enoto v izbrano smer. Ko pride do meje
-  se obrne. To vrsto robota predstavimo z razredom robot1.  
-
-  2) Robot se premika naklju\v cno za eno enoto desno ali levo. To
-  vrsto robota predstavimo z razredom robot2.
-
-  a) Definiraj robote z razredi povezanimi v hierarhijo dedovanja.
-
-  b) Vrh hierarhije dedovanja naj bo razred robot.
-
-  c) Definiraj za vse robote metodo premik, ki naredi naslednji premik
-  robota.
-
-  d) Definiraj razred robot3 kot podrazred razreda robot1. Z uporabo
-  prekrivanja definiraj premik tega robota kot dvakraten premik robota
-  iz razreda robot1.
-
-
-
-\end{ex} 
-\begin{ex}
-  Napi\v si funkcijo
-
-  \begin{verbatim}
-  zdruzi : int list -> int list -> int list,
-  \end{verbatim}
-
-  ki zdru\v zi urejena seznama tako, da je rezultat urejen in hkrati
-  izlo\v ci ve\v ckratne ponovite elementov.
-
-
-\begin{sol}
-\begin{verbatim}
-let rec zdruzi list1 list2 = match (list1, list2) with
-| ([], []) -> []
-| (a, []) -> a
-| ([], b) -> b
-| (a::b, c::d) -> if (a < c )then 
-a::(zdruzi b (c::d))
-else if (c<a) then 
-c::(zdruzi (a::b) d)
-else 
-a::(zdruzi b d)
-\end{verbatim}
-\end{sol}
-
-\end{ex} 
-\begin{ex}
-  Definiraj parametri\v cni tip slika, ki predstavlja
-  dvo-dimenzionalno ra\v cunalni\v sko sliko z neznanim tipom
-  elementov (pik) polja, ki ga ozna\v cimo z 'a.
-
-  Dano imamo funkcijo zdruzi 'a -> 'a -> 'a, ki zdru\v zi dve piki v
-  eno samo.
-
-  Napi\v si funkcijo vi\v sjega reda
-
-  kombiniraj : 'a slika -> 'a slika -> ('a->'a->'a) -> 'a slika,
-
-  ki zdru\v zi dve sliki tako, da zdru\v zi vse istole\v zne pike.
-
-
-\end{ex} 
-\begin{ex}
-  V programskem jeziku Ocaml imamo definirano podatkovno strukturo
-  seznam na naslednji na\v cin:
-
-  type 'a element = { 
-     mutable vrednost:'a; 
-     mutable naslednji:'a seznam 
-  }
-  and 'a seznam = Prazen | Element of 'a element ;;
-
-  Napi\v si funkcijo spni : 'a seznam -> 'a seznam -> 'a seznam, ki
-  zdru\v zi elemente dveh seznamov (1. in 2. parameter) v en sam
-  seznam brez, da bi se izhodni seznam ponovno konstruiral !
-
-
-\end{ex} 
-\begin{ex}
-  Imamo naprave, ki so sestavljene iz manj\v sih naprav, ki so spet
-  lahko sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje
-  ime in te\v zo.
-  
-  a) Definiraj razred Naprava z uporabo jezika Ocaml.
-
-  b) Napi\v si funkcijo izpisiListe : Naprava -> unit, ki izpi\v se
-  imena naprav, ki nimajo ve\v c komponent.
-
-
-
-\end{ex} 
-\begin{ex}
-  Slika neke ra\v cunalni\v ske naprave je definirana z naslednjim
-  tipom
-
-  type slika = array array int,
-
-  kjer so pike, ki sestavljajo sliko predstaljene z 0 ali 1. Pika je
-  osvetljena, \v ce ima vrednost 1.
-
-  Napi\v si funkcijo
-
-  xor : slika -> slika -> slika,
-
-  ki dve slike kombinira tako, da naredi operacijo xor nad istole\v
-  znimi pikami.
-
-  Predpostavimo, da so vhodne slike istih dimenzij.
-
-
-\end{ex} 
-\begin{ex} 
-  Napi\v si funkcijo vi\v sjega reda
-
-  skrci : (int * int -> int) -> list int -> int,
-
-  ki aplicira binarno funkcijo (1.parameter) na seznamu celih \v
-  stevil (2.parameter) na naslednji na\v cin.
-
-  Naj bo f funkcija, ki predstavlja 1. paremeter, in \texttt{l = [i1;
-    i2; ...; in] } seznam, ki predstavlja 2. parameter.
-
-\begin{verbatim}
-skrci f l = f i1 (f i2 f(...(f in-1 in)))
-\end{verbatim}
-
-  Predpostavi, da ima seznam l vsaj dva elementa!
-
-
-\end{ex}
- \begin{ex}
-   Izrazi zelo enostavnega jezika TP so sestavljeni iz vrednosti med
-   katerimi so postavljene operaciji TIMES ali PLUS, where both
-   operations are left associative and TIMES has higher priority than
-   PLUS. Primer izraza je:
-
-   1 PLUS 2 TIMES 3 TIMES 4,
-
-   kar ustreza aritmeti\v cnem izrazu 1 + ((2 * 3) * 4). Izraze jezika
-   TP lahko definiramo z naslednjimi tipi:
- 
-\begin{verbatim}
-# type operation = PLUS | MINUS;; 
-type operation = PLUS | MINUS 
-# type element = Val of int | Op of operation;; 
-type element = Val of int | Op of operation
-# type expr = list element;;
-type expr = list element
-\end{verbatim}
-
-   Napi\v si funkcijo calc : expr -> int, ki preveri ali je izraz
-   pravilno napisan.
-
-
-
-\end{ex}
-\begin{ex}
-Binarno drevo je definirano s tipom
-\begin{verbatim}
-type bdrevo = List of int | Drevo of bdrevo * int * bdrevo,
-\end{verbatim}
-ki ima vrednosti v listih definirane kot \texttt{List}$(v)$, kjer je $v$ celo \v stevilo.  Notranja vozli\v s\v ca so definirana kot trojica \texttt{Drevo}$(l, v, d)$, kjer sta $l$ in $d$ levo in desno poddrevo, $v$ pa je vrednost, ki je za\v cetno $0$ za vsa notranja vozli\v s\v ca.
-
-\begin{itemize}
-    \item[a.)] Napi\v si funkcijo 
-        \begin{verbatim}
-        prestej : bdrevo -> bdrevo,
-        \end{verbatim}
-        ki drugo komponento vseh notranjih vozli\v s\v c izhodnega drevesa zamenja z vsoto vseh listov poddrevesa.
-    \item[b.)] Napi\v si funkcijo 
-        \begin{verbatim}
-        prestej : bdrevo -> int, 
-        \end{verbatim}
-        ki se\v steje vrednosti podane  v listih vhodnega drevesa. 
-\end{itemize}
-
-\end{ex} \begin{ex}
-Napi\v si polimorfi\v cno funkcijo 
-\begin{verbatim}
-ostevilci : 'a list -> (int * 'a) list, 
-\end{verbatim}
-ki o\v stevil\v ci elemente od 1 do n, \v ce je n dol\v zina vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je prva komponenta indeks in druga komponenta orginalna vrednost iz seznama.
-
-\end{ex} 
-\begin{ex}
-  Napi\v si polimorfi\v cno funkcijo ostevilci : 'a list -> (int * 'a)
-  list, ki o\v stevil\v ci elemente od 1 do n, \v ce je n dol\v zina
-  vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je
-  prva komponenta indeks in druga komponenta orginalna vrednost iz
-  seznama.
-
-\noindent\/Primer:
-\begin{verbatim}
-# ostevilci ['a'; 'b'; 'c'; 'd'];; 
-- : (int * char) list = [(1, 'a'); (2, 'b'); (3, 'c'); (4, 'd')]
-\end{verbatim}
-
-\end{ex} 
-\begin{ex}
-  Slika neke ra\v cunalni\v ske naprave je definirana z naslednjim
-  tipom
-
-  type slika = array array int,
-
-  kjer so pike, ki sestavljajo sliko predstavljene z 0 ali 1. Pika je
-  osvetljena, \v ce ima vrednost 1.
-
-  Napi\v si funkcijo
-
-  zasuci90 : slika -> slika,
-
-  ki zasu\v ce sliko za 90 stopinj v smeri urinega kazalca. Pazi na
-  dimenzije slik!
-
-
-\end{ex} 
 \begin{ex}
   V programskem jeziku Ocaml imamo definirano podatkovno strukturo
   seznam na naslednji na\v cin:
