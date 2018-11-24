@@ -34,7 +34,7 @@
   \end{verbatim}
 
   Napi\v si funkcijo \texttt{poisci : tekst -> string -> int*int
-    list}, ki vrne seznam koordinat kjer se začne v tekstu iskani niz
+    list}, ki vrne seznam koordinat kjer se za\v cne v tekstu iskani niz
   podan kot drugi parameter. 
 
 
@@ -207,14 +207,14 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
    Izrazi zelo enostavnega jezika \texttt{TP} so sestavljeni iz
    vrednosti med katerimi so postavljene operaciji \texttt{TIMES} ali
    \texttt{PLUS}. Obe operaciji sta levo asociativne vendar ima
-   operaicija \texttt{TIMES} vi\v sjo prioriteto od
+   operacija \texttt{TIMES} vi\v sjo prioriteto od
    \texttt{PLUS}. Primer izraza je:
 
    \begin{verbatim}
    1 PLUS 2 TIMES 3 TIMES 4,
    \end{verbatim}
 
-   kar ustreza aritmeti\v cnem izrazu 1 + ((2 * 3) * 4). Izraze jezika
+   kar ustreza aritmeti\v cnem izrazu $1 + ((2 * 3) * 4)$. Izraze jezika
    TP lahko definiramo z naslednjimi tipi:
  
    \begin{verbatim}
@@ -269,14 +269,14 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 
 \end{ex} 
 
-\subsection{Polimorfične funkcije}
+\subsection{Polimorfi\v cne funkcije}
 
 \begin{ex}
   Napi\v si polimorfi\v cno funkcijo
   \begin{verbatim}
   ostevilci : 'a list -> (int * 'a) list, 
   \end{verbatim}
-  ki o\v stevil\v ci elemente od 1 do n, \v ce je n dol\v zina
+  ki o\v stevil\v ci elemente od $1$ do $n$, \v ce je n dol\v zina
   vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je
   prva komponenta indeks in druga komponenta orginalna vrednost iz
   seznama.
@@ -349,7 +349,7 @@ zamenjaj_navpicno : tekst -> string -> string -> tekst,
 
   \begin{enumerate}[label=(\roman*)]
   \item Funkcija naj zdru\v zi seznama tako, da pove\v ze konec prvega
-    seznama z začetkom drugega ter kot rezultat vrne za\v cetek prvega
+    seznama z za\v cetkom drugega ter kot rezultat vrne za\v cetek prvega
     seznama.
 
   \item Funkcija naj zdru\v zi seznama tako, da naredi kopijo obeh
@@ -503,6 +503,7 @@ type 'a grm =
 
 \end{ex} 
 \begin{ex}
+
   \begin{enumerate}
   \item Definiraj razred \texttt{zbirka}, ki hrani zbirko celih \v
     stevil urejeno po vrstnem redu dolo\v cenim z uporabo funkcij za
