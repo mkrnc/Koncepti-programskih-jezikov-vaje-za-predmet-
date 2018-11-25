@@ -749,9 +749,10 @@ meet : ('a*'b) list -> ('a*'b) list -> ('a*('b*'b)) list,
 ki zdru\v zi dva seznama sortirana po klju\v cu tipa 'a. Pari iz vhodnih seznamov se zdru\v zijo samo v primeru, da se ujemajo v klju\v cu. Rezultat funkcije so pari sestavljeni iz klju\v ca in vrednosti, ki vsebuje obe vrednosti iz vhodnih parov.  
 
 Primer:    
-
+\begin{lstlisting}
 meet [(1,2);(2,3);(4,5);(4,9)] [(2,4);(4,6)] -> 
      [(2,(3,4));(4,(5,6));(4,(9,6))]
+\end{lstlisting}
 
 
 \end{ex} 
@@ -778,13 +779,11 @@ diff [(1,2);(2,3);(4,5)];(5,6)] [(2,4);(4,6)] -> [(1,2);(5,6)]
 \end{ex} 
 \begin{ex}
 Napi\v si parametri\v cno funkcijo 
-
 \begin{lstlisting}
 podseznam : 'a list -> int*int -> 'a list, 
 \end{lstlisting}
-
-ki iz danega seznama izlu\v s\v ci podseznam dolo\v cen z 2. parametrom funkcije (z,k), 
-kjer z predstavlja indeks za\v cetka podseznama in k indeks konca podseznama. 
+ki iz danega seznama izlu\v s\v ci podseznam dolo\v cen z drugim parametrom funkcije $(z,k)$, 
+kjer $z$ predstavlja indeks za\v cetka podseznama in $k$ indeks konca podseznama. 
 
 Predpostavimo, da je $z<k$ in $k<l$, kjer je $l$ dol\v zina vhodnega seznama. 
 
@@ -796,7 +795,7 @@ Predpostavimo, da je $z<k$ in $k<l$, kjer je $l$ dol\v zina vhodnega seznama.
   filter ('v->bool) -> 'k*'v list -> 'k list,
 \end{lstlisting}
   ki iz seznama parov dolo\v cenim z 2. parametrom izbere tiste klu\v
-  ce za katere vrne funkcija ('v->bool) dolo\v cena s 1. parameterom
+  ce za katere vrne funkcija \lstinline{('v->bool)} dolo\v cena s 1. parameterom
   vrednost true. Rezultat funcije filter je seznam tak\v snih klju\v
   cev.
 
@@ -994,21 +993,21 @@ Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, 
    operacija \lstinline{TIMES} vi\v sjo prioriteto od
    \lstinline{PLUS}. Primer izraza je:
 
-   \begin{lstlisting}
-   1 PLUS 2 TIMES 3 TIMES 4,
-   \end{lstlisting}
+\begin{lstlisting}
+1 PLUS 2 TIMES 3 TIMES 4,
+\end{lstlisting}
 
    kar ustreza aritmeti\v cnem izrazu $1 + ((2 * 3) * 4)$. Izraze jezika
    TP lahko definiramo z naslednjimi tipi:
  
    \begin{lstlisting}
-   # type operation = PLUS | TIMES;; 
-   type operation = PLUS | TIMES 
-   # type element = Val of int | Op of operation;; 
-   type element = Val of int | Op of operation
-   # type expr = list element;;
-   type expr = list element
-   \end{lstlisting}
+# type operation = PLUS | TIMES;; 
+type operation = PLUS | TIMES 
+# type element = Val of int | Op of operation;; 
+type element = Val of int | Op of operation
+# type expr = list element;;
+type expr = list element
+\end{lstlisting}
 
    \begin{enumerate}[label=(\roman*)]
    \item Napi\v si funkcijo \lstinline{check : expr -> bool}, ki preveri
@@ -1023,8 +1022,9 @@ Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, 
 \begin{ex}
   Binarno drevo je definirano s tipom itree, ki predstavlja binarno
   drevo katerega vozli\v s\v ca vsebujejo vrednost tipa int.
-
+\begin{lstlisting}
   type itree = Nil | Node of itree*int*itree;;
+\end{lstlisting}
 
   Napi\v si funkcijo sumsub : itree -> itree, ki iz vhodnega drevesa
   konstruira novo drevo, ki namesto originalnih vrednosti v voli\v s\v
@@ -2236,17 +2236,19 @@ b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnost
 \end{ex}
 \begin{ex}
 Definirati je potrebno hierarhijo razredov za predstavitev podatkov o \v studentih v informacijskem sistemu \v SIS. Splo\v sne podatke o \v studentih predstavimo v razredu Oseba. Bolj specifi\v cne podatke predstavimo v razredih Student, PodiplomskiStudent in Asistent.
-
 Asistent je poseben primer podiplomskega \v studenta. 
 
 V razredih bi \v zeleli hraniti naslednje podatke: 
-- ime in priimek, 
-- naslov, 
-- tel.stevilka, 
-- vpisan letnik, 
-- vpisan program, 
-- obstoje\v ca izobrazba in 
-- povpre\v cna ocena. 
+\begin{itemize}
+    \item  ime in priimek, 
+    \item  naslov, 
+    \item  tel.stevilka, 
+    \item  vpisan letnik, 
+    \item  vpisan program, 
+    \item  obstoje\v ca izobrazba in 
+    \item  povpre\v cna ocena. 
+\end{itemize}
+Naloga ima tri dele:
 
 a) Definiraj razrede v programskem jeziku Ocaml.
 
@@ -2335,9 +2337,9 @@ Slika je predstavljena s trojicami, ki vsebujejo x in y koordinati ter barvo.
 a) Definiraj parametriziran abstraktni razred class ['a] tocka, s katero definiramo to\v cke predstavljene z dvema koordinatama tipa int in barvo tipa 'a. 
 
 Definiraj abstraktno metodo 
-
+\begin{lstlisting}
 enakost : ['a] tocka -> bool, 
-
+\end{lstlisting}
 ki primerja dano to\v cko s to\v cko, ki je podana kot parameter metode enakost. 
 
 Definiraj konkreten razred itocka, kjer je tip barve celo \v stevilo (int). Razred itocka podeduje vse lastnosti razreda tocka in implementira metodo enakost.
@@ -2544,6 +2546,8 @@ c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
 
 \end{ex}
 \begin{ex}
+Naloga je sestavljena iz dveh delov:
+
   a) Definiraj razred vmesnik, ki implementira FIFO vrsto elementov
   poljubnega tipa 'a. Razred naj vsebuje dve metodi:
 
@@ -2766,12 +2770,13 @@ Ob kreiranju podatkovne strukture tipa Usekvenca.t podamo kot parameter funkcijo
 dodajanju, brisanju in iskanju elementov.
 
 Definiraj naslednje funkcije modula: 
-
-- kreiraj : ('a -> 'a -> int) -> Usekvenca.t 
-- dodaj : Usekvenca.t -> 'a -> unit 
-- izbrisi : Usekvenca.t -> 'a -> unit   
-- min : Usekvenca.t -> 'a 
-- max : Usekvenca.t -> 'a 
+\begin{lstlisting}
+ kreiraj : ('a -> 'a -> int) -> Usekvenca.t 
+ dodaj : Usekvenca.t -> 'a -> unit 
+ izbrisi : Usekvenca.t -> 'a -> unit   
+ min : Usekvenca.t -> 'a 
+ max : Usekvenca.t -> 'a 
+\end{lstlisting}
 
 Implementiraj funkcijo kreiraj, eno izmed funkcij dodaj in izbri\v si ter
 eno izmed funkcij min ali max.
@@ -2859,14 +2864,17 @@ Definirati je potrebno tip Slika.tip, s katero predstavimo sliko.
 Definiraj funkcijo Slika.kreiraj s katero kreiramo novo sliko. Sam dolo\v ci parametre in rezultat funkcije Slika.kreiraj. 
 
 b) Vzorce lahko predstavimo z manj\v simi slikami. To\v cka na sliki se ujema s to\v cko vzorca, \v ce se ujemata v barvah. Napi\v si funkcijo 
-
+\begin{lstlisting}
 Slika.ujemanje : 'a Slika.tip -> 'a Slika.tip -> (init*int) -> bool, 
+\end{lstlisting}
 
 ki za dano sliko (1.parameter) in vzorec (2.parameter) ter koordinati (x,y) (3.parameter) vrne true v primeru, da se vzorec ujema s sliko na koordinatah (x,y) in false sicer.
 
 c) (dodatna naloga) Recimo, da bi \v zeleli definirati fleksibilen modul Slika, ki zna delati z razli\v cnimi predstavitvami barv. 
 
-Za delo z barvami si definiramo majhen modul Barva, ki vsebuje definicijo tipa Barva.tip in operacijo Barva.enakost : Barva.tip -> Barva.tip -> bool, ki pove ali sta dve barvi enaki. 
+Za delo z barvami si definiramo majhen modul Barva, ki vsebuje definicijo tipa Barva.tip in operacijo 
+Barva.enakost : Barva.tip -> Barva.tip -> bool, 
+ki pove ali sta dve barvi enaki. 
 
 Skiciraj definicijo funktorja Slika in modula Barva.
 
