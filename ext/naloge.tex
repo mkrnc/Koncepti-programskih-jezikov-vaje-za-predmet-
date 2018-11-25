@@ -171,7 +171,7 @@ Napi\v si funkcijo \lstinline{A : int -> int -> int}, ki izra\v cuna za dana par
 Dana je funkcija:
 \begin{lstlisting}
 let rec vsota a = match a with 0 -> 0 
-                             | x -> x + vsota (x-1);;
+             | x -> x + vsota (x-1);;
 \end{lstlisting}
 
 Predstavi sklad aktivacijskih zapisov, ki se razvijejo ob klicu vsota 3;;
@@ -193,8 +193,8 @@ vsota(3) = 3+3=6
 Dana je funkcija fib, ki izra\v cuna Fibonaccijevo \v stevilo.
 
 \begin{lstlisting}
-	# let rec fib n =
-if n < 2 then 1 else fib(n-1) + fib(n-2);;
+# let rec fib n =
+    if n < 2 then 1 else fib(n-1) + fib(n-2);;
 val fib : int -> int = <fun>
 \end{lstlisting}
 Predstavi zaporedje aktivacijskih zapisov, ki se aktivirajo pri izvajanju funkcije fib 4.
@@ -1680,8 +1680,11 @@ b) Napi\v si funkcijo print : 'a element -> unit, ki izpi\v se elemente po pravi
 \section{Nizi}
 
 \begin{ex}
-V programskem jeziku Ocaml napi\v site funkcijo obrniBesede: string -> string, ki izpi\v se vse besede vhodnega niza v obratnem vrstnem redu!
-
+V programskem jeziku Ocaml napi\v site funkcijo 
+\begin{lstlisting}
+obrniBesede: string -> string
+\end{lstlisting}
+ki izpi\v se vse besede vhodnega niza v obratnem vrstnem redu!
 Primer:
 \begin{lstlisting}
 # obrniBesede "banana je lepa";;
@@ -1965,11 +1968,9 @@ end
 \end{lstlisting}
 Definiraj podrazred ArrayM, ki za dan indeks tipa int lahko vsebuje ve\v c kot eno vrednost tipa 'a.  Definiraj naslednje metode razreda. 
 \begin{lstlisting}
-get : int -> 'a list     (vrni elemente z indeksom i) 
-set : int -> 'a -> unit  (dodaj element tipa 'a k elementom
-                         z indeksom i)
-del : int -> 'a -> unit  (izbri\v si el. tipa 'a iz 
-                         mnozice elementov z indeksom i)
+get : int -> 'a list     (*vrni elemente z indeksom i*) 
+set : int -> 'a -> unit  (*dodaj element tipa 'a k elementom z indeksom i*)
+del : int -> 'a -> unit  (*izbri\v si el. tipa 'a iz  mnozice elementov z indeksom i*)
 \end{lstlisting}
 \v cim bolje uporabi metode razreda Array. 
 
@@ -1989,7 +1990,7 @@ Dano imamo sortirano polje celih \v stevil. Definiraj funkcijo encode, ki vrne p
 
 Primer:
 \begin{lstlisting}
-        encode [|1;1;3;4;4;5|] -> [|(1,2);(3,1);(4,2);(5,1)|]
+encode [|1;1;3;4;4;5|] -> [|(1,2);(3,1);(4,2);(5,1)|]
 \end{lstlisting}
 \end{ex} 
 \begin{ex} Naloga je sestavljena iz treh delov:
@@ -2056,7 +2057,7 @@ Primer:
 \section{Zapisi}
 
 \begin{ex}
-Dana je n-terica, ki predstavlja naslednje podatke \v student-a/ke:
+Dana je n-terica, ki predstavlja naslednje podatke \v studenta:
 \begin{enumerate}
 \item ime in priimek,
 \item letnik (1 - prvi, 2 - drugi, 3 - tretji),
@@ -2072,14 +2073,13 @@ type student = string * int * int * string list
 \end{lstlisting}
 
 Napi\v si funkcijo izpis: student -> unit, ki pretvori podatke o \v studentu v tekstovno obliko. Poskusite uporabiti vzorce, da bi dobili kratko in razumljivo kodo.
-
-Primer: \begin{lstlisting}
-
+Primer: 
+\begin{lstlisting}
 # izpis ("Tone Novak",20,1,8,("kolesarjenje"));; 
+\end{lstlisting}
 \v Student Tone Novak obiskuje prvi letnik. 
 Njegova povre\v cna ocena je prav dobro.
-Hobiji student-a/ke so: kolesarjenje.
-\end{lstlisting}
+Hobiji studenta so: kolesarjenje.
 \end{ex}
 \begin{ex}
   Drevo a\_tree je definirano na naslednji na\v cin.
@@ -2109,7 +2109,7 @@ Dana je polimorfi\v cna izvedba sklada, ki je implementirana v ocaml modulu Stac
 
 
 \begin{lstlisting}
-	# let s = Stack.create ();;
+# let s = Stack.create ();;
 val s : '_a Stack.t = <abstr>
 # Stack.push 'a' s; Stack.push 'b' s; Stack.push 'a' s;;
 - : unit = ()
@@ -2129,7 +2129,7 @@ Napi\v site program, ki s pomo\v cjo uporabe modula \lstinline{Stack} ugotovi al
 
 \end{ex}
 \begin{ex}
-Implementirati moramo enostaven "poljski" kalkulator (HP sintaksa), ki deluje na naslednji na\v cin:
+Implementirati moramo enostaven \emph{poljski} kalkulator (HP sintaksa), ki deluje na naslednji na\v cin:
 - v primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada,
 - \v ce vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva operanda iz sklada in izvede \v zeljeno operacijo in rezultat postavi na vrh sklada.
 
@@ -2159,15 +2159,13 @@ Definiraj naslednja dva razreda za delo s celimi \v stevili:
 
 2) Pozitivna cela \v stevila skupaj z ni\v clo so poseben primer celih \v stevil, ki jih imenujemo naravna \v stevila. Vse operacije prilagodi tako, da v primeru, da je parameter operacije negativen, operacija najprej zamenja parameter z absolutno vrednostjo, ga pomno\v zi s 100 ter \v sele nato opravi \v zeljeno operacijo.
 
-Napi\v si tudi konstruktorja celih in naravnih \v stevil. Bodi pozorna(-en) na uporabo dedovanja pri konstrukciji re\v sitve.
+Napi\v si tudi konstruktorja celih in naravnih \v stevil. Bodi pozoren na uporabo dedovanja pri konstrukciji re\v sitve.
 
 
 
 \end{ex}
 \begin{ex}
-Definiraj razred v Javi, ki vsebuje polje celih \v stevil sortirano po velikosti. Napi\v si metodo "zdruzi(a)", ki pridru\v zi polju celih \v stevil na\v sega razreda \v ze sortirano polje a tako, da je rezultat sortiran.
-
-
+Definiraj razred v Javi, ki vsebuje polje celih \v stevil sortirano po velikosti. Napi\v si metodo \lstinline{zdruzi(a)}, ki pridru\v zi polju celih \v stevil na\v sega razreda \v ze sortirano polje a tako, da je rezultat sortiran.
 
 \end{ex}
 \begin{ex}
@@ -2175,7 +2173,7 @@ Definirajte razred matrika s katerim predstavimo dvodimenzionalno matriko. Kater
 
 a) Napi\v site metodo invertirajx2(), ki invertira matriko po obeh diagonalah.
 
-b) Napi\v site metodo main() razreda Matrika, ki definira matriko A in pokli\v ce motodo invertirajx2() na A.
+b) Napi\v site metodo \lstinline{main()} razreda \lstinline{Matrika}, ki definira matriko $A$ in pokli\v ce motodo \lstinline{invertirajx2()} na $A$.
 
 
 
@@ -2203,7 +2201,7 @@ Napi\v si funkcijo "oznaci", ki ozna\v ci vse komponente motorja z Dela oz. Nede
 
 \end{ex}
 \begin{ex}
-Vrsto (FIFO) in sklad (FILO) \v zelimo implementirati z uporabo polja. Uporabi hierarhijo razredov za implementacijo vrste in sklada. 
+Vrsto (FIFO) in sklad (LIFO) \v zelimo implementirati z uporabo polja. Uporabi hierarhijo razredov za implementacijo vrste in sklada. 
 
 Namig: Najprej definiraj razred, ki realizira vrsto kjer lahko dodajamo in odvzemamo elemente na za\v cetku in na koncu. Definiraj razreda vrsta in sklad kot specializacije tega razreda.
 
@@ -2213,7 +2211,9 @@ Namig: Najprej definiraj razred, ki realizira vrsto kjer lahko dodajamo in odvze
 \begin{ex}
 Definiraj hierarhijo razredov za predstavitev geometrijskih objektov: to\v cka, premica in krog. 
 
-Vsak geometrijski objekt naj ima funkcijo \lstinline{premakni_se : int -> int -> unit}, kjer predstavljata parametra premika po $x$ in $y$ osi. 
+Vsak geometrijski objekt naj ima funkcijo
+\lstinline{premakni_se : int -> int -> unit}, 
+kjer predstavljata parametra premika po $x$ in $y$ osi. 
 
 \end{ex}
 \begin{ex}
@@ -2467,8 +2467,8 @@ class naprava :
   end 
 \end{lstlisting}
 
-  Napi\v si metodo \lstinline{izpisi\_liste}, ki izpi\v se imena in tipe
-  vseh listov—naprav, ki nimajo nobene komponente.
+  Napi\v si metodo \lstinline{izpisi_liste}, ki izpi\v se imena in tipe
+  vseh listov--naprav, ki nimajo nobene komponente.
 
 
 
