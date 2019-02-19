@@ -559,7 +559,6 @@ let rec cikli m n = match n with
   \begin{lstlisting}
   type dnk = A | C | T | G
   \end{lstlisting}
- 
   Na primer, niz znakov "ACAAGT"  je predstavljen s seznamom 
   \lstinline{[A;\-C;A;A;G;T]}. 
 
@@ -617,7 +616,7 @@ let rec cikli m n = match n with
 
   \begin{lstlisting}
   zdruzi : int list -> int list -> int list,
-  \end{lstlisting}
+\end{lstlisting}
 
   ki zdru\v zi urejena seznama celih \v stevil tako, da je rezultat
   urejen in hkrati izlo\v ci ve\v ckratne ponovite elementov.
@@ -699,18 +698,23 @@ povezava : (string*string) -> (string*string) list -> bool,
 
 
 \end{ex} 
-\begin{ex}
+\begin{ex}Naloga je sestavljena iz dveh delov.
+
   a) Definiraj tip plist, ki predstavi seznam parov. Prva komponenta
   para vsebuje klju\v ce tipa int in druga komponenta vrednosti tipa
   string.
 
-  b) Napi\v si funkcijo vapply : plist -> (string -> string) -> plist,
-  ki aplicira funkcijo tipa string -> string (drugi parameter) na vseh
+  b) Napi\v si funkcijo  
+\begin{lstlisting}
+vapply : plist -> (string -> string) -> plist,
+\end{lstlisting}
+  ki aplicira funkcijo tipa \lstinline{string -> string} (drugi parameter) na vseh
   drugih komponentah parov, ki so podani s prvim parametrom
   funkcije. 
 
-  Rezultat naj bo seznam parov kjer jer druga komponenta vhodnih parov
-  zamenjana z vrednostjo funkcije string -> string.
+  Rezultat naj bo seznam parov kjer je druga komponenta vhodnih parov
+  zamenjana z vrednostjo funkcije 
+  \lstinline{string -> string}.
 
 
 \end{ex} 
@@ -1388,7 +1392,7 @@ Naloga je sestavljena iz dveh delov:
 \end{ex} 
 \begin{ex}
   Definiraj parametri\v cni tip \lstinline{slika}, ki predstavlja
-  dvo-dimenzionalno ra\v cunalni\v sko sliko z neznanim tipom
+  dvo dimenzionalno ra\v cunalni\v sko sliko z neznanim tipom
   elementov (pik) polja, ki ga ozna\v cimo z \lstinline{'a}.
 
   Napi\v si funkcijo vi\v sjega reda
@@ -1542,8 +1546,7 @@ type 'a tree = { mutable key:'a; mutable trees: 'a tree }
 \item Napi\v si polimorfi\v cno funkcijo vi\v sjega reda
 
 \begin{lstlisting}
-array_filter : ('a,'b) key_val array -> ('a -> bool) ->  
-               ('a,'b) key_val array
+array_filter : ('a,'b) key_val array -> ('a -> bool) ->  ('a,'b) key_val array
 \end{lstlisting}
 
   ki iz polja podanega s prvim parametrom prepi\v se v kon\v cno polje
@@ -1566,8 +1569,7 @@ Dan imamo tip
 in seznam geometrijskih objektov, npr.
 
 \begin{lstlisting}
-	let gl: geo_objekt list = 
-         [ Tocka; Tocka; Premica; Krog; Krog; ... ] 
+	let gl: geo_objekt list =  [ Tocka; Tocka; Premica; Krog; Krog; ... ] 
 \end{lstlisting}
 
 Napi\v si funkcijo, ki pre\v steje \v stevilo pojavitev posameznega geometrijskega objekta v seznamu:
@@ -1623,10 +1625,8 @@ type formula = Nil | Form of elm * formula
 
 Primer: 
 \begin{lstlisting}
-# let s = Form(Vr(1),Form(Op(PLUS),Form(Vr(5),
-          Form(Op(MINUS),Form(Vr(3),Nil)))));;
-val s : formula = Form (Vr 1, Form (Op PLUS, Form 
-      (Vr 5, Form (Op MINUS, Form (Vr 3, Nil))))) 
+# let s = Form(Vr(1),Form(Op(PLUS),Form(Vr(5),Form(Op(MINUS),Form(Vr(3),Nil)))));;
+val s : formula = Form (Vr 1, Form (Op PLUS, Form (Vr 5, Form (Op MINUS, Form (Vr 3, Nil))))) 
 \end{lstlisting}
 Vrednost formule s predstavlja izraz $1+5-3$. 
 
@@ -1660,12 +1660,12 @@ let seznamKart = [(Punca,Srce);(Kralj,Kriz);(Fant,Pik)]
 
 a) Z uporabo unije definiraj tip 'a element, ki predstavi elemente naslednjih oblik:
 \begin{lstlisting}
-    1. elemente tipa 'a ali
-    2. sezname elementov tipa 'a element.
+1. elemente tipa 'a ali
+2. sezname elementov tipa 'a element.
 \end{lstlisting}
     Primer elementa: 
 \begin{lstlisting}
-    val a : int element = L [E 1; E 2; L [E 3; E 4]]
+val a : int element = L [E 1; E 2; L [E 3; E 4]]
 \end{lstlisting}
 
 b) Napi\v si funkcijo print : 'a element -> unit, ki izpi\v se elemente po pravilu                          
@@ -1817,7 +1817,7 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 
   \begin{lstlisting}
   type slika = int array array,
-  \end{lstlisting}
+\end{lstlisting}
 
   kjer so pike, ki sestavljajo sliko predstaljene z 0 ali 1. Pika je
   osvetljena, \v ce ima vrednost 1.
@@ -1826,7 +1826,7 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 
   \begin{lstlisting}
   xor : slika -> slika -> slika,
-  \end{lstlisting}
+\end{lstlisting}
 
   ki dve slike kombinira tako, da naredi operacijo \lstinline{xor} nad
   istole\v znimi pikami.
@@ -1836,12 +1836,12 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 
 \end{ex} 
 \begin{ex}
-  Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
+  Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
   matriko znakov tipa \lstinline{tekst}.
 
   \begin{lstlisting}
   type tekst = char array array;;
-  \end{lstlisting}
+\end{lstlisting}
   Napi\v si funkcijo 
   \lstinline{poisci : tekst -> string -> int*int list}, 
   ki vrne seznam koordinat kjer se 
@@ -1893,19 +1893,19 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   Definiraj tip \lstinline{slika} s katerim predstavimo sliko sestavljeno
   iz 100x100 to\v ck. Vsaka to\v cka je predstavljana z intenziteto in
   barvo---obe vrednosti predstavimo s celim \v stevilom.
-
   Predpostavljamo, da imamo \v ze napisano funkcijo \lstinline{pika : int*int -> bool}, 
   ki pove ali je na dani koordinati pika. Barva
   pike ni pomembna.
-
-  Nekje na sliki je narisan krog z radijem 5. Napi\v si funkcijo
+  Nekje na sliki je narisan krog z radijem 5. 
+  
+  \noindent Napi\v si funkcijo
   \lstinline{poisci : slika -> (int*int)}, ki poi\v s\v ce sredi\v s\v ce
   kroga.
 
 
 \end{ex} 
 \begin{ex}
-  Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
+  Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
   matriko znakov.
 
   a) Definiraj tip tekst, ki predstavlja dvo-dimenzionalno matriko
@@ -2011,7 +2011,8 @@ encode [|1;1;3;4;4;5|] -> [|(1,2);(3,1);(4,2);(5,1)|]
   \item Definiraj razred \lstinline{int\_matrix} kot podrazred razreda \lstinline{matrix}.
 
   \item V razredih matrix in int\_matrix definiraj metodo 
-  \lstinline{equals : int*int -> int*int -> bool},
+  
+\noindent  \lstinline{equals : int*int -> int*int -> bool},
     ki primerja dva elementa matrike in vrne
   boolovo vrednost true, \v ce sta enaka in false sicer.
 \end{enumerate}
@@ -2698,8 +2699,7 @@ sestej a b: par -> par -> par
 odstej a b: par -> par -> par
 mnozi a b: par -> par -> par
 \end{lstlisting}
-
-Pomen operacij "sestej", "odstej" in "mnozi" je obi\v cajen:
+Pomen operacij \emph{sestej, odstej} in \emph{mnozi} je obi\v cajen:
 \begin{lstlisting}
 sestej (2,3) (1,2) -> (3,5)
 odstej (2,3) (1,2) -> (1,1)
@@ -2713,7 +2713,7 @@ Imlementiraj modul za delo z vrsto. V vrsto dodajamo na za\v cetek in
 odvzemamo objekte na koncu vrste. Bodi pozoren/a na naslednje vidike:
 
 - Tip elementa vrste naj se definira ob kreaciji vrste. Tip elementa
-  je torej poljuben tip 'a in vrsta je parametri\v cni tip 'a vrsta.
+  je torej poljuben tip \lstinline{'a} in vrsta je parametri\v cni tip \lstinline{'a vrsta}.
   
 - Dodaj kodo, ki bo prepre\v cevala pisanje v polno vrsto ter branje iz
   prazne vrste.
@@ -2724,22 +2724,24 @@ odvzemamo objekte na koncu vrste. Bodi pozoren/a na naslednje vidike:
 \begin{ex}
 Turisti\v cna Agencija po\v citni\v skih aran\v zmajev bo implementirala
 informacijski sistem.
-
-Definirajte modul Aranzma, ki vsebuje kodo za delo z
+Definirajte modul \lstinline{Aranzma}, ki vsebuje kodo za delo z
 aran\v zmaji. Aran\v zma je opisan z:
 
 - destinacija (opisno), 
+
 - tip\_namestitve (opisno), 
+
 - trajanje (\v stevilo), in 
+
 - cena (\v stevilo).
 
 Modul mora poleg same kreacije in ogleda aran\v zmaja omogo\v cati \v se
 popravljanje imena destinacije, popravljanje tipa namestitve, trajanja
 in cene.
 
-Za aran\v zma definiraj modula Agent in Stranka, kjer Agent v aran\v zmaju
+Za aran\v zma definiraj modula \lstinline{Agent} in \lstinline{Stranka}, kjer \lstinline{Agent} v aran\v zmaju
 lahko pogleda aran\v zma preimenuje destinacijo, dolo\v ci nov tip
-namestitve ter popravi trajanje in ceno. Stranka lahko zgolj pogleda
+namestitve ter popravi trajanje in ceno. \lstinline{Stranka} lahko zgolj pogleda
 dolo\v ceni aran\v zma.
 
 
@@ -2752,19 +2754,24 @@ nam bo pomagal pri izbiri jelke. Jelka naj bo sestavljena iz krosnje
 in debla. Modul naj zna narediti jelko s poljubno visokim deblom in
 kro\v snjo.
 
-a) Naredi funkcijo ustvari(), ki ustvari prazno jelko, funkcijo
-povejVisino, ki vrne vsoto vi\v sine debla in kro\v snje, ter funkciji za
+a) Naredi funkcijo \lstinline{ustvari()}, ki ustvari prazno jelko, funkcijo
+\lstinline{povejVisino}, ki vrne vsoto vi\v sine debla in kro\v snje, ter funkciji za
 nastavljanje vi\v sine debla in kro\v snje.
 
 b) Naredi funkcijo za izris jelke (glej primer). Krosnja naj bo
-sestavljena iz zvezdic ( * ), deblo pa iz minusov (-). Bodi pozoren/a
+sestavljena iz zvezdic \lstinline{(*)}, deblo pa iz minusov \lstinline{(-)}. Bodi pozoren/a
 na presledke.
-
-
-
+\begin{lstlisting}
+   (*)
+  (***)
+ (*****)
+(*******)
+   (-)
+   (-)
+\end{lstlisting}
 \end{ex}
 \begin{ex}
-Potrebujemo modul za delo s podatkovno strukturo, ki hrani urejeno sekvenco elementov danega parametri\v cnega tipa 'a v nara\v s\v cajo\v cem vrstnem redu. Modul bomo imenovali Usekvenca. Tip podatkovne strukture, ki predstavlja urejeno sekvenco imenuj Usekvenca.t.
+Potrebujemo modul za delo s podatkovno strukturo, ki hrani urejeno sekvenco elementov danega parametri\v cnega tipa 'a v nara\v s\v cajo\v cem vrstnem redu. Modul bomo imenovali \lstinline{Usekvenca}. Tip podatkovne strukture, ki predstavlja urejeno sekvenco imenuj \lstinline{Usekvenca.t}.
 
 Ob kreiranju podatkovne strukture tipa Usekvenca.t podamo kot parameter funkcijo primerjaj : 'a -> 'a -> int, ki vrne -1 v primeru da je prvi parameter manj\v si od drugega, 0 v primeru, da sta parametra enaka in 1 v primeru, da je drugi parameter ve\v cji od prvega. Pozor, funkcijo primerjaj si mora modul zapomniti, ker jo potrebuje pri
 dodajanju, brisanju in iskanju elementov.
@@ -2836,7 +2843,6 @@ c) Dodatna naloga: implementacija b)
 Napisati \v zelimo modul Slika za delo s slikami, ki so definirane z naslednjim parametri\v cnim tipom:
 
 \begin{lstlisting}
-
 type 'a slika = { mutable x: int; mutable y: int;
 					mutable p: 'a array array };; 
 \end{lstlisting}
@@ -2872,10 +2878,11 @@ ki za dano sliko (1.parameter) in vzorec (2.parameter) ter koordinati (x,y) (3.p
 
 c) (dodatna naloga) Recimo, da bi \v zeleli definirati fleksibilen modul Slika, ki zna delati z razli\v cnimi predstavitvami barv. 
 
-Za delo z barvami si definiramo majhen modul Barva, ki vsebuje definicijo tipa Barva.tip in operacijo 
+Za delo z barvami si definiramo majhen modul \lstinline{Barva}, ki vsebuje definicijo tipa \lstinline{Barva.tip} in operacijo 
+\begin{lstlisting}
 Barva.enakost : Barva.tip -> Barva.tip -> bool, 
+\end{lstlisting}
 ki pove ali sta dve barvi enaki. 
-
 Skiciraj definicijo funktorja Slika in modula Barva.
 
 \section{Funkcionali}
