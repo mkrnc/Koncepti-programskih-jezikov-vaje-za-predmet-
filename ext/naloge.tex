@@ -62,7 +62,7 @@ Napi\v si naslednji izraz z \v cim manj oklepajev.
 \end{ex} 
 
 
-\chapter{Elementi funkcijskih jezikov}
+\chapter{Funkcijski programski jeziki}
 
 \section{Matemati\v cne funkcije}
 
@@ -95,7 +95,7 @@ let rec vsota_vrste n = match n with
 V Ocaml napi\v si funkcijo, ki izra\v cuna n-to Fibonaccijevo \v stevilo definirano na slede\v c na\v cin:
 \begin{center}
 $F_n = 1$, \v ce $n\in \left\{ 0,1\right\}$, ter 
-$F_n$ = $F_n-1 + F_n-2$, 
+$F_n$ = $F_{n-1} + F_{n-2}$, 
 \end{center}
 pri \v cemer zapis $F_i$ predstavlja i-to Fibonaccijevo \v stevilo. 
 
@@ -157,7 +157,7 @@ let rec pfib (a,b) = match (a,b) with
 
 \end{ex}
 \begin{ex}
-Dana je naslednja funkcija, ki je definirana z rekurzivnimi ena\v cbami.
+\emph{Ackermannova funkcija} je definirana z rekurzivnimi ena\v cbami.
 \begin{align*}
 A(0, n) &= n+1 \\
 A(m + 1, 0) &= A(m, 1) \\ 
@@ -1675,7 +1675,7 @@ b) Napi\v si funkcijo print : 'a element -> unit, ki izpi\v se elemente po pravi
 
 \end{ex} 
 
-\chapter{Elementi imperativnih jezikov}
+\chapter{Imperativni programski jeziki}
 
 \section{Nizi}
 
@@ -2150,7 +2150,7 @@ Primer izvajanja kalkulatorja:
 \end{lstlisting}
 \end{ex}
 
-\chapter{Delo z razredi}
+\chapter{Objektno orientirani programski jeziki}
 %\section{Definicija razredov}
 
 \begin{ex}
@@ -2687,7 +2687,7 @@ val compose : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b = <fun>
 
 \end{ex} 
 
-\chapter{Delo z moduli}
+\chapter{Modularni programski jeziki}
 %\section{Definicija modula}
 
 \begin{ex}
