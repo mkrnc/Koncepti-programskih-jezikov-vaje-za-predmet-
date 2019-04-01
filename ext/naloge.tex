@@ -927,31 +927,43 @@ Primer:
 
 \begin{ex}
   Binarno drevo je definirano s tipom
-  \begin{lstlisting}
-  type bdrevo = List of int |
-                Drevo of bdrevo * int * bdrevo,
-  \end{lstlisting}
-  ki ima vrednosti v listih definirane kot \lstinline{List}$(v)$, kjer je
+\begin{lstlisting}
+type bdrevo = List of int |
+            Drevo of bdrevo * int * bdrevo,
+\end{lstlisting}
+  ki ima vrednosti v listih definirane kot \lstinline{List v}, kjer je
   $v$ celo \v stevilo.  Notranja vozli\v s\v ca so definirana kot
-  trojica \lstinline{Drevo}$(l, v, d)$, kjer sta $l$ in $d$ levo in desno
-  poddrevo, $v$ pa je vrednost, ki je za\v cetno $0$ za vsa notranja
-  vozli\v s\v ca.
-
+  trojica \lstinline{Drevo (l, v, d)}, kjer sta $l$ in $d$ levo in desno
+  poddrevo, $v$ pa je vrednost%, ki je za\v cetno $0$ za vsa notranja vozli\v s\v ca.
+.
   \begin{enumerate}[label=(\roman*)]
   \item Napi\v si funkcijo
     \begin{lstlisting}
     prestej : bdrevo -> int, 
-    \end{lstlisting}
+\end{lstlisting}
     ki vrne vsoto vrednosti podanih v listih vhodnega drevesa.
 
   \item Napi\v si funkcijo
     \begin{lstlisting}
     oznaci : bdrevo -> bdrevo,
-    \end{lstlisting}
+\end{lstlisting}
     ki drugo komponento vseh notranjih vozli\v s\v c izhodnega drevesa
     zamenja z vsoto vseh listov poddrevesa.
   \end{enumerate}
-
+\begin{sol}
+Naloga (i):
+\begin{lstlisting}
+let rec prestej dr = match dr with
+| List x -> x
+| Drevo (a,b,c) -> prestej a + prestej c
+\end{lstlisting}
+Naloga (ii):
+\begin{lstlisting}
+let rec oznaci dr = match dr with
+| List a -> dr 
+| Drevo (d,f,g) -> Drevo (oznaci d, prestej dr ,oznaci g)
+\end{lstlisting}
+\end{sol}
 
 \end{ex} 
 %----n
