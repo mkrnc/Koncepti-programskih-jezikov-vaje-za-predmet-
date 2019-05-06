@@ -1,10 +1,52 @@
+%from functional to ...
+%classes in oopl
+%act records to imperative
+
+\chapter{Uvod}
+
+Zakaj učenje konceptov programskih jezikov? \\
+Posploševanje abstrakcij podanih v konkretnih jezikih \\
+Novi predmeti na področju programskih jezikov \\
+%``Multipardigm'' programski jeziki Scala, C#, F#, ... \\
+
+Osnovna ideja strukture zbirke? \\
+Prva klasifikacija področij so modeli programskih jezikov \\
+Znotraj modelov so pomembni koncepti \\
+Študent naj bi preko nalog ponovil/obnovil poznavanje posameznih konceptov \\
+
+Osnovne ideje predstavitve področja \\
+Učiti se večih PJ? \\
+Šola programskih jezikov bližje teoriji programskih jezikov \\
+Pri predstavitvi smo bližje matematični, logični razlagi \\
+Učenje o abstrakcijah in o implentaciji PJ \\
+
+Zakaj OCaml? \\
+Meta Language ML, trenutni trendi v načrtovanju jezikov \\ 
+Osnova čisti lambda račun \\
+OCaml pokriva štiri različne modele \\
+
+Kakšne vrste nalog imamo?
+Temeljni/klasični problemi iz danegih modelov programskih jezikov \\
+Primer, imperativni jeziki, delo s polji \\
+Matematični problemi, blizu teorije programskih jezikov \\
+
+Rešitve so podane v OCaml \\
+Lahko uporabimo tudi primeren jezik iz danega modela jezikov? \\
+
+
+
 \chapter{Lambda ra\v cun}
+
 
 \begin{ex}
 Napi\v si izraz v lambda ra\v cunu, ki za dana parametra x in y izra\v cuna povpre\v cno vrednost x in y.
 
 Apliciraj prej definiran lambda izraz na konkretnih parametrih in zapi\v si redukcijo izraza do vrednosti.
 \end{ex}
+
+
+
+
 \begin{ex}
 Uporabi alfa konverzijo in beta redukcijo za ovrednotenje naslednjega stavka zapisanega z $\lambda$-ra\v cunom
 $$(\lambda a.\lambda b.a (a b)) (\lambda a.a + 1)\,1.$$
@@ -12,8 +54,11 @@ $$(\lambda a.\lambda b.a (a b)) (\lambda a.a + 1)\,1.$$
 a) Izra\v cunaj vrednost izraza.
 
 b) Kaj naredi funkcija?
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Evaluiraj naslednje lambda izraze do vrednosti.
 
@@ -22,6 +67,9 @@ Evaluiraj naslednje lambda izraze do vrednosti.
 2) $( \lambda x. \lambda y.x) z w$
 
 \end{ex}
+
+
+
 \begin{ex}
 Dane imamo naslednje standardne kombinatorje lambda ra\v cuna.
 \begin{align*}
@@ -37,6 +85,9 @@ M &\equiv (\lambda y.\lambda z.zy)((\lambda x.xxx)(\lambda x.xxx))(\lambda w.I);
 M &\equiv SKSKSK
 \end{align*}
 \end{ex}
+
+
+
 \begin{ex}
 V naslednjih $\lambda$-izrazih prika\v zi vse oklepaje.  
 \begin{itemize}
@@ -44,6 +95,10 @@ V naslednjih $\lambda$-izrazih prika\v zi vse oklepaje.
 \item $(\lambda z.zxz)(\lambda y.yx)z$ 
 \end{itemize}
 \end{ex}
+
+
+
+
 \begin{ex}
 Poi\v s\v ci vse proste (nevezane) spremenljivke v naslednjih $\lambda$-izrazih. 
 \begin{itemize}
@@ -51,20 +106,25 @@ Poi\v s\v ci vse proste (nevezane) spremenljivke v naslednjih $\lambda$-izrazih.
 \item $\lambda x.zy\lambda y.yx $
 \end{itemize}
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v si naslednji izraz z \v cim manj oklepajev. 
 
  \begin{itemize}
  \item $((xy)(\lambda y.(\lambda z.(z(\lambda y.(xy)))x)y)) $
  \end{itemize}
-
-
 \end{ex} 
+
 
 
 \chapter{Funkcijski programski jeziki}
 
+
 \section{Matemati\v cne funkcije}
+
+
 
 \begin{ex}
 Napi\v si funkcijo v ML, ki izra\v cuna vsoto vrste: 
@@ -77,6 +137,9 @@ function n -> n * (n + 1) * (2*n + 1)/6
 \end{sol}
 
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v si funkcijo v ML, ki izra\v cuna vsoto vrste 
 $$\sum_{x=0}^n 1/(2^x) = 1/1+1/2+1/4+1/8+1/16+...+1/(2^n).$$
@@ -91,6 +154,9 @@ let rec vsota_vrste n = match n with
 \end{lstlisting}
 \end{sol}
 \end{ex}
+
+
+
 \begin{ex}
 V Ocaml napi\v si funkcijo, ki izra\v cuna n-to Fibonaccijevo \v stevilo definirano na slede\v c na\v cin:
 \begin{center}
@@ -109,10 +175,10 @@ let rec fib n = match n with
 | _ -> fib (n-2) + fib (n-1);;
 \end{lstlisting}
 \end{sol}
-
-
-
 \end{ex}
+
+
+
 \begin{ex}
 Dana je OCaml funkcija naslednik (\lstinline{let naslednik n = n+1}). Z uporabo funkcije naslednik in brez uporabe artimeti\v cnih operacij naredi funkcijo \lstinline{jeVsota(a:int, b:int, c:int)}, ki preveri ali je c vsota a in b (pri \v cemer velja $a,b\geq 0$).
 
@@ -166,51 +232,10 @@ A(m + 1, n + 1) &= A(m, A(m + 1, n))
 
 Napi\v si funkcijo \lstinline{A : int -> int -> int}, ki izra\v cuna za dana parametra $m$ in $n$ vrednost zgoraj definirane rekurzivne funkcije.
 \end{ex}
-%--
-\begin{ex}
-Dana je funkcija:
-\begin{lstlisting}
-let rec vsota a = match a with 0 -> 0 
-             | x -> x + vsota (x-1);;
-\end{lstlisting}
 
-Predstavi sklad aktivacijskih zapisov, ki se razvijejo ob klicu vsota 3;;
 
-\begin{sol}
-\begin{lstlisting}
-vsota(3) = 3 + vsota(2)
-vsota(2) = 2+ vsota(1)
-vsota(1) = 1+ vsota (0)
-vsota (0) = 0
-vsota(1) = 1+0=1
-vsota(2) = 2+1=3
-vsota(3) = 3+3=6
-\end{lstlisting}
-\end{sol}
 
-\end{ex}
-\begin{ex}
-Dana je funkcija fib, ki izra\v cuna Fibonaccijevo \v stevilo.
 
-\begin{lstlisting}
-# let rec fib n =
-    if n < 2 then 1 else fib(n-1) + fib(n-2);;
-val fib : int -> int = <fun>
-\end{lstlisting}
-Predstavi zaporedje aktivacijskih zapisov, ki se aktivirajo pri izvajanju funkcije fib 4.
-
-\begin{sol}
-\begin{lstlisting}
-fib(4) = fib(3) + fib(2)
-fib(3) = fib(2) + fib(1)
-fib(2) = fib(1) + fib(0)=1
-fib(2) = 1+0 = 1
-fib(3) = 1+1 = 2
-fib(4) = 2+1 = 3
-\end{lstlisting}
-\end{sol}
-
-\end{ex}
 \begin{ex}
 Dana je funkcija se\v stej : a' list -> int, ki se\v steje elemente danega seznama.
 
@@ -236,11 +261,12 @@ sestej [2;3] = 2+ 1=3
 sestej [1;2;3] = 1+ 3=4
 \end{lstlisting}
 \end{sol}
-
 \end{ex}
 
 
+
 \section{Seznami}
+
 
 \begin{ex}
 Napi\v si funkcijo sestej: \lstinline{int list -> int}, ki se\v steje elemente celo\v stevilskega seznama.
@@ -285,6 +311,7 @@ else unija t (h::l2)
 \end{sol}
 
 
+
 \end{ex}
 \begin{ex}
 Napi\v si funkcijo \lstinline{zdruzi : int list -> int list -> int list}, ki sprejeme urejena seznama kot parametra in vrne urejen seznam, ki vsebuje elemente obeh vhodnih seznamov.
@@ -309,6 +336,7 @@ else [c]@(zdruzi (a::b) d)
 \end{sol}
 
 
+
 \end{ex}
 \begin{ex}
 Napi\v si funkcijo \lstinline{zdruzi : int list -> int list -> int list}, ki zdru\v zi dva seznama v tretji seznam tako, da vzame najprej en element iz prvega seznama potem dva elementa iz drugega seznama in tako naprej dokler ne pride do konca enega izmed vhodnih seznamov. Preostanek nepraznega seznama se da na konec novega seznama.
@@ -328,10 +356,10 @@ et rec zdruzi (sez1,sez2) = match (sez1,sez2) with
 | (g1::r1,g2::g22::r2) -> g1::g2::g22:: zdruzi (r1,r2);;
 \end{lstlisting}
 \end{sol}
-
-
-
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v si funkcijo \lstinline{vecjeod : int list -> int -> int list}, ki dobi seznam in \v stevilo, vrne pa seznam, ki vsebuje samo elemente ve\v cje od podanega \v stevila.
 
@@ -349,6 +377,9 @@ let rec vecjeod sez n = match sez with
 \end{sol}
 
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v site funkcijo \lstinline{seznamnm : int -> int list}, ki izpi\v se seznam \v stevil od \v stevila n do m. Velja $n\le m$.
 
@@ -364,6 +395,8 @@ if n > m then []
 else n :: seznamnm (n+1) m;;
 \end{lstlisting}
 \end{sol}
+
+
 
 \end{ex}
 \begin{ex}
@@ -384,6 +417,9 @@ sez = List.rev sez
 \end{sol}
 
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v si funkcijo \lstinline{vsotaSodeLihe: int list -> int*int}, ki za dani seznam posebej se\v steje soda in liha \v stevila, ter vrne par, ki ima na prvem polo\v zaju vsoto lihih \v stevil, na drugem pa vsoto sodih \v stevil.
 
@@ -403,6 +439,8 @@ else
 (l, s+a)
 \end{lstlisting}
 \end{sol}
+
+
 
 \end{ex}
 \begin{ex}
@@ -425,6 +463,7 @@ let rec podseznam sez1 sez2 = match (sez1, sez2) with
 | _ -> false
 \end{lstlisting}
 \end{sol}
+
 
 
 \end{ex}
@@ -458,8 +497,10 @@ let rec cnta sez = match sez with
 | _::r -> 0 :: cnta r;;
 \end{lstlisting}
 \end{sol}
-
 \end{ex} 
+
+
+
 \begin{ex}
 Funkcijo za sortiranje seznama implementiraj na slede\v c na\v cin:
 
@@ -498,6 +539,9 @@ let ace sez = ace1 sez 0
 \end{sol}
 
 \end{ex}
+
+
+
 \begin{ex}
 Dan je seznam, ki vsebuje vrednosti 0 in 1. Napi\v si funkcijo, ki naredi naslednjo transformacijo na seznamu. Vse pojavitve vzorca 111 zamenja z vrednostjo 3, vse pojavitve vzorca 11 z vrednostjo 2 ter ohrani samostojne enice 1 in ni\v cle 0. 
 \begin{lstlisting}
@@ -523,10 +567,10 @@ let rec fja list = match list with
 else [2; c]@(fja d)
 \end{lstlisting}
 \end{sol}
-
-
-
 \end{ex}
+
+
+
 \begin{ex}
   Napi\v si funkcijo cikli : int -> int -> int, ki za klic cikli m n
   generira seznam n ciklov \v stevil od 0 do m-1.
@@ -550,6 +594,9 @@ let rec cikli m n = match n with
 \end{sol}
 
 \end{ex} 
+
+
+
 %----
 \begin{ex}
   \label{dnk-naloga}
@@ -565,9 +612,10 @@ let rec cikli m n = match n with
   Napi\v si funkcijo \lstinline{najpodniz : dnk list -> int*int}, ki
   poi\v s\v ce najdalj\v si podniz istih znakov tipa \lstinline{dnk} ter
   izpi\v se pozicijo prvega znaka in dol\v zino niza.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Dano imamo sekvenco DNK v obliki seznama znakov tipa \lstinline{dnk list},
   kjer je tip \lstinline{dnk} definiran kot v Nalogi \ref{dnk-naloga}.
@@ -582,9 +630,10 @@ let rec cikli m n = match n with
   # prestej [A;C;A;A;G;C;C];;
   val - : dnk*int list = [(A,1);(C,1);(A,2);(G,1);(C,2)]
   \end{lstlisting}
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Napi\v si funkcijo \lstinline{zamenjaj : int list -> int list}, ki v
   enem prehodu poi\v s\v ce v seznamu celih \v stevil vse zaporedne
@@ -592,9 +641,10 @@ let rec cikli m n = match n with
   redu (\lstinline{x<=y}) in jih obrne.
 
   Z uporabo funkcije \lstinline{zamenjaj} implementiraj sortiranje seznama.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Relacijo $\mathcal{R}$ predstavimo s seznamom parov celih \v
   stevil. Napi\v si funkcijo
@@ -608,9 +658,10 @@ let rec cikli m n = match n with
   \lstinline{razsiri} naj bo seznam, ki vsebuje vsa \v stevila \lstinline{x}
   za katera velja \lstinline{(e,x)}$\in\mathcal{R}$ za nek element e
   seznama \lstinline{s}.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Napi\v si funkcijo
 
@@ -620,7 +671,6 @@ let rec cikli m n = match n with
 
   ki zdru\v zi urejena seznama celih \v stevil tako, da je rezultat
   urejen in hkrati izlo\v ci ve\v ckratne ponovite elementov.
-
 
   \begin{sol}
   \begin{lstlisting}
@@ -634,8 +684,10 @@ let rec cikli m n = match n with
             else a::(zdruzi b d)
   \end{lstlisting}
   \end{sol}
-
 \end{ex} 
+
+
+
 \begin{ex}
   Dana je funkcija \lstinline{fib3}, ki je definirana na slede\v c na\v cin:
 \begin{lstlisting}
@@ -672,12 +724,17 @@ _ : int list = [1; 1; 1; 3; 5; 9]
 %note: not optimal. feel free to edit. I'm not planing on doing HM with this
 %\end{lstlisting}
 %\end{sol}
-
 \end{ex} 
+
+
+
 \begin{ex}
 Napi\v si funkcijo v Ocaml, ki za dani seznam celih \v stevil se\v steje soda in liha \v stevila, ter vrne par, ki ima na prvem mestu vsoto lihih \v stevil, na drugem pa vsoto sodih \v stevil.
 
 \end{ex} 
+
+
+
 \begin{ex}
   Seznam tipa (string*string) list predstavlja lete neke letalske
   dru\v zbe. Vsak par opi\v se direkten let med dvemi mesti. Napi\v si
@@ -695,9 +752,10 @@ povezava : (string*string) -> (string*string) list -> bool,
 
   Dodatne to\v cke: Naj povezava pomeni poljubno povezavo, ki je
   sestavljena iz poljubnega \v stevila vmesnih postankov.
-
-
 \end{ex} 
+
+
+
 \begin{ex}Naloga je sestavljena iz dveh delov.
 
   a) Definiraj tip plist, ki predstavi seznam parov. Prva komponenta
@@ -715,11 +773,14 @@ vapply : plist -> (string -> string) -> plist,
   Rezultat naj bo seznam parov kjer je druga komponenta vhodnih parov
   zamenjana z vrednostjo funkcije 
   \lstinline{string -> string}.
-
-
 \end{ex} 
 
+
+
+
 \section{Polimorfizem}
+
+
 
 \begin{ex}
 Napi\v si polimorfi\v cno funkcijo 
@@ -732,6 +793,9 @@ ki zdruzi dva enako dolga seznama poljubnih objektov, tako da zdru\v zi istole\v
 
 Napi\v si primer uporabe funkcije zdruzi nad seznamoma celih \v stevil. Zdru\v zitev dveh \v stevil implementiraj z obi\v cajno vsoto. 
 \end{ex}
+
+
+
 \begin{ex}
   Napi\v si polimorfi\v cno funkcijo
   \begin{lstlisting}
@@ -741,8 +805,10 @@ Napi\v si primer uporabe funkcije zdruzi nad seznamoma celih \v stevil. Zdru\v z
   vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je
   prva komponenta indeks in druga komponenta orginalna vrednost iz
   seznama.
-
 \end{ex} 
+
+
+
 \begin{ex}
 Tip ('a*'b) list opisuje seznam parov kjer je prva komponenta klju\v c tipa 'a in druga komponenta vrednost tipa 'b. 
 
@@ -757,9 +823,10 @@ Primer:
 meet [(1,2);(2,3);(4,5);(4,9)] [(2,4);(4,6)] -> 
      [(2,(3,4));(4,(5,6));(4,(9,6))]
 \end{lstlisting}
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Tip ('a*'b) list opisuje seznam parov, kjer je prva komponenta para
   klju\v c tipa 'a in druga komponenta vrednost tipa 'b.
@@ -780,6 +847,7 @@ diff [(1,2);(2,3);(4,5)];(5,6)] [(2,4);(4,6)] -> [(1,2);(5,6)]
 \end{lstlisting}
 
 
+
 \end{ex} 
 \begin{ex}
 Napi\v si parametri\v cno funkcijo 
@@ -790,8 +858,10 @@ ki iz danega seznama izlu\v s\v ci podseznam dolo\v cen z drugim parametrom funk
 kjer $z$ predstavlja indeks za\v cetka podseznama in $k$ indeks konca podseznama. 
 
 Predpostavimo, da je $z<k$ in $k<l$, kjer je $l$ dol\v zina vhodnega seznama. 
-
 \end{ex} 
+
+
+
 \begin{ex}
   Dan je seznam parov, ki vsebujejo klju\v c tipa 'k in vrednost tipa
   'v. Napi\v si funkcijo
@@ -809,10 +879,13 @@ Predpostavimo, da je $z<k$ in $k<l$, kjer je $l$ dol\v zina vhodnega seznama.
 - : int list = [1; 3] 
 
 \end{lstlisting}
-
 \end{ex} 
 
+
+
 \section{Funkcije vi\v sjega reda}
+
+
 
 \begin{ex}
 Napi\v si funkcijo vi\v sjega reda 
@@ -839,6 +912,9 @@ val f : int -> bool = <fun>
 - : int list = [3; 5]
 \end{lstlisting}
 \end{ex}
+
+
+
 %----
 \begin{ex}
   Napi\v si funkcijo vi\v sjega reda
@@ -858,9 +934,10 @@ val f : int -> bool = <fun>
   skrci f l = f i1 (f i2 f(...(f in-1 in)))
   \end{lstlisting}
   Predpostavi, da ima seznam \lstinline{l} vsaj dva elementa!
-
-
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v si funkcijo vi\v sjega reda 
 
@@ -882,10 +959,17 @@ Rezultat dobimo na slede\v c na\v cin:
 
 %\section{Implementacija funkcij} <-- merged with matematicne funkcije
 
-\section{Rekurzivne podatkovne strukture}
+
+
+
+
+\section{Rekurzivni tipi}
 %Rekurzivni tipi?
 
-\subsection{Seznami}
+
+
+
+
 \begin{ex}
 Dan imamo seznam, definiran z rekurzivnim podatkovnim tipom izraz. 
 \begin{lstlisting}
@@ -903,27 +987,11 @@ Primer:
 \end{lstlisting}
 
 \end{ex}
-%----n
-\begin{ex}
-  Dan je tip \lstinline{2seznam} s katerim je predstavljen dvojno povezan
-  seznam.
-
-  \begin{lstlisting}
-  type 2seznam = {
-     value: int;
-     mutable next: 2seznam;
-     mutable prev: 2seznam
-  } ;;
-  \end{lstlisting}
-
-  Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem
-  redu. Napi\v si funkcijo \lstinline{dodaj : 2seznam -> int -> 2seznam}
-  ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
 
 
-\end{ex} 
 
-\subsection{Drevesa}
+
+
 
 \begin{ex}
   Binarno drevo je definirano s tipom
@@ -937,16 +1005,11 @@ type bdrevo = List of int |
   poddrevo, $v$ pa je vrednost%, ki je za\v cetno $0$ za vsa notranja vozli\v s\v ca.
 .
   \begin{enumerate}[label=(\roman*)]
-  \item Napi\v si funkcijo
-    \begin{lstlisting}
-    prestej : bdrevo -> int, 
-\end{lstlisting}
+  \item Napi\v si funkcijo \lstinline{prestej : bdrevo -> int}, 
     ki vrne vsoto vrednosti podanih v listih vhodnega drevesa.
 
   \item Napi\v si funkcijo
-    \begin{lstlisting}
-    oznaci : bdrevo -> bdrevo,
-\end{lstlisting}
+    \lstinline{oznaci : bdrevo -> bdrevo,}
     ki drugo komponento vseh notranjih vozli\v s\v c izhodnega drevesa
     zamenja z vsoto vseh listov poddrevesa.
   \end{enumerate}
@@ -964,44 +1027,672 @@ let rec oznaci dr = match dr with
 | Drevo (d,f,g) -> Drevo (oznaci d, prestej dr ,oznaci g)
 \end{lstlisting}
 \end{sol}
+\end{ex}
 
+
+
+
+\begin{ex}
+  Binarno drevo je definirano s tipom itree, ki predstavlja binarno
+  drevo katerega vozli\v s\v ca vsebujejo vrednost tipa int.
+\begin{lstlisting}
+  type itree = Nil | Node of itree*int*itree;;
+\end{lstlisting}
+
+  Napi\v si funkcijo sumsub : itree -> itree, ki iz vhodnega drevesa
+  konstruira novo drevo, ki namesto originalnih vrednosti v voli\v s\v
+  cih vsebuje vsoto vrednosti vozli\v s\v c levega in desnega
+  pod-drevesa ter vrednosti danega vozli\v s\v ca.
+
+\noindent\/Primer:
+\begin{lstlisting}
+# sumsub Node(Node(Nil,3,Nil),5,Node(Nil,2,Node(Nil,1,Nil)));;
+_ : itree = Node(Node(Nil,3,Nil),11,Node(Nil,3,Node(Nil,1,Nil)))
+\end{lstlisting}
 \end{ex} 
-%----n
+
+
+
+
 \begin{ex}
-Dano je drevo, ki je definirano z naslednjim razredom.
+Dan je tip bdrevo, ki je definiran na naslednji na\v cin
 
 \begin{lstlisting}
-class Drevo {
-  int elm;
-  int vsota;
-  Drevo levo = null;
-  Drevo desno = null;
-}
+type bdrevo = Leaf of int | Node of bdrevo * int * bdrevo;;
 \end{lstlisting}
 
-a) Napi\v si metodo vsote(), ki v vsakem vozli\v s\v cu izra\v cuna vsoto vseh vozli\v s\v c poddrevesa.
+Napi\v si funkcijo bapply : bdrevo -> (int -> int) -> bdrevo, ki aplicira funkcijo (int -> int) na vseh vozli\v s\v cih drevesa.  
+\end{ex} 
 
-b) Izpi\v si korene poddreves s vsoto < 10.
 
 
+
+
+\begin{ex}
+Drevo je definirano z naslednjim tipom. 
+
+\begin{lstlisting}
+type bindrevo = List of int | Drevo of bindrevo * bindrevo ;; 
+\end{lstlisting}
+
+Napi\v si funkcijo izpis : bindrevo -> int -> unit, ki izpi\v se vse liste katerih vrednost je ve\v cja od drugega parametra. 
+\end{ex} 
+
+
+
+
+
+\begin{ex}
+  Drevo int\_tree je definirano na naslednji na\v cin.
+
+\begin{lstlisting}
+type int_tree = { mutable key:int; mutable trees: int_tree list}
+\end{lstlisting}
+
+  Napi\v si funkcijo vi\v sjega reda
+
+\begin{lstlisting}
+tree_filter : int_tree -> int -> int list.
+\end{lstlisting}
+
+  Funkcija vrne seznam vseh klju\v cev iz drevesa podanega s prvim
+  parametrim, ki so ve\v cji od vrednosti podane z drugim parametrom
+  funkcije.
+\end{ex} 
+
+
+
+
+
+\section{Parametrizirani tipi}
+
+
+
+
+%sez
+\begin{ex}
+Dan imamo seznam, definiran z naslednjim tipom. 
+\begin{lstlisting}
+type 'a seznam = 
+      Nil 
+    | Vrednost of 'a * 'a seznam;; 
+\end{lstlisting}
+
+Seznam je urejen v nara\v s\v cajo\v cem vrstnem redu glede na vrednost primerjalne funkcije primerjaj : 'a -> 'a -> int , ki vrne -1 \v ce je prvi parameter ve\v cji od drugega, 0 \v ce sta enaka in 1 v primeru, da je drugi parameter ve\v cji od prvega.
+
+Napi\v si parametri\v cno funkcijo:
+\begin{lstlisting}
+dodaj : 'a seznam -> ('a -> 'a -> int) -> 'a
+\end{lstlisting}
+kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija primerjaj in tretji parameter vrednost tipa 'a, ki jo dodajamo v seznam.
+\end{ex}
+
+
+
+
+\begin{ex}
+  Seznam definiramo z zapisom, ki ima dve komponenti: vrednost tipa
+  \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima še vsaj en element.
+
+  \begin{lstlisting}
+  type 'a element = { 
+     mutable vrednost:'a; 
+     mutable naslednji:'a seznam 
+  }
+  and 'a seznam = Prazen | Element of 'a element ;;
+  \end{lstlisting}
+
+  Napi\v si funkcijo \lstinline{podvoji : 'a seznam -> 'a seznam}, ki
+  podvoji vse vrednosti v seznamu.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Podatkovna struktura \lstinline{seznam} je definirana na naslednji na\v
+  cin.
+
+  \begin{lstlisting}
+  type 'a element = { 
+     mutable vrednost: 'a; 
+     mutable naslednji: 'a seznam 
+  }
+  and 'a seznam = Prazen | Element of 'a element ;;
+  \end{lstlisting}
+
+  Napi\v si funkcijo 
+  \lstinline{zdruzi : 'a seznam -> 'a seznam -> 'a seznam}, ki ima za argumenta dva seznama tipa \lstinline{'a seznam}.
+
+  \begin{enumerate}[label=(\roman*)]
+  \item Funkcija naj zdru\v zi seznama tako, da pove\v ze konec prvega
+    seznama z za\v cetkom drugega ter kot rezultat vrne za\v cetek prvega
+    seznama.
+
+  \item Funkcija naj zdru\v zi seznama tako, da naredi kopijo obeh
+    seznamov v novem seznamu, ki vsebuje na novo konstruirane
+    elemente.
+  \end{enumerate}
+\end{ex} 
+
+
+
+
+%drev
+\begin{ex}
+  Dan je tip \lstinline{grm}, ki je definiran na slede\v c na\v cin:
+
+\begin{lstlisting}
+type 'a grm = 
+    Nic 
+  | Ena of 'a * 'a grm 
+  | Dva of 'a grm * 'a * 'a grm;;
+\end{lstlisting}
+
+  Napi\v si funkcijo \lstinline{dolzinevej : 'a grm -> unit}, ki izpi\v
+  se dol\v zine vej grma po principu levo-v-globino.
+\end{ex} 
+
+
+
+
+\begin{ex} 
+  Podan je tip \lstinline{'a drevo} s katerim je predstavljeno binarno
+  drevo.
+
+  \begin{lstlisting}
+  type 'a drevo = { 
+      mutable levo:'a bin_drevo; 
+      mutable vozlisce:'a; 
+     mutable desno:'a bin_drevo 
+  } 
+  and 'a bin_drevo = Prazen | Vozlisce of 'a drevo ;;
+  \end{lstlisting}
+
+  Napi\v si funkcijo, ki izpi\v se vsa vozli\v s\v ca tretjega nivoja
+  drevesa, ki obstajajo v drevesu.
+\end{ex} 
+
+
+
+
+\begin{ex}
+Dano je drevo definirano z naslednjo podatkovno strukturo:
+
+\begin{lstlisting}
+	# type 'a tree = Empty | Node of 'a * 'a tree list ;;
+\end{lstlisting}
+Napi\v si funkcijo "prestej : 'a tree -> int" , ki pre\v steje vozli\v s\v ca drevesa.
+\end{ex}
+
+
+
+
+\begin{ex}
+Dana je definicija parametri\v cnega binarnega drevesa. Parameter tipa bindrevo je spremenljivka tipa 'a, ki predstavlja tip elementov v listih drevesa.
+
+\begin{lstlisting}
+	type 'a bindrevo = List of 'a | Drevo of 'a bindrevo * 'a bindrevo ;;
+\end{lstlisting}
+
+a) Napi\v si funkcijo izpis: 'a bindrevo -> ('a -> bool) -> unit, ki zpi\v se vse liste drevesa za katere vrne drugi parameter funkcije izpis -- funkcija tipa 'a -> bool -- vrednost true. 
+
+b) Napi\v si funkcijo obrni: 'a bindrevo -> 'a bindrevo, ki obrne vhodno drevo tako, da vsa leva poddrevesa zamenja z desnimi poddrevesi. 
+
+\end{ex}
+
+
+
+
+\begin{ex}
+Dano imamo splo\v sno planarno drevo, ki je predstavljeno z naslednjim tipom:
+
+\begin{lstlisting}
+	type 'a tree = Empty 
+               | Node of 'a * 'a tree list ;; 
+\end{lstlisting}
+Napi\v si funkcijo 
+\lstinline{filter :'a tree -> ('a -> bool) -> 'a tree}, 
+ki pome\v ce ven iz drevesa vsa poddrevesa s korenom za katerega vrne funkcija tipa 
+\lstinline{'a -> bool},
+podana kot drugi parameter, vrednost \lstinline{false}. Rezultat je torej novo drevo brez izbranih poddreves. 
+\end{ex}
+
+
+
+
+\begin{ex}
+  Dani so tip 'a izraz, ki predstavja aritmeti\v cne izraze nad
+  vrednostmi tipa \lstinline{'a}
+\begin{lstlisting}
+  type operacija = PLUS|MINUS;;
+  type 'a izraz = 'a | 'a izraz * operacija * 'a izraz;;
+\end{lstlisting}
+  ter funkciji 
+  \lstinline{plus :'a->'a->'a} in
+  \lstinline{minus :'a->'a->'a}, 
+  ki izra\v cunata vsoto in
+  razliko vrednosti tipa 'a.
+
+  Napi\v si funkcijo izracun : 'a izraz -> 'a, ki izra\v cuna vrednost
+  izraza tipa 'a izraz.
+
+\noindent\/Primer:
+\begin{lstlisting}
+# izracun (2,plus,(3,minus,1));;
+- : int = 4
+\end{lstlisting} 
+\end{ex} 
+
+
+
+
+
+%old
+\begin{ex}
+Napi\v si polimorfi\v cno rekurzivno funkcijo obrni: 'a array -> 'a array, ki obrne vsebino polja.
+
+Primer: 
+\begin{lstlisting}
+# obrni [|1;2;3|];;
+- : int array = [| 3; 2; 1 |]
+\end{lstlisting}
+
+\begin{sol}
+\begin{lstlisting}
+let obrni polje = let len=Array.length polje in
+for i=0 to (len/2) do 
+let temp = polje.(i) in
+polje.(i) <- polje.(len-i-1);
+polje.(len-i-1) <- temp 
+done;
+polje;;
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+S poljem \v zelimo implementirati parametri\v cno podatkovno strukturo minvrsta, ki hrani zadnjih n najmanj\v sih vrednosti vstavljenih v podatkovno strukturo. Podatkovno strukturo minvrsta definiramo na slede\v c na\v cin:
+
+\begin{lstlisting}
+# type 'a minvrsta = 'a array;; 
+type minvrsta = 'a array 
+\end{lstlisting}
+Z naslednjo funkcijo kreiramo primerek minvrsta.
+
+\begin{lstlisting}
+# let kreiraj n v = Array.create n v;;   
+val kreiraj : int -> int array = <fun> 
+# let a : int minvrsta = kreiraj 10 0;; 
+val a : int minvrsta = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|] 
+\end{lstlisting}
+Napi\v si parametri\v cno funkcijo dodaj : 'a -> 'a minvrsta -> unit, ki doda novo vrednost v polje. Paziti je potrebno, da polje vedno vsebuje n najmanj\v sih vrednosti.
+\end{ex}
+
+
+
+
+\begin{ex}
+Dano je drevo, ki vsebuje dve vrsti elementov. Definirano je z naslednjo podatkovno strukturo:
+
+
+\begin{lstlisting}
+	type ('a,'b) drevo = 
+     Prazno 
+   | Vozliscea of 'a * ('a,'b) drevo list;;  
+   | Vozlisceb of 'b * ('a,'b) drevo list;; 
+\end{lstlisting}
+Napi\v si funkcijo razcepi : ('a,'b) drevo -> 'a list * 'b list, ki prepi\v se vse elemente Vozliscea v prvi seznam in vse elemente Vozlisceb v drugi seznam.
+
+\begin{sol}
+\begin{lstlisting}
+let razcepi drevo =
+let a = ref[] in
+let b = ref[] in
+let rec raz dr = match dr with
+| Prazno ->(!a,!b)
+| Vozliscea(x,y) -> a := !a @ [x]; raz y
+| Vozlisceb(x,y) -> b := !b @ [x]; raz y
+in
+raz drevo;;
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+Naloga je sestavljena iz dveh delov:
+\begin{enumerate}
+    \item Definiraj parametri\v cno podatkovno strukturo 'a splosnoDrevo, kjer spremenljivka tipa 'a predstavlja tip vrednosti vozli\v s\v ca. Splo\v sno drevo ima poljubno \v stevilo poddreves. 
+    
+    \item Napi\v si funkcijo prestejOtroke : 'a splosnoDrevo -> int, ki izra\v cuna povpre\v cno \v stevilo otrok za vsa vozli\v s\v ca, ki niso listi drevesa.
+\end{enumerate}
+
+\end{ex}
+
+
+
+
+%----- nekateg.
+\begin{ex}
+  Definiraj parametriziran tip \lstinline{'a seznam} z uporabo zapisov!
+  Zapis naj ima dve komponenti: vrednost tipa \lstinline{'a} in kazalec na
+  naslednji zapis v seznamu oz. prazen seznam.
+
+  Napi\v si funkcijo \lstinline{dolzina : 'a seznam -> int}, ki
+  pre\v steje \v stevilo vrednosti v seznamu.
+\end{ex} 
+
+
+
+
+\begin{ex}
+Definiraj parametri\v cni tip \lstinline{slika}, ki predstavlja dvo dimenzionalno ra\v cunalni\v sko sliko z neznanim tipom elementov (pik) polja, ki ga ozna\v cimo z \lstinline{'a}.
+
+Napi\v si funkcijo vi\v sjega reda
+
+  \begin{lstlisting}
+  zdruzi : 'a slika -> 'a slika -> ('a->'a->'a) -> 'a slika,
+  \end{lstlisting}
+
+ki ima prva dva parametra sliki \lstinline{s1} in \lstinline{s2} ter tretji parameter funkcijo \lstinline{f : 'a->'a->'a}, ki zdru\v zi dve piki v eno piko. Funkcija \lstinline{zdruzi} zdru\v zi istole\v zne pike iz slik \lstinline{s1} in \lstinline{s2} z uporabo funkcije \lstinline{f}.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Dan je tip 'a struc definiran na naslednji na\v cin.
+\begin{lstlisting}
+  type 'a struc = 
+      Elm of 'a 
+    | Pair of 'a struc * 'a struc 
+    | Triple of 'a struc * 'a struc * 'a struc
+\end{lstlisting}
+  Napi\v si polimorfi\v cno funkcijo
+\begin{lstlisting}
+  smap : ('a->'b) -> ('a struc) -> ('b struc),
+\end{lstlisting}
+  ki aplicira funkcijo f dolo\v ceno s 1. parametrom na vseh komponentah Elm x, ki so del 2. parametra. Rezultat naj bo struktura tipa 'b struc.
+
+\noindent\/Primer:            
+\begin{lstlisting}
+# smap (function x -> x+1) 
+       (Triple (Pair (Elm 1, Elm 2),Elm 3, Elm 4));; 
+- : int struc = Triple (Pair (Elm 2, Elm 3), Elm 4, Elm 5) 
+\end{lstlisting}
+\end{ex} 
+
+
+
+
+\begin{ex}
+Dano imamo tabelo funkcij definirano z naslednjim tipom
+\begin{lstlisting}
+type 'a ftab = ('a->'a) array
+\end{lstlisting}
+
+Napi\v si funkcijo
+\begin{lstlisting}
+tapply : int*'a list -> 'a ftab -> 'a list.
+\end{lstlisting}
+
+Naj ima funkcija \lstinline{tapply l t} parameter l, ki je seznam parov oblike (i,a) in parameter t, ki je tabela funkcij. Funkcija \lstinline{tapply} pretvori l v seznam vrednosti, ki jih dobimo z aplikacijo funkcij t.(i) na a.
+\end{ex} 
+
+
+
+
+\begin{ex}
+Definiraj parametri\v cni tip slovar, ki vsebuje seznam parov. Prvi element parov naj vsebuje klju\v c tipa int in drugi element vsebuje vrednost poljubnega tipa.
+
+Napi\v si funkcijo 
+\begin{lstlisting}
+preberi : slovar -> int -> 'a, 
+\end{lstlisting}
+kjer 'a predstavlja tip druge komponente para v slovarju. Funkcija preberi vrne za dan klju\v c (2. parameter) iz slovarja (1. parameter) pripadajo\v co vrednost tipa 'a.
+\end{ex} 
+
+
+
+
+\begin{ex}
+Dan je tip drevo, ki je definiran na slede\v c na\v cin:
+
+\begin{lstlisting}
+# type 'a drevo =
+  List
+| Veja of  'a * 'a drevo
+| Rogovila of 'a drevo * 'a * 'a drevo;;
+\end{lstlisting}
+Napi\v si funkcijo \lstinline{dolzinevej : 'a drevo -> int list} , ki izpi\v se seznam globin listov drevesa po principu levo-v-globino. Pri tem velja, da je top vozli\v s\v ce na nivoju 0.
+
+Primer uporabe:
+
+\begin{lstlisting}
+# dolzinevej (Rogovila (Veja (4,List),6,
+              Rogovila (List,7,Veja (8,List))));;
+int list = [2;2;3]
+\end{lstlisting}
+\end{ex} 
+\begin{ex}
+Definiraj parametri\v cni tip \lstinline{key\_value}, ki predstavlja zapis z dvema komponentama, prva komponenta je klju\v c tipa 'a in druga komponenta je vrednost tipa 'b. 
+
+Na osnovi tipa \lstinline{key\_value} definiraj parametri\v cni tip slovar, ki je implementiran s poljem! 
+
+Dano imamo polimorfi\v cno funkcijo equal : 'a -> 'a -> bool, ki vrne true v primeru, da je prvi parameter enak drugemu in false sicer. 
+
+Napi\v si funkcijo duplikati : slovar -> slovar, ki iz slovarja odstrani vse duplikate. 
+\end{ex} 
+
+
+
+\begin{ex}
+Seznam imamo definiran na nasledni na\v cin. 
+\begin{lstlisting}
+# type 'a rnode = { mutable cont:'a; mutable next:'a rlist } 
+   and 'a rlist = Nil | Elm of 'a rnode;; 
+\end{lstlisting}
+Napi\v si funkcijo 
+\begin{lstlisting}
+p filter : 'a rlist -> ('a -> 'a -> bool) -> 'a rlist,
+\end{lstlisting}
+ ki vrne elemente seznama (1. parameter) za katere funkcija podana z 2. parametrom vrne vrednost true.
+Funkcijo filter napi\v si tako, da ohrani\v s kopije elementov, oz. tako, da se ne kreira nov seznam!
+\end{ex} 
+
+
+
+
+\begin{ex}
+Dano je drevo, ki vsebuje dve vrsti elementov in je definirano z naslednjo podatkovno strukturo:
+\begin{lstlisting}
+type ('a, 'b) tree = 
+  Nil
+| Nodea of 'a * ('a, 'b) tree list 
+| Nodeb of 'b * ('a, 'b) tree list;; 
+\end{lstlisting}
+Napi\v si funkcijo 
+
+\begin{lstlisting}
+razcepi: ('a,'b) drevo -> 'a list * 'b list, 
+\end{lstlisting}
+ki prepi\v se vse elemente Nodea v prvi seznam, ki postane prvi element vrnjenega para, in vse elemente Nodeb v drugi seznam, ki postane drugi element vrnjenega para.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Splo\v sno drevo 'a tree je definirano na naslednji na\v cin.
+
+\begin{lstlisting}
+type 'a tree = { mutable key:'a; mutable trees: 'a tree }
+\end{lstlisting}
+
+  Napi\v si funkcijo tree\_apply : 'a tree -> ('a -> 'b) -> 'b
+  tree. Klju\v ci vozli\v s\v c vhodnega drevesa se zamenjajo z
+  vrednostmi funkcije (definirane z drugim parametrom) aplicirane na
+  klju\v cu vozli\v s\v ca.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Naloga je sestavljena iz dveh delov:
+
+\begin{itemize}
+\item Definiraj parametri\v cni tip ('a,'b) key\_val, ki predstavlja
+  zapis z dvema imenovanima komponentama:
+  \begin{itemize}
+  \item komponente key tipa 'a in
+  \item komponente value tipa 'b.
+  \end{itemize}
+\item Napi\v si polimorfi\v cno funkcijo vi\v sjega reda
+
+\begin{lstlisting}
+array_filter : ('a,'b) key_val array -> ('a -> bool) ->  ('a,'b) key_val array
+\end{lstlisting}
+
+  ki iz polja podanega s prvim parametrom prepi\v se v kon\v cno polje
+  samo tiste zapise s klju\v cem tipa 'a, za katere funkcija podana z
+  drugim parametrom vrne true. \end{itemize}
+\end{ex}
+
+
+
+
+
+\section{Unije}
+
+
+
+
+\begin{ex}
+Dan imamo tip 
+
+\begin{lstlisting}
+	type geo_objekt = Tocka | Premica | Krog | Trikotnik 
+\end{lstlisting}
+in seznam geometrijskih objektov, npr.
+
+\begin{lstlisting}
+	let gl: geo_objekt list =  [ Tocka; Tocka; Premica; Krog; Krog; ... ] 
+\end{lstlisting}
+
+Napi\v si funkcijo, ki pre\v steje \v stevilo pojavitev posameznega geometrijskega objekta v seznamu:
+
+\begin{lstlisting}
+	val prestej: geo_objekt list -> 
+                 geo_objekt -> int = <fun>
+\end{lstlisting}
+
+\begin{sol}
+\begin{lstlisting}
+let rec prestej sez geo_objekt= match sez with
+| [] -> 0
+| hd::tl -> if(hd = geo_objekt)then 1 + (prestej tl geo_objekt) else prestej tl geo_objekt;;
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+Definiraj podatkovne strukture v Ocaml, ki predstavijo karte Bri\v skole ali neke druge igre s kartami, ki jo dobro pozna\v s.
 
 \end{ex}
 \begin{ex}
-Dano je drevo, ki je definirano z naslednjim razredom.
-
+Seznam vrednosti in operacij je definiran s tipom formula: 
 \begin{lstlisting}
-class Drevo {
- int elm;
- int vsota;
- Drevo levo = null;
- Drevo desno = null;
- }
+# type oper = PLUS | MINUS;; 
+type oper = PLUS | MINUS 
+# type elm = LP | RP | Vr of int | Op of oper;; 
+type elm = LP | RP | Vr of int | Op of oper 
+# type formula = Nil | Form of elm * formula;; 
+type formula = Nil | Form of elm * formula 
 \end{lstlisting}
 
-Napi\v si metodo preveriUrejenost(), ki preveri ali je dano drevo urejeno: za dano vozli\v s\v ce so vsa vozli\v s\v ca levega pod-drevesa manj\v sa od korena in vozli\v s\v ca desnega poddervesa ve\v cja od korena. 
-
-Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, \v ce ima\v s dano metodo za vstavljanje v urejeno drevo?
+Napi\v si funkcijo izpis : formula -> unit, ki izpi\v se formulo. Predpostavljamo, da je formula podana v pravilni obliki.
 \end{ex}
+
+
+
+
+\begin{ex}
+Seznam vrednosti in operacij je definiran s tipom formula: 
+
+\begin{lstlisting}
+# type oper = PLUS | MINUS;; 
+type oper = PLUS | MINUS 
+# type elm = Vr of int | Op of oper;; 
+type elm = Vr of int | Op of oper 
+# type formula = Nil | Form of elm * formula;; 
+type formula = Nil | Form of elm * formula 
+\end{lstlisting}
+
+Primer: 
+\begin{lstlisting}
+# let s = Form(Vr(1),Form(Op(PLUS),Form(Vr(5),Form(Op(MINUS),Form(Vr(3),Nil)))));;
+val s : formula = Form (Vr 1, Form (Op PLUS, Form (Vr 5, Form (Op MINUS, Form (Vr 3, Nil))))) 
+\end{lstlisting}
+Vrednost formule s predstavlja izraz $1+5-3$. 
+
+Napi\v si funkcijo izracunaj : formula -> int, ki izra\v cuna vrednost seznama. Predpostavljamo, da je formula podana v pravilni obliki.
+\end{ex}
+
+
+
+\begin{ex}
+Definiraj podatkovni tip \lstinline{simplKarta} s katerim predstavimo enostavne igralne karte. 
+\begin{enumerate}
+\item Imamo \v stiri vrste kart: kraljica, kralj, fant in punca. 
+\item Karte imajo \v stiri barve: srce, kara, pik in kri\v z. 
+\item Pri definiciji tipa \lstinline{simplKarta} uporabi unijo!
+\end{enumerate}
+
+Definiraj seznam kart tipa simplKarta, ki vsebuje naslednje karte: sr\v cevo punco, kri\v zevega kralja in pikovega fanta. 
+
+\begin{sol}
+\begin{lstlisting}
+type vrstaKarte = Kraljica | Kralj | Fant | Punca
+type barvaKarte = Srce | Kara | Pik | Kriz
+type simplKarta = Vrsta of vrstaKarte*barvaKarte
+let seznamKart = [(Punca,Srce);(Kralj,Kriz);(Fant,Pik)]
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}Naloga je sestavljena iz dveh delov:
+
+a) Z uporabo unije definiraj tip 'a element, ki predstavi elemente naslednjih oblik:
+\begin{lstlisting}
+1. elemente tipa 'a ali
+2. sezname elementov tipa 'a element.
+\end{lstlisting}
+    Primer elementa: 
+\begin{lstlisting}
+val a : int element = L [E 1; E 2; L [E 3; E 4]]
+\end{lstlisting}
+
+b) Napi\v si funkcijo print : 'a element -> unit, ki izpi\v se elemente po pravilu                          
+    najprej-levo-v-globino.
+\end{ex} 
+
+
+
+
+
 \begin{ex}
    Izrazi zelo enostavnega jezika \lstinline{TP} so sestavljeni iz
    vrednosti med katerimi so postavljene operaciji \lstinline{TIMES} ali
@@ -1032,38 +1723,11 @@ type expr = list element
    \item Napi\v si funkcijo \lstinline{calc : expr -> int}, ki izra\v
      cuna vrednost izraza.
    \end{enumerate}
-
-
 \end{ex}
-\begin{ex}
-  Binarno drevo je definirano s tipom itree, ki predstavlja binarno
-  drevo katerega vozli\v s\v ca vsebujejo vrednost tipa int.
-\begin{lstlisting}
-  type itree = Nil | Node of itree*int*itree;;
-\end{lstlisting}
-
-  Napi\v si funkcijo sumsub : itree -> itree, ki iz vhodnega drevesa
-  konstruira novo drevo, ki namesto originalnih vrednosti v voli\v s\v
-  cih vsebuje vsoto vrednosti vozli\v s\v c levega in desnega
-  pod-drevesa ter vrednosti danega vozli\v s\v ca.
-
-\noindent\/Primer:
-\begin{lstlisting}
-# sumsub Node(Node(Nil,3,Nil),5,Node(Nil,2,Node(Nil,1,Nil)));;
-_ : itree = Node(Node(Nil,3,Nil),11,Node(Nil,3,Node(Nil,1,Nil)))
-\end{lstlisting}
 
 
-\end{ex} 
-\begin{ex}
-Dan je tip bdrevo, ki je definiran na naslednji na\v cin
-
-type bdrevo = Leaf of int | Node of bdrevo * int * bdrevo;;
-
-Napi\v si funkcijo bapply : bdrevo -> (int -> int) -> bdrevo, ki aplicira funkcijo (int -> int) na vseh vozli\v s\v cih drevesa.  
 
 
-\end{ex} 
 \begin{ex}
 Izrazi enostavnega jezika z imenom TP vsebujejo cela \v stevila ter operaciji PLUS in TIMES. Predpostavimo, da imata operaciji isto prioriteto. Naslednji izraz
 \begin{lstlisting}
@@ -1081,20 +1745,12 @@ type expr = list element
 
 \end{lstlisting}
 Napi\v si funkcijo calc : expr -> int, ki izra\v cuna vrednost danega izraza.  
-
-
 \end{ex} 
-\begin{ex}
-Drevo je definirano z naslednjim tipom. 
-
-\begin{lstlisting}
-type bindrevo = List of int | Drevo of bindrevo * bindrevo ;; 
-\end{lstlisting}
-
-Napi\v si funkcijo izpis : bindrevo -> int -> unit, ki izpi\v se vse liste katerih vrednost je ve\v cja od drugega parametra. 
 
 
-\end{ex} 
+
+
+
 \begin{ex}
 Boolovi izrazi so predstavljeni z naslednjim rekurzivnim tipom.   
 
@@ -1114,582 +1770,35 @@ eval : bool_exp -> bool,
 
 ki evaluira boolov izraz v vrednost.   
 
-Dodatna naloga: Napi\v si funkcijo, ki izpi\v se pravilnostno tabelo
-za dan boolov izraz.
-
-
+Dodatna naloga: Napi\v si funkcijo, ki izpi\v se pravilnostno tabelo za dan boolov izraz.
 \end{ex} 
+
+
+
+
 \begin{ex}
-  Tip text definira predstavitev teksta v urejevalniku
-  besedil. Primerek tipa text je sestavljen iz vrstic, ki so
-  sestavljene iz besed.
+Tip text definira predstavitev teksta v urejevalniku besedil. Primerek tipa text je sestavljen iz vrstic, ki so sestavljene iz besed.
 
 \begin{lstlisting}
 type text = Eot | Line of line * text
 and line = Eol | Word of string * line
 \end{lstlisting}
 
-  Napi\v si funkcijo search : text -> line -> bool, ki vrne true, \v
-  ce je sekvenca besed definirana z drugim parametrom pod-sekvenca v
-  tekstu, ki je podan kot prvi parameter. Predostavimo, da je iskana
-  sekvenca vedno v eni vrstici.
-
-
-\end{ex} 
-\begin{ex}
-  Drevo int\_tree je definirano na naslednji na\v cin.
-
-\begin{lstlisting}
-type int_tree = { mutable key:int; mutable trees: int_tree list}
-\end{lstlisting}
-
-  Napi\v si funkcijo vi\v sjega reda
-
-\begin{lstlisting}
-tree_filter : int_tree -> int -> int list.
-\end{lstlisting}
-
-  Funkcija vrne seznam vseh klju\v cev iz drevesa podanega s prvim
-  parametrim, ki so ve\v cji od vrednosti podane z drugim parametrom
-  funkcije.
-
-
+Napi\v si funkcijo search : text -> line -> bool, ki vrne true, \v ce je sekvenca besed definirana z drugim parametrom pod-sekvenca v tekstu, ki je podan kot prvi parameter. Predostavimo, da je iskana sekvenca vedno v eni vrstici.
 \end{ex} 
 
-\section{Parametrizirani tipi}
-%sez
-\begin{ex}
-Dan imamo seznam, definiran z naslednjim tipom. 
-\begin{lstlisting}
-type 'a seznam = 
-      Nil 
-    | Vrednost of 'a * 'a seznam;; 
-\end{lstlisting}
 
-Seznam je urejen v nara\v s\v cajo\v cem vrstnem redu glede na vrednost primerjalne funkcije primerjaj : 'a -> 'a -> int , ki vrne -1 \v ce je prvi parameter ve\v cji od drugega, 0 \v ce sta enaka in 1 v primeru, da je drugi parameter ve\v cji od prvega.
 
-Napi\v si parametri\v cno funkcijo:
-\begin{lstlisting}
-dodaj : 'a seznam -> ('a -> 'a -> int) -> 'a
-\end{lstlisting}
-kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija primerjaj in tretji parameter vrednost tipa 'a, ki jo dodajamo v seznam.
 
 
-
-\end{ex}
-\begin{ex}
-  Seznam definiramo z zapisom, ki ima dve komponenti: vrednost tipa
-  \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima še vsaj en element.
-
-  \begin{lstlisting}
-  type 'a element = { 
-     mutable vrednost:'a; 
-     mutable naslednji:'a seznam 
-  }
-  and 'a seznam = Prazen | Element of 'a element ;;
-  \end{lstlisting}
-
-  Napi\v si funkcijo \lstinline{podvoji : 'a seznam -> 'a seznam}, ki
-  podvoji vse vrednosti v seznamu.
-
-
-\end{ex} 
-\begin{ex}
-  Podatkovna struktura \lstinline{seznam} je definirana na naslednji na\v
-  cin.
-
-  \begin{lstlisting}
-  type 'a element = { 
-     mutable vrednost: 'a; 
-     mutable naslednji: 'a seznam 
-  }
-  and 'a seznam = Prazen | Element of 'a element ;;
-  \end{lstlisting}
-
-  Napi\v si funkcijo 
-  \lstinline{zdruzi : 'a seznam -> 'a seznam -> 'a seznam}, ki ima za argumenta dva seznama tipa \lstinline{'a seznam}.
-
-  \begin{enumerate}[label=(\roman*)]
-  \item Funkcija naj zdru\v zi seznama tako, da pove\v ze konec prvega
-    seznama z za\v cetkom drugega ter kot rezultat vrne za\v cetek prvega
-    seznama.
-
-  \item Funkcija naj zdru\v zi seznama tako, da naredi kopijo obeh
-    seznamov v novem seznamu, ki vsebuje na novo konstruirane
-    elemente.
-  \end{enumerate}
-
-
-\end{ex} 
-%drev
-\begin{ex}
-  Dan je tip \lstinline{grm}, ki je definiran na slede\v c na\v cin:
-
-\begin{lstlisting}
-type 'a grm = 
-    Nic 
-  | Ena of 'a * 'a grm 
-  | Dva of 'a grm * 'a * 'a grm;;
-\end{lstlisting}
-
-  Napi\v si funkcijo \lstinline{dolzinevej : 'a grm -> unit}, ki izpi\v
-  se dol\v zine vej grma po principu levo-v-globino.
-
-
-\end{ex} 
-\begin{ex} 
-  Podan je tip \lstinline{'a drevo} s katerim je predstavljeno binarno
-  drevo.
-
-  \begin{lstlisting}
-  type 'a drevo = { 
-      mutable levo:'a bin_drevo; 
-      mutable vozlisce:'a; 
-     mutable desno:'a bin_drevo 
-  } 
-  and 'a bin_drevo = Prazen | Vozlisce of 'a drevo ;;
-  \end{lstlisting}
-
-  Napi\v si funkcijo, ki izpi\v se vsa vozli\v s\v ca tretjega nivoja
-  drevesa, ki obstajajo v drevesu.
-
-
-\end{ex} 
-\begin{ex}
-Dano je drevo definirano z naslednjo podatkovno strukturo:
-
-\begin{lstlisting}
-	# type 'a tree = Empty | Node of 'a * 'a tree list ;;
-\end{lstlisting}
-Napi\v si funkcijo "prestej : 'a tree -> int" , ki pre\v steje vozli\v s\v ca drevesa.
-
-
-
-\end{ex}
-\begin{ex}
-Dana je definicija parametri\v cnega binarnega drevesa. Parameter tipa bindrevo je spremenljivka tipa 'a, ki predstavlja tip elementov v listih drevesa.
-
-\begin{lstlisting}
-	type 'a bindrevo = List of 'a | Drevo of 'a bindrevo * 'a bindrevo ;;
-\end{lstlisting}
-
-a) Napi\v si funkcijo izpis: 'a bindrevo -> ('a -> bool) -> unit, ki zpi\v se vse liste drevesa za katere vrne drugi parameter funkcije izpis -- funkcija tipa 'a -> bool -- vrednost true. 
-
-b) Napi\v si funkcijo obrni: 'a bindrevo -> 'a bindrevo, ki obrne vhodno drevo tako, da vsa leva poddrevesa zamenja z desnimi poddrevesi. 
-
-\end{ex}
-\begin{ex}
-Dano imamo splo\v sno planarno drevo, ki je predstavljeno z naslednjim tipom:
-
-\begin{lstlisting}
-	type 'a tree = Empty 
-               | Node of 'a * 'a tree list ;; 
-\end{lstlisting}
-Napi\v si funkcijo 
-\lstinline{filter :'a tree -> ('a -> bool) -> 'a tree}, 
-ki pome\v ce ven iz drevesa vsa poddrevesa s korenom za katerega vrne funkcija tipa 
-\lstinline{'a -> bool},
-podana kot drugi parameter, vrednost \lstinline{false}. Rezultat je torej novo drevo brez izbranih poddreves. 
-\end{ex}
-\begin{ex}
-  Dani so tip 'a izraz, ki predstavja aritmeti\v cne izraze nad
-  vrednostmi tipa \lstinline{'a}
-\begin{lstlisting}
-  type operacija = PLUS|MINUS;;
-  type 'a izraz = 'a | 'a izraz * operacija * 'a izraz;;
-\end{lstlisting}
-  ter funkciji 
-  \lstinline{plus :'a->'a->'a} in
-  \lstinline{minus :'a->'a->'a}, 
-  ki izra\v cunata vsoto in
-  razliko vrednosti tipa 'a.
-
-  Napi\v si funkcijo izracun : 'a izraz -> 'a, ki izra\v cuna vrednost
-  izraza tipa 'a izraz.
-
-\noindent\/Primer:
-\begin{lstlisting}
-# izracun (2,plus,(3,minus,1));;
-- : int = 4
-\end{lstlisting} 
-
-\end{ex} 
-
-%old
-\begin{ex}
-Napi\v si polimorfi\v cno rekurzivno funkcijo obrni: 'a array -> 'a array, ki obrne vsebino polja.
-
-Primer: 
-\begin{lstlisting}
-# obrni [|1;2;3|];;
-- : int array = [| 3; 2; 1 |]
-\end{lstlisting}
-
-\begin{sol}
-\begin{lstlisting}
-let obrni polje = let len=Array.length polje in
-for i=0 to (len/2) do 
-let temp = polje.(i) in
-polje.(i) <- polje.(len-i-1);
-polje.(len-i-1) <- temp 
-done;
-polje;;
-\end{lstlisting}
-\end{sol}
-
-\end{ex}
-\begin{ex}
-S poljem \v zelimo implementirati parametri\v cno podatkovno strukturo minvrsta, ki hrani zadnjih n najmanj\v sih vrednosti vstavljenih v podatkovno strukturo. Podatkovno strukturo minvrsta definiramo na slede\v c na\v cin:
-
-\begin{lstlisting}
-# type 'a minvrsta = 'a array;; 
-type minvrsta = 'a array 
-\end{lstlisting}
-Z naslednjo funkcijo kreiramo primerek minvrsta.
-
-\begin{lstlisting}
-# let kreiraj n v = Array.create n v;;   
-val kreiraj : int -> int array = <fun> 
-# let a : int minvrsta = kreiraj 10 0;; 
-val a : int minvrsta = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|] 
-\end{lstlisting}
-Napi\v si parametri\v cno funkcijo dodaj : 'a -> 'a minvrsta -> unit, ki doda novo vrednost v polje. Paziti je potrebno, da polje vedno vsebuje n najmanj\v sih vrednosti.
-\end{ex}
-\begin{ex}
-Dano je drevo, ki vsebuje dve vrsti elementov. Definirano je z naslednjo podatkovno strukturo:
-
-
-\begin{lstlisting}
-	type ('a,'b) drevo = 
-     Prazno 
-   | Vozliscea of 'a * ('a,'b) drevo list;;  
-   | Vozlisceb of 'b * ('a,'b) drevo list;; 
-\end{lstlisting}
-Napi\v si funkcijo razcepi : ('a,'b) drevo -> 'a list * 'b list, ki prepi\v se vse elemente Vozliscea v prvi seznam in vse elemente Vozlisceb v drugi seznam.
-
-\begin{sol}
-\begin{lstlisting}
-let razcepi drevo =
-let a = ref[] in
-let b = ref[] in
-let rec raz dr = match dr with
-| Prazno ->(!a,!b)
-| Vozliscea(x,y) -> a := !a @ [x]; raz y
-| Vozlisceb(x,y) -> b := !b @ [x]; raz y
-in
-raz drevo;;
-\end{lstlisting}
-\end{sol}
-
-\end{ex}
-\begin{ex}
-Naloga je sestavljena iz dveh delov:
-\begin{enumerate}
-    \item Definiraj parametri\v cno podatkovno strukturo 'a splosnoDrevo, kjer spremenljivka tipa 'a predstavlja tip vrednosti vozli\v s\v ca. Splo\v sno drevo ima poljubno \v stevilo poddreves. 
-    
-    \item Napi\v si funkcijo prestejOtroke : 'a splosnoDrevo -> int, ki izra\v cuna povpre\v cno \v stevilo otrok za vsa vozli\v s\v ca, ki niso listi drevesa.
-\end{enumerate}
-
-\end{ex}
-%----- nekateg.
-\begin{ex}
-  Definiraj parametriziran tip \lstinline{'a seznam} z uporabo zapisov!
-  Zapis naj ima dve komponenti: vrednost tipa \lstinline{'a} in kazalec na
-  naslednji zapis v seznamu oz. prazen seznam.
-
-  Napi\v si funkcijo \lstinline{dolzina : 'a seznam -> int}, ki
-  pre\v steje \v stevilo vrednosti v seznamu.
-
-
-\end{ex} 
-\begin{ex}
-  Definiraj parametri\v cni tip \lstinline{slika}, ki predstavlja
-  dvo dimenzionalno ra\v cunalni\v sko sliko z neznanim tipom
-  elementov (pik) polja, ki ga ozna\v cimo z \lstinline{'a}.
-
-  Napi\v si funkcijo vi\v sjega reda
-
-  \begin{lstlisting}
-  zdruzi : 'a slika -> 'a slika -> ('a->'a->'a) -> 'a slika,
-  \end{lstlisting}
-  ki ima prva dva parametra sliki \lstinline{s1} in \lstinline{s2} ter
-  tretji parameter funkcijo \lstinline{f : 'a->'a->'a}, ki zdru\v zi dve
-  piki v eno piko. Funkcija \lstinline{zdruzi} zdru\v zi istole\v zne
-  pike iz slik \lstinline{s1} in \lstinline{s2} z uporabo funkcije
-  \lstinline{f}.
-
-
-\end{ex} 
-\begin{ex}
-  Dan je tip 'a struc definiran na naslednji na\v cin.
-\begin{lstlisting}
-  type 'a struc = 
-      Elm of 'a 
-    | Pair of 'a struc * 'a struc 
-    | Triple of 'a struc * 'a struc * 'a struc
-\end{lstlisting}
-  Napi\v si polimorfi\v cno funkcijo
-\begin{lstlisting}
-  smap : ('a->'b) -> ('a struc) -> ('b struc),
-\end{lstlisting}
-  ki aplicira funkcijo f dolo\v ceno s 1. parametrom na vseh
-  komponentah Elm x, ki so del 2. parametra. Rezultat naj bo struktura
-  tipa 'b struc.
-
-\noindent\/Primer:            
-\begin{lstlisting}
-# smap (function x -> x+1) 
-       (Triple (Pair (Elm 1, Elm 2),Elm 3, Elm 4));; 
-- : int struc = Triple (Pair (Elm 2, Elm 3), Elm 4, Elm 5) 
-\end{lstlisting}
-
-\end{ex} 
-\begin{ex}
-  Dano imamo tabelo funkcij definirano z naslednjim tipom
-\begin{lstlisting}
-  type 'a ftab = ('a->'a) array
-\end{lstlisting}
-  Napi\v si funkcijo
-\begin{lstlisting}
-  tapply : int*'a list -> 'a ftab -> 'a list.
-\end{lstlisting}
-  Naj ima funkcija \lstinline{tapply l t} parameter l, ki je seznam parov oblike
-  (i,a) in parameter t, ki je tabela funkcij. Funkcija \lstinline{tapply} pretvori
-  l v seznam vrednosti, ki jih dobimo z aplikacijo funkcij t.(i) na a.
-
-
-\end{ex} 
-\begin{ex}
-Naloga je sestavljena iz dveh delov.
-\begin{enumerate}
-    \item Definiraj parametri\v cni tip slovar, ki vsebuje seznam parov. Prvi element parov naj vsebuje klju\v c tipa int in drugi element vsebuje vrednost poljubnega tipa.
-    \item Napi\v si funkcijo 
-\begin{lstlisting}
-preberi : slovar -> int -> 'a, 
-\end{lstlisting}
-kjer 'a predstavlja tip druge komponente para v slovarju. Funkcija preberi vrne za dan klju\v c (2. parameter) iz slovarja (1. parameter) pripadajo\v co vrednost tipa 'a.
-\end{enumerate}
-\end{ex} 
-\begin{ex}
-Dan je tip drevo, ki je definiran na slede\v c na\v cin:
-
-\begin{lstlisting}
-# type 'a drevo =
-  List
-| Veja of  'a * 'a drevo
-| Rogovila of 'a drevo * 'a * 'a drevo;;
-\end{lstlisting}
-Napi\v si funkcijo dolzinevej : 'a drevo -> int list , ki izpi\v se seznam globin listov drevesa po principu levo-v-globino. Pri tem velja, da je top vozli\v s\v ce na nivoju 0.
-
-Primer uporabe:
-
-\begin{lstlisting}
-# dolzinevej (Rogovila (Veja (4,List),6,
-              Rogovila (List,7,Veja (8,List))));;
-−: int list = [2;2;3]
-\end{lstlisting}
-\end{ex} 
-\begin{ex}
-Definiraj parametri\v cni tip \lstinline{key\_value}, ki predstavlja zapis z dvema komponentama, prva komponenta je klju\v c tipa 'a in druga komponenta je vrednost tipa 'b. 
-
-Na osnovi tipa \lstinline{key\_value} definiraj parametri\v cni tip slovar, ki je implementiran s poljem! 
-
-Dano imamo polimorfi\v cno funkcijo equal : 'a -> 'a -> bool, ki vrne true v primeru, da je prvi parameter enak drugemu in false sicer. 
-
-Napi\v si funkcijo duplikati : slovar -> slovar, ki iz slovarja odstrani vse duplikate. 
-
-
-\end{ex} 
-\begin{ex}
-Seznam imamo definiran na nasledni na\v cin. 
-\begin{lstlisting}
-# type 'a rnode = { mutable cont:'a; mutable next:'a rlist } 
-   and 'a rlist = Nil | Elm of 'a rnode;; 
-\end{lstlisting}
-Napi\v si funkcijo 
-\begin{lstlisting}
-p filter : 'a rlist -> ('a -> 'a -> bool) -> 'a rlist,
-\end{lstlisting}
- ki vrne elemente seznama (1. parameter) za katere funkcija podana z 2. parametrom vrne vrednost true.
-Funkcijo filter napi\v si tako, da ohrani\v s kopije elementov, oz. tako, da se ne kreira nov seznam!
-
-
-\end{ex} 
-\begin{ex}
-Dano je drevo, ki vsebuje dve vrsti elementov in je definirano z naslednjo podatkovno strukturo:
-\begin{lstlisting}
-type ('a, 'b) tree = 
-  Nil
-| Nodea of 'a * ('a, 'b) tree list 
-| Nodeb of 'b * ('a, 'b) tree list;; 
-\end{lstlisting}
-Napi\v si funkcijo 
-
-\begin{lstlisting}
-razcepi: ('a,'b) drevo -> 'a list * 'b list, 
-\end{lstlisting}
-ki prepi\v se vse elemente Nodea v prvi seznam, ki postane prvi element vrnjenega para, in vse elemente Nodeb v drugi seznam, ki postane drugi element vrnjenega para.
-
-
-\end{ex} 
-\begin{ex}
-  Splo\v sno drevo 'a tree je definirano na naslednji na\v cin.
-
-\begin{lstlisting}
-type 'a tree = { mutable key:'a; mutable trees: 'a tree }
-\end{lstlisting}
-
-  Napi\v si funkcijo tree\_apply : 'a tree -> ('a -> 'b) -> 'b
-  tree. Klju\v ci vozli\v s\v c vhodnega drevesa se zamenjajo z
-  vrednostmi funkcije (definirane z drugim parametrom) aplicirane na
-  klju\v cu vozli\v s\v ca.
-
-\end{ex} 
-\begin{ex}
-  Naloga je sestavljena iz dveh delov:
-
-\begin{itemize}
-\item Definiraj parametri\v cni tip ('a,'b) key\_val, ki predstavlja
-  zapis z dvema imenovanima komponentama:
-  \begin{itemize}
-  \item komponente key tipa 'a in
-  \item komponente value tipa 'b.
-  \end{itemize}
-\item Napi\v si polimorfi\v cno funkcijo vi\v sjega reda
-
-\begin{lstlisting}
-array_filter : ('a,'b) key_val array -> ('a -> bool) ->  ('a,'b) key_val array
-\end{lstlisting}
-
-  ki iz polja podanega s prvim parametrom prepi\v se v kon\v cno polje
-  samo tiste zapise s klju\v cem tipa 'a, za katere funkcija podana z
-  drugim parametrom vrne true. \end{itemize}
-
-
-
-\end{ex}
-
-
-\section{Unije}
-
-\begin{ex}
-Dan imamo tip 
-
-\begin{lstlisting}
-	type geo_objekt = Tocka | Premica | Krog | Trikotnik 
-\end{lstlisting}
-in seznam geometrijskih objektov, npr.
-
-\begin{lstlisting}
-	let gl: geo_objekt list =  [ Tocka; Tocka; Premica; Krog; Krog; ... ] 
-\end{lstlisting}
-
-Napi\v si funkcijo, ki pre\v steje \v stevilo pojavitev posameznega geometrijskega objekta v seznamu:
-
-\begin{lstlisting}
-	val prestej: geo_objekt list -> 
-                 geo_objekt -> int = <fun>
-\end{lstlisting}
-
-\begin{sol}
-\begin{lstlisting}
-let rec prestej sez geo_objekt= match sez with
-| [] -> 0
-| hd::tl -> if(hd = geo_objekt)then 1 + (prestej tl geo_objekt) else prestej tl geo_objekt;;
-\end{lstlisting}
-\end{sol}
-
-\end{ex}
-\begin{ex}
-Definiraj podatkovne strukture v Ocaml, ki predstavijo karte Bri\v skole ali neke druge igre s kartami, ki jo dobro pozna\v s.
-
-
-
-\end{ex}
-\begin{ex}
-Seznam vrednosti in operacij je definiran s tipom formula: 
-\begin{lstlisting}
-# type oper = PLUS | MINUS;; 
-type oper = PLUS | MINUS 
-# type elm = LP | RP | Vr of int | Op of oper;; 
-type elm = LP | RP | Vr of int | Op of oper 
-# type formula = Nil | Form of elm * formula;; 
-type formula = Nil | Form of elm * formula 
-\end{lstlisting}
-
-
-Napi\v si funkcijo izpis : formula -> unit, ki izpi\v se formulo. Predpostavljamo, da je formula podana v pravilni obliki.
-
-
-
-\end{ex}
-\begin{ex}
-Seznam vrednosti in operacij je definiran s tipom formula: 
-
-\begin{lstlisting}
-# type oper = PLUS | MINUS;; 
-type oper = PLUS | MINUS 
-# type elm = Vr of int | Op of oper;; 
-type elm = Vr of int | Op of oper 
-# type formula = Nil | Form of elm * formula;; 
-type formula = Nil | Form of elm * formula 
-\end{lstlisting}
-
-Primer: 
-\begin{lstlisting}
-# let s = Form(Vr(1),Form(Op(PLUS),Form(Vr(5),Form(Op(MINUS),Form(Vr(3),Nil)))));;
-val s : formula = Form (Vr 1, Form (Op PLUS, Form (Vr 5, Form (Op MINUS, Form (Vr 3, Nil))))) 
-\end{lstlisting}
-Vrednost formule s predstavlja izraz $1+5-3$. 
-
-Napi\v si funkcijo izracunaj : formula -> int, ki izra\v cuna vrednost seznama. Predpostavljamo, da je formula podana v pravilni obliki.
-
-
-
-\end{ex}
-\begin{ex}
-Definiraj podatkovni tip \lstinline{simplKarta} s katerim predstavimo enostavne igralne karte. 
-\begin{enumerate}
-\item Imamo \v stiri vrste kart: kraljica, kralj, fant in punca. 
-\item Karte imajo \v stiri barve: srce, kara, pik in kri\v z. 
-\item Pri definiciji tipa \lstinline{simplKarta} uporabi unijo!
-\end{enumerate}
-
-Definiraj seznam kart tipa simplKarta, ki vsebuje naslednje karte: sr\v cevo punco, kri\v zevega kralja in pikovega fanta. 
-
-\begin{sol}
-\begin{lstlisting}
-type vrstaKarte = Kraljica | Kralj | Fant | Punca
-type barvaKarte = Srce | Kara | Pik | Kriz
-type simplKarta = Vrsta of vrstaKarte*barvaKarte
-let seznamKart = [(Punca,Srce);(Kralj,Kriz);(Fant,Pik)]
-\end{lstlisting}
-\end{sol}
-
-
-\end{ex}
-\begin{ex}Naloga je sestavljena iz dveh delov:
-
-a) Z uporabo unije definiraj tip 'a element, ki predstavi elemente naslednjih oblik:
-\begin{lstlisting}
-1. elemente tipa 'a ali
-2. sezname elementov tipa 'a element.
-\end{lstlisting}
-    Primer elementa: 
-\begin{lstlisting}
-val a : int element = L [E 1; E 2; L [E 3; E 4]]
-\end{lstlisting}
-
-b) Napi\v si funkcijo print : 'a element -> unit, ki izpi\v se elemente po pravilu                          
-    najprej-levo-v-globino.
-
-
-
-\end{ex} 
 
 \chapter{Imperativni programski jeziki}
 
+
 \section{Nizi}
+
+
+
 
 \begin{ex}
 V programskem jeziku Ocaml napi\v site funkcijo 
@@ -1702,8 +1811,10 @@ Primer:
 # obrniBesede "banana je lepa";;
 - : string = "ananab ej apel"
 \end{lstlisting}
-
 \end{ex}
+
+
+
 \begin{ex}
 Napi\v si funkcijo v Ocaml, ki preveri ali je nek niz podniz nekega drugega niza. Pri tem ni nujno, da znaki drugega niza v prvem stoje zaporedoma, ujemati se mora le vrstni red.
 
@@ -1717,6 +1828,9 @@ MATI MATEMATIKA    |   SENO SOSEDNOST
 \end{lstlisting}
 \textbf{Dodatna naloga:} napi\v si funkcijo, ki vrne \v stevilo vseh tak\v snih podnizov v danem nizu.
 \end{ex}
+
+
+
 \begin{ex}
 Dan je niz znakov. Va\v sa naloga je izdelati metodo, ki za vhodni niz izpi\v se vse podnize danega niza.
 
@@ -1732,6 +1846,10 @@ Oglejmo si primer niza "miza":
 
 Iz primera lahko razberete enega od mo\v znih algoritmov.
 \end{ex}
+
+
+
+
 \begin{ex}
 Napi\v si funkcijo v ML, ki za dan vhodni niz znakov vrne true samo v primeru, da niz vsebuje vzorec "a+b+" t.j. enemu ali ve\v c znakov \lstinline{a} sledi eden ali ve\v c znakov \lstinline{b}.
 
@@ -1739,7 +1857,14 @@ Primer pravilnega niza: \lstinline{"uzgaaabbbbdvcg"}
 
 \end{ex}
 
+
+
+
+
 \section{Polja in matrike}
+
+
+
 
 \begin{ex}
 Napi\v si funkcijo v programskem jeziku ML, ki vrne \v stevilo enic v polju poljubne dol\v zine sestavljeno iz ni\v cel in enic. Funkcija naj ima naslednjo signaturo: prestejEnice: int array -> int.
@@ -1752,8 +1877,11 @@ for i = 0 to Array.length polje - 1 do
 if (polje.(i) = 1) then count.(0) <- count.(0) + 1 done; count.(0);;
 \end{lstlisting}
 \end{sol}
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Kreiraj dve celo\v stevilski polji a in b velikosti 5 in definiraj svojo vsebino polj. Napi\v si funkcijo produkt, ki izra\v cna novo polje velikosti 5, katerega vsebina so produkti istole\v znih komponent a in b.
 
@@ -1777,9 +1905,11 @@ done;
 polje;;
 \end{lstlisting}
 \end{sol}
-
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Zaslon mobilnega telefona ima dimenzijo 500x700 barvnih to\v ck. Barve ene to\v cke predstavimo z zapisom, ki ima tri komponente tipa int. Komponente to\v cke predstavljajo RGB zapis: intenzivnost rde\v ce, zelene in modre barve. 
 
@@ -1789,8 +1919,11 @@ Napisati moramo funkcijo, ki na zaslonu prika\v ze delujo\v ce stanje mobilnega 
 \item  Definiraj podatkovne strukture v Ocaml s katerimi predstavimo zaslon mobilnega telefona.
 \item  Napi\v si funkcijo "delam", ki iterativno premika piko velikosti 3x3 po sredini zaslona od leve proti desni. Ko pika pride na rob desne strani se spet pojavi na robu leve strani.
 \end{enumerate}
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Dana je matrika edit: char array, ki vsebuje tekst urejevalnika besedil. Predpostavljamo, da je tekst formatiran: besede so lo\v cene z enim samim presledkom in ni drugih kontrolnih znakov (npr. LF, CR,...).
 
@@ -1808,9 +1941,11 @@ Primer: \begin{lstlisting}
 # rezultat;;
 - : int array = [|2; 0; 1; 1; 0; 1|]
 \end{lstlisting}
-
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Dano je dvodimenzionalno polje tipa int array array, ki predstavlja \v crno-belo sliko in posamezen element predstavlja intenziteto ene pike. Slika je predstavljena s tipom slika.
 \begin{lstlisting}
@@ -1824,6 +1959,10 @@ b) Kako bi poiskali vsa ujemanja vzorca s sliko? Opi\v si v kontekstu re\v sitve
 
 c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnosti posameznih pik. \v Ce se dve pike razlikujeta manj kot je vrednost konstante Toleranca, potem so pike enake. Kako bi raz\v sirili metodo tako, da bi iskala podobne vzorce?
 \end{ex}
+
+
+
+
 \begin{ex}
   Slika ra\v cunalni\v ske naprave je definirana z naslednjim tipom
 
@@ -1844,9 +1983,11 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   istole\v znimi pikami.
 
   Predpostavimo, da so vhodne slike istih dimenzij.
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
   Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
   matriko znakov tipa \lstinline{tekst}.
@@ -1859,9 +2000,11 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   ki vrne seznam koordinat kjer se 
   za\v cne v tekstu iskani niz
   podan kot drugi parameter. 
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
   Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
   matriko znakov tipa \lstinline{tekst}.
@@ -1874,9 +2017,10 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   \lstinline{poisci\_vertikalno : tekst -> string -> int*int list}, 
   ki vrne seznam koordinat kjer se v tekstu za\v cne
   vertikalni niz znakov podan kot drugi parameter.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Slika neke ra\v cunalni\v ske naprave je definirana z naslednjim
   tipom
@@ -1893,14 +2037,16 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 
   \item Napi\v si funkcijo 
   \lstinline{zasukaj90xn : slika -> int -> slika}, 
-  ki zasu\v ce sliko za kot \lstinline{n*90°} v smeri urinega
+  ki zasu\v ce sliko za kot \lstinline{n*90} v smeri urinega
     kazalca, kjer je \lstinline{n} drugi parameter funkcije.
   \end{enumerate}
 
   Pazi na dimenzije slik!
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
   Definiraj tip \lstinline{slika} s katerim predstavimo sliko sestavljeno
   iz 100x100 to\v ck. Vsaka to\v cka je predstavljana z intenziteto in
@@ -1913,9 +2059,11 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   \noindent Napi\v si funkcijo
   \lstinline{poisci : slika -> (int*int)}, ki poi\v s\v ce sredi\v s\v ce
   kroga.
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
   Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
   matriko znakov.
@@ -1931,9 +2079,11 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   ki poi\v s\v ce vse pojavitve niza (2. parameter) vertikalno v
   tekstu urejevalnika (1. parameter) in jih zamenja z drugim nizom
   (3. parameter). Predpostavimo, da sta niza enako dolga.
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
   Definiraj parametri\v cni \lstinline{('k,'v) ppolje}, ki predstavlja
   polje parov 'k*'v. Prva komponenta para je klju\v c tipa 'k in druga
@@ -1953,9 +2103,11 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
   ki naredi stik polj tako, da s funkcijo zdruzi zdru\v zi vrednosti
   vseh parov, ki se ujemajo v klju\v cu. Rezultat naj bo torej seznam
   parov tipa ('k,'v).
-
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Definiraj funkcijo 
 \begin{lstlisting}
@@ -1964,9 +2116,11 @@ zmesaj : 'a array -> (int*int) array -> 'a array,
 ki kot prvi parameter sprejme polje vrednosti tipa 'a, kot drugi parameter pa polje parov s katerimi so definirane zamenjave elementov. Funkcija naj vrne zakodirano polje. 
 
 Polje parov vsebuje pare indeksov s katerimi je definirana zamenjava dveh elementov vhodnega polja. 
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
 Predpostavi, da je definiran razred Array, ki vsebuje polje elementov tipa 'a. 
 
@@ -1985,18 +2139,22 @@ set : int -> 'a -> unit  (*dodaj element tipa 'a k elementom z indeksom i*)
 del : int -> 'a -> unit  (*izbri\v si el. tipa 'a iz  mnozice elementov z indeksom i*)
 \end{lstlisting}
 \v cim bolje uporabi metode razreda Array. 
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
 Matrika je predstavljena s tipom int array array. Napi\v si funkcijo 
 \begin{lstlisting}
 podniz : int array array -> int array -> bool,
 \end{lstlisting}
 ki preveri ali se niz celih \v stevil (2. parameter) pojavi v matriki (1. parameter) na kateri izmed diagonalnih \v crt, ki poteka iz to\v ck na levi in spodnji strani matrike navzgor proti desni in zgornji strani matrike.
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
 Dano imamo sortirano polje celih \v stevil. Definiraj funkcijo encode, ki vrne polje parov kjer je prva komponenta element vhodnega polja in druga komponenta \v stevilo pojavitev elementa v polju.   
 
@@ -2005,6 +2163,10 @@ Primer:
 encode [|1;1;3;4;4;5|] -> [|(1,2);(3,1);(4,2);(5,1)|]
 \end{lstlisting}
 \end{ex} 
+
+
+
+
 \begin{ex} Naloga je sestavljena iz treh delov:
 \begin{enumerate}
   \item  Definiraj razred matrix za predstavitev matrik, ki shranjujejo
@@ -2028,9 +2190,11 @@ encode [|1;1;3;4;4;5|] -> [|(1,2);(3,1);(4,2);(5,1)|]
     ki primerja dva elementa matrike in vrne
   boolovo vrednost true, \v ce sta enaka in false sicer.
 \end{enumerate}
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
   Tekst urejevalnika je shranjen kot polje seznamov besed:
 
@@ -2042,9 +2206,11 @@ type text = string list array;;
   ki zamenja vse pojavitve niza podanega z drugim parametrom z nizom
   znakov podanim s tretjim parametrom v tekstu podanim s prvim
   parametrom. Rezutat je tekst z zamenjanim nizom.
-
-
 \end{ex} 
+
+
+
+
 \begin{ex}
 Definiraj parametri\v cni tip 
 \lstinline{'v ppolje}, ki predstavlja polje (array!) parov
@@ -2067,7 +2233,13 @@ Primer:
 
 \end{ex} 
 
+
+
+
 \section{Zapisi}
+
+
+
 
 \begin{ex}
 Dana je n-terica, ki predstavlja naslednje podatke \v studenta:
@@ -2079,7 +2251,6 @@ Dana je n-terica, ki predstavlja naslednje podatke \v studenta:
 \end{enumerate}
 
 Tip n-terice je predstavljen z naslednjo definicijo.
-
 \begin{lstlisting}
 # type student = string*int*int*(string list);;
 type student = string * int * int * string list
@@ -2090,36 +2261,38 @@ Primer:
 \begin{lstlisting}
 # izpis ("Tone Novak",20,1,8,("kolesarjenje"));; 
 \end{lstlisting}
-\v Student Tone Novak obiskuje prvi letnik. 
-Njegova povre\v cna ocena je prav dobro.
-Hobiji studenta so: kolesarjenje.
+\v Student Tone Novak obiskuje prvi letnik. Njegova povre\v cna ocena je prav dobro. Hobiji studenta so: kolesarjenje.
 \end{ex}
-\begin{ex}
-  Drevo a\_tree je definirano na naslednji na\v cin.
 
+
+
+
+\begin{ex}
+Drevo a\_tree je definirano na naslednji na\v cin.
 \begin{lstlisting}
 type 'a a_tree = { mutable key:'a; 
-            mutable trees: a_tree list}
+                   mutable trees: a_tree list }
 \end{lstlisting}
 
-  Napi\v si funkcijo vi\v sjega reda
-
+Napi\v si funkcijo vi\v sjega reda
 \begin{lstlisting}
 tree_filter : 'a a_tree -> ('a -> bool) -> 'a list.
 \end{lstlisting}
-
-  Funkcija vrne seznam vseh klju\v cev iz drevesa podanega s prvim
-  parametrim, za katere vrne funkcija podana z drugim parametrom
-  vrednost true.
-
-
+Funkcija vrne seznam vseh klju\v cev iz drevesa podanega s prvim parametrim, za katere vrne funkcija podana z drugim parametrom vrednost true.
 \end{ex} 
+
+
+
+
+
 
 \section{Klasi\v cne podatkovne strukture}
 
+
+
+
 \begin{ex}
 Dana je polimorfi\v cna izvedba sklada, ki je implementirana v ocaml modulu Stack. Osnovne operacije za delo s skladom so razvidne iz naslednjega primera uporabe modula Stack.
-
 
 \begin{lstlisting}
 # let s = Stack.create ();;
@@ -2139,12 +2312,16 @@ Napi\v site program, ki s pomo\v cjo uporabe modula \lstinline{Stack} ugotovi al
 ())( NEOK
 ()()(())) NEOK
 \end{lstlisting}
-
 \end{ex}
+
+
+
 \begin{ex}
-Implementirati moramo enostaven \emph{poljski} kalkulator (HP sintaksa), ki deluje na naslednji na\v cin:
-- v primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada,
-- \v ce vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva operanda iz sklada in izvede \v zeljeno operacijo in rezultat postavi na vrh sklada.
+Implementirati moramo enostaven \emph{poljski} kalkulator (HP sintaksa), ki deluje na naslednji na\v cin.
+\begin{itemize}
+\item V primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada.
+\item \v Ce vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva operanda iz sklada in izvede \v zeljeno operacijo in rezultat postavi na vrh sklada.
+\end{itemize}
 
 Primer izvajanja kalkulatorja:
 \begin{lstlisting}
@@ -2162,48 +2339,148 @@ Primer izvajanja kalkulatorja:
 \end{lstlisting}
 \end{ex}
 
+
+
+\section{Rekurzivni tipi}
+
+
+%----n
+\begin{ex}
+Dan je tip \lstinline{2seznam} s katerim je predstavljen dvojno povezan seznam.
+
+\begin{lstlisting}
+type 2seznam = {
+     value: int;
+     mutable next: 2seznam;
+     mutable prev: 2seznam
+}
+\end{lstlisting}
+
+Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem redu. Napi\v si funkcijo \lstinline{odaj : 2seznam -> int -> 2seznam}, ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
+\end{ex} 
+
+
+
+
+
+
+\section{Implementacija funckcij}
+
+
+
+
+%--
+\begin{ex}
+Dana je naslednja funkcija.
+\begin{lstlisting}
+let rec vsota a = match a with 0 -> 0 
+             | x -> x + vsota (x-1);;
+\end{lstlisting}
+
+Predstavi sklad aktivacijskih zapisov, ki se razvijejo ob klicu vsota 3;;
+
+\begin{sol}
+\begin{lstlisting}
+vsota(3) = 3 + vsota(2)
+vsota(2) = 2+ vsota(1)
+vsota(1) = 1+ vsota (0)
+vsota (0) = 0
+vsota(1) = 1+0=1
+vsota(2) = 2+1=3
+vsota(3) = 3+3=6
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+Dana je funkcija fib, ki izra\v cuna Fibonaccijevo \v stevilo.
+
+\begin{lstlisting}
+# let rec fib n =
+    if n < 2 then 1 else fib(n-1) + fib(n-2);;
+val fib : int -> int = <fun>
+\end{lstlisting}
+Predstavi zaporedje aktivacijskih zapisov, ki se aktivirajo pri izvajanju funkcije fib 4.
+
+\begin{sol}
+\begin{lstlisting}
+fib(4) = fib(3) + fib(2)
+fib(3) = fib(2) + fib(1)
+fib(2) = fib(1) + fib(0)=1
+fib(2) = 1+0 = 1
+fib(3) = 1+1 = 2
+fib(4) = 2+1 = 3
+\end{lstlisting}
+\end{sol}
+
+\end{ex}
+
+
+
+
+
+
 \chapter{Objektno orientirani programski jeziki}
-%\section{Definicija razredov}
+
+
+
+\section{Definicija razredov}
+
+
 
 \begin{ex}
-Definiraj naslednja dva razreda za delo s celimi \v stevili:
+Definiraj naslednja dva razreda za delo s celimi \v stevili.
 
-1) Cela \v stevila bi radi obravnavali kot objekte. Definiraj osnovno aritmetiko za delo s celimi \v stevili: se\v stevanje, od\v stevanje, celo\v stevilsko deljenje in mno\v zenje.
-
-2) Pozitivna cela \v stevila skupaj z ni\v clo so poseben primer celih \v stevil, ki jih imenujemo naravna \v stevila. Vse operacije prilagodi tako, da v primeru, da je parameter operacije negativen, operacija najprej zamenja parameter z absolutno vrednostjo, ga pomno\v zi s 100 ter \v sele nato opravi \v zeljeno operacijo.
-
+\begin{enumerate}
+\item
+Cela \v stevila bi radi obravnavali kot objekte. Definiraj osnovno aritmetiko za delo s celimi \v stevili: se\v stevanje, od\v stevanje, celo\v stevilsko deljenje in mno\v zenje.
+\item
+Pozitivna cela \v stevila skupaj z ni\v clo so poseben primer celih \v stevil, ki jih imenujemo naravna \v stevila. Vse operacije prilagodi tako, da v primeru, da je parameter operacije negativen, operacija najprej zamenja parameter z absolutno vrednostjo, ga pomno\v zi s 100 ter \v sele nato opravi \v zeljeno operacijo.
+\end{enumerate}
 Napi\v si tudi konstruktorja celih in naravnih \v stevil. Bodi pozoren na uporabo dedovanja pri konstrukciji re\v sitve.
-
-
-
 \end{ex}
-\begin{ex}
-Definiraj razred v Javi, ki vsebuje polje celih \v stevil sortirano po velikosti. Napi\v si metodo \lstinline{zdruzi(a)}, ki pridru\v zi polju celih \v stevil na\v sega razreda \v ze sortirano polje a tako, da je rezultat sortiran.
 
+
+
+
+
+\begin{ex}
+Definiraj razred, ki vsebuje polje celih \v stevil sortirano po velikosti. Napi\v si metodo \lstinline{zdruzi : int array -> int array}, ki pridru\v zi polju celih \v stevil na\v sega razreda \v ze sortirano polje a tako, da je rezultat sortiran.
 \end{ex}
+
+
+
+
 \begin{ex}
-Definirajte razred matrika s katerim predstavimo dvodimenzionalno matriko. Katere atribute potrebujemo?
-
-a) Napi\v site metodo invertirajx2(), ki invertira matriko po obeh diagonalah.
-
-b) Napi\v site metodo \lstinline{main()} razreda \lstinline{Matrika}, ki definira matriko $A$ in pokli\v ce motodo \lstinline{invertirajx2()} na $A$.
-
-
-
+Definirajte razred matrika s katerim predstavimo dvodimenzionalno matriko realnih \v stevil. Katere atribute potrebujemo?
+\begin{enumerate}
+\item Definiraj bralce in pisalce razreda matrika ter kodo s katero se inicializira na novo kreirana matrika.
+\item Napi\v site metodo \lstinline{invertirajx2 : unit}, ki invertira matriko po obeh diagonalah.
+\end{enumerate}
 \end{ex}
+
+
+
+
+
 \begin{ex}
-Firma iz avtomobilske industrije bi \v zelela predstaviti motorje, ki jih izdeluje v programskem jeziku Ocaml. Podatkovna struktura naj predstavi hierarhi\v cno kompozicijo motorja iz komponent. 
+Firma iz avtomobilske industrije bi \v zelela predstaviti motorje v programskem jeziku Ocaml. Podatkovna struktura naj predstavi hierarhi\v cno kompozicijo motorja iz komponent. 
 
-Vsaka komponenta motorja ima identifikator, ime, stanje in seznam pod-komponent, ki jih predstavimo spet kot komponente. Imamo \v se naslednje podatke:
-- Stanje komponente pove ali je komponenta delujo\v ca (Dela|Nedela). 
-- Celoten motor je predstavljen kot komponenta. 
-- Osnovne komponente (osnovni deli) nimajo pod-komponent.
-
-a) Definiraj objektno predstavitev motorja oz. komponent motorja.
-
-b) Predpostavimo, da imamo na voljo funkcijo "test", ki za dano OSNOVNO komponento (identifikator) vrne  vrednost Dela oz. Nedela. 
-
-Napi\v si funkcijo "oznaci", ki ozna\v ci vse komponente motorja z Dela oz. Nedela. Edino pravilo, ki ga moramo upo\v stevati: komponenta, ki ima vse delujo\v ce pod-komponente je tudi sama delujo\v ca (Dela) sicer pa ni delujo\v ca (Nedela). 
+Vsaka komponenta motorja ima identifikator, ime, stanje in seznam pod-komponent, ki jih predstavimo spet kot komponente. Imamo \v se naslednje podatke.
+\begin{itemize}
+\item Stanje komponente pove ali je komponenta delujo\v ca z boolovo vrednostjo (Dela|Nedela). 
+\item Celoten motor je predstavljen kot komponenta. 
+\item Osnovne komponente (osnovni deli) nimajo pod-komponent.
+\end{itemize}
+\begin{enumerate}
+\item Definiraj objektno predstavitev motorja oz. komponent motorja.
+\item Predpostavimo, da imamo na voljo funkcijo \lstinline{test : boolean}, ki za dano osnovno! komponento (identifikator) vrne vrednost boolovo vrednost (Dela|Nedela). 
+\end{enumerate}
+Napi\v si funkcijo \lstinline{oznaci : unit}, ki ozna\v ci vse komponente motorja z Dela oz. Nedela. Edino pravilo, ki ga moramo upo\v stevati: komponenta, ki ima vse delujo\v ce pod-komponente je tudi sama delujo\v ca (Dela) sicer pa ni delujo\v ca (Nedela). 
+\end{ex}
 
 
 
@@ -2212,7 +2489,6 @@ Napi\v si funkcijo "oznaci", ki ozna\v ci vse komponente motorja z Dela oz. Nede
 \section{Hierarhije razredov}
 
 
-\end{ex}
 \begin{ex}
 Vrsto (FIFO) in sklad (LIFO) \v zelimo implementirati z uporabo polja. Uporabi hierarhijo razredov za implementacijo vrste in sklada. 
 
@@ -2230,9 +2506,9 @@ kjer predstavljata parametra premika po $x$ in $y$ osi.
 
 \end{ex}
 \begin{ex}
-Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati $x=1..100$ in $y=1..100$. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
+Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati x=1..100 in y=1..100. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
 
-1) Osnovni robot, ki je definiran z za\v cetno to\v cko $x,y$ in odmikom $dx$ po osi $x$ in odmikom $dy$ po osi $y$, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati $x$ se $dx$ zamenja z $-dx$ in ko prispe do konca sveta po koordinati $y$ se $dy$ zamenja z $-dy$.
+1) Osnovni robot, ki je definiran z za\v cetno to\v cko x,y in odmikom dx po osi x in odmikom dy po osi y, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati x se dx zamenja z -dx in ko prispe do konca sveta po koordinati y se dy zamenja z -dy.
 
 2) Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih k premikov ponikne in se ne nari\v se.
 
@@ -2242,7 +2518,7 @@ Definiraj svet robotov v programskem jeziku Ocaml.
 
 a) Vsak robot naj se predstavi ob kreaciji, tako da uporabnik vidi katerim razredom robot pripada.
 
-b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda premik najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko $x,y$I’m ) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
+b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda premik najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko x,y) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
 
 
 
@@ -2269,9 +2545,11 @@ b) Realiziraj razrede tako, da inicializatorji razreda inicializirajo objekt z z
 
 c) V hierarhiji razredov implementiraj metodo predstavi, ki predstavi vse lastnosti poljubnega primerka razredov v hierarhiji. Uporabljaj dedovanje in prekrivanje metod!
 
-
-
 \end{ex}
+
+
+
+
 \begin{ex}
 Hi\v sa je sestavljena iz N nadstropij in podstre\v sja. Vsako nadstropje ima M sob.
 
@@ -2282,6 +2560,54 @@ Predpostavimo, da imamo dano funkcijo temperatura : int -> int -> int, ki za dan
 a) Definiraj razrede s katerimi predstavimo: sobe, nadstropja, podstre\v sje in celotno hi\v so.
 b) Vsak razred mora imeti metodo odcitajTemperaturo, ki vrne temperaturo objekta in postavi trenutno vrednost temperature za dan objekt.
 c) Razred hisa mora izra\v cunati temperaturo hise po zgoraj opisanem postopku.
+\end{ex}
+
+
+
+
+\section{Rekurzivne strukture objektov}
+
+
+
+\begin{ex}
+Dano je drevo, ki je definirano z naslednjim razredom.
+
+\begin{lstlisting}
+class Drevo {
+ int elm;
+ int vsota;
+ Drevo levo = null;
+ Drevo desno = null;
+ }
+\end{lstlisting}
+
+Napi\v si metodo preveriUrejenost(), ki preveri ali je dano drevo urejeno: za dano vozli\v s\v ce so vsa vozli\v s\v ca levega pod-drevesa manj\v sa od korena in vozli\v s\v ca desnega poddervesa ve\v cja od korena. 
+
+Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, \v ce ima\v s dano metodo za vstavljanje v urejeno drevo?
+\end{ex}
+
+
+
+
+%----n
+\begin{ex}
+Dano je drevo, ki je definirano z naslednjim razredom.
+
+\begin{lstlisting}
+class Drevo {
+  int elm;
+  int vsota;
+  Drevo levo = null;
+  Drevo desno = null;
+}
+\end{lstlisting}
+
+a) Napi\v si metodo vsote(), ki v vsakem vozli\v s\v cu izra\v cuna vsoto vseh vozli\v s\v c poddrevesa.
+
+b) Izpi\v si korene poddreves s vsoto < 10.
+
+\end{ex}
+
 
 
 
@@ -2290,7 +2616,6 @@ c) Razred hisa mora izra\v cunati temperaturo hise po zgoraj opisanem postopku.
 \section{Abstraktni razredi}
 
 
-\end{ex}
 \begin{ex}
 Geometrijski objekt je definiran z virtualnim razredom geo, ki vsebuje
 definiciji virtualnih metod:
@@ -2312,6 +2637,7 @@ Predpostavi, da imamo \v ze napisane funkcije:
 \end{lstlisting}
 
 Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode uporabijo prekrite metode, kjer je mogo\v ce.
+\end{ex}
 
 
 
@@ -2320,7 +2646,7 @@ Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode u
 \section{Parametri\v cni razredi}
 
 
-\end{ex}
+
 \begin{ex}
 Implementiraj razred class \lstinline{['tip\_sez] seznam}, ki naredi ovojnico okoli vgrajenega tipa list. Implementiraj metode, ki realizirajo obi\v cajne operacije nad seznami: ::, @, member, itd.
 
@@ -2328,7 +2654,9 @@ Implementiraj razred class \lstinline{['tip\_sez] seznam}, ki naredi ovojnico ok
 
 \end{ex}
 \begin{ex}
-Naloga je sestavljena iz dveh delov:
+
+
+
 \begin{enumerate}
 \item Definiraj parametriziran razred \lstinline{['a] polje}, ki realizira ovojnico okoli tipa \lstinline{array}. Razred Polje naj ima definirane metode:
 
@@ -2361,6 +2689,9 @@ b) Z uporabo pred definiranega abstraktnega razreda tocka definiraj parametrizir
 
 Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, kjer je spremenljivka tipa 'a enaka tipu int.
 \end{ex}
+
+
+
 %--- nekateg.
 \begin{ex}
   V svetu eno-dimenzionalnih robotov se roboti pomikajo po premici
@@ -2389,38 +2720,38 @@ Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, 
     \lstinline{robot1}. Z uporabo prekrivanja definiraj premik tega
     robota kot dvakraten premik robota iz razreda \lstinline{robot1}.
   \end{enumerate}
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov:
-  $x$-robota, ki se premika samo po $x$-osi in $y$-robota, ki se premika
-  samo po $y$-osi. Svet ima dimenzije $-10..10$ po $x$-osi
-  in $-10..10$ po $y$-osi.
+  x-robota, ki se premika samo po x-osi in y-robota, ki se premika
+  samo po y-osi. Svet ima dimenzije -10..10 po x-osi in -10..10 po
+  y-osi.
 
-  Premik robota po $x$-osi implementiramo tako, da pri\v stejemo
-  $x$-koordinati $1$ oz. $-1$, odvisno od tega ali 
-  se robot premika desno
-  ali levo. Ko robot pride do roba sveta zamenjamo premik iz $1$
-  v $-1$
+  Premik robota po x-osi implementiramo tako, da pri\v stejemo
+  x-koordinati 1 oz. -1, odvisno od tega ali se robot premika desno
+  ali levo. Ko robot pride do roba sveta zamenjamo premik iz 1 v -1
   oz. obratno.
 
-  Premikanje robota po $y$-osi je definirano enako kot v primeru
-  premikanja po $x$-osi le da so osi zamenjane in se robot premika
+  Premikanje robota po y-osi je definirano enako kot v primeru
+  premikanja po x-osi le da so osi zamenjane in se robot premika
   navzgor in navzdol.
 
   \begin{enumerate}
-  \item Definiraj razrede s katerimi predstavimo $x$-robota in
-    $y$-robota. Definiraj skupen koren hierarhije razredov z uporabo
+  \item Definiraj razrede s katerimi predstavimo x-robota in
+    y-robota. Definiraj skupen koren hierarhije razredov z uporabo
     abstraktnega razreda.
 
   \item V abstraktnem razredu robot definiraj virtualno metodo
     \lstinline{premik}. Implementiraj metodo \lstinline{premik} v
     okviru obeh konkretnih razredov.
   \end{enumerate}
-
-
 \end{ex} 
+
+
+
 \begin{ex}
 
   \begin{enumerate}
@@ -2433,7 +2764,7 @@ Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, 
     brisi_zacetek : int 
     dodaj_konec : int -> unit
     brisi_konec : int  
-\end{lstlisting}
+    \end{lstlisting}
 
   \item Razreda \lstinline{vrsta} (FIFO) in \lstinline{sklad} (FILO)
     implementiraj kot specializaciji razreda
@@ -2443,9 +2774,10 @@ Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, 
 
   \emph{Nasvet}: Za implementacijo razreda \lstinline{zbirka} uporabi \v
   cim bolj enostavno podatkovno strukturo!
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Naprave so sestavljene iz manj\v sih naprav, ki so spet lahko
   sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje ime,
@@ -2458,9 +2790,10 @@ Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, 
     \lstinline{naprava}, ki v seznamu vrne liste drevesa vsebovanosti
     naprav za dano napravo (objekt).
   \end{enumerate}
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Imamo naprave, ki so sestavljene iz manj\v sih naprav, ki so spet
   lahko sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje
@@ -2486,10 +2819,10 @@ class naprava :
 
   Napi\v si metodo \lstinline{izpisi_liste}, ki izpi\v se imena in tipe
   vseh listov--naprav, ki nimajo nobene komponente.
-
-
-
 \end{ex} 
+
+
+
 \begin{ex}
 Definiraj hierarhijo razredov za geometrijske objekte to\v cko, krog in kvadrat. Poskusi v \v cim ve\v cji meri uporabiti gradnike objektno-usmerjenega modela za u\v cinkovito predstavitev hierarhije. 
 
@@ -2498,18 +2831,19 @@ a) Definiraj razrede tocka, krog in kvadrat. Uporabi abstraktni razred za vrh hi
 b) Za vse geometrijske objekte definiraj metodo premakni, ki premakne dan geometrijski objekt. Uporabi dedovanje in prekrivanje metod!
 
 c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
-
 \end{ex} 
+
+
+
 \begin{ex}
   a) Definiraj razred matrika, ki predstavlja mxn matrike realnih \v
   stevil. Razred naj se inicializira s parametroma m in n.
 
   b) Definiraj naslednje metode razreda Matrika:
-\begin{lstlisting}
+
   get : int -> int -> float
   set : int -> int -> float -> unit
   mul : matrika -> unit
-\end{lstlisting}
 
   Vse metode spreminjajo matriko predstavljeno z objektom, ki izvr\v
   si metodo.  Na primer, metoda mul pomno\v zi dano matriko (objekt) z
@@ -2518,9 +2852,10 @@ c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
 
   c) Definiraj podrazred kmatrika, ki predstavlja kvadratno matriko
   nxn.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Kalkulatorji, ki uporabljajo obrnjeno poljsko notacijo shranjujejo
   operande na skladu.
@@ -2537,9 +2872,10 @@ c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
 
   b) Definiraj konkreten razred int\_rpc kot implementacijo razreda
   rpc for za konkreten tip 'a=int.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
   Definiraj razred queue, ki implementira obi\v cajno vrsto z uporabo
   polja. Vrsta naj vsebuje elemente tipa int. Razred naj vsebuje
@@ -2558,9 +2894,10 @@ c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
 
   Inicializator razreda naj takoj po kreaciji objekta vstavi v vrsto
   10 ni\v cel.
-
-
 \end{ex}
+
+
+
 \begin{ex}
 Naloga je sestavljena iz dveh delov:
 
@@ -2573,10 +2910,10 @@ Naloga je sestavljena iz dveh delov:
 
   b) Na osnovi razreda vmesnik definiraj podrazred float\_vmesnik, ki
   implementira vmesnik elementov tipa float.
-
-
-
 \end{ex} 
+
+
+
 \begin{ex}
 Hi\v sa je sestavljena iz N nadstropij. Vsako nadstropje ima M sob. V vsaki sobi imamo termometer. Temperaturo hi\v se dolo\v cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah. 
 
@@ -2585,12 +2922,12 @@ Predpostavimo, da imamo dano funkcijo temperatura : int -> int -> int, ki za dan
 a) Definiraj razrede s katerimi predstavimo: sobe, nadstropja in celotno hi\v so.
 b) Vsak razred mora imeti metodo odcitajTemperaturo, ki vrne temperaturo objekta in  postavi trenutno vrednost temperature za dan objekt.
 c) Razred hi\v sa mora izra\v cunati temperaturo hi\v se po zgoraj opisanem postopku.
-
-
 \end{ex} 
+
+
+
 \begin{ex}
 Dan je razred Sklad, ki realizira obi\v cajen sklad celih \v stevil
-
 \begin{lstlisting}
 class Sklad =
 object 
@@ -2601,17 +2938,17 @@ end
 
 \end{lstlisting}
 Definiraj razred Vrsta, ki implementira vrsto z dvema skladoma. Prvi sklad predstavlja za\v cetek vrste in drugi sklad predstavlja konec vrste. Razred Vrsta naj vsebuje operaciji: 
-
 \begin{lstlisting}
 enqueue : int -> unit, 
 dequeue : int. 
-
 \end{lstlisting}
 V primeru, da je drugi sklad prazen in uporabimo operacijo dequeue, potem najprej obrnemo prvi sklad in ga shranimo kot drugi sklad.
-
 \end{ex}
+
+
+
 \begin{ex}
-Dan je razred sklad, ki realizira parametriziran sklad celih \v stevil
+Dan je razred \texttt{Sklad}, ki realizira parametriziran sklad celih \v stevil
 \begin{lstlisting}
 class ['a] Sklad =
 object 
@@ -2622,12 +2959,15 @@ end
 \end{lstlisting}
 Definiraj razred Kalkulator, ki bo osnova za implementacijo enostavnega kalkulatorja, ki deluje z uporabo obrnjene poljske notacije. Kalkulator deluje na naslednji na\v cin.  
 
-\v Stevilo, ki ga vnesemo da na vrh delovnega sklada. Operacije plus, minus, mnozi in deli vzamejo zadnja dva operanda iz sklada, opravijo operacijo in vrnejo rezultat na sklad. 
+\v stevilo, ki ga vnesemo da na vrh delovnega sklada. Operacije plus, minus, mnozi in deli vzamejo zadnja dva operanda iz sklada, opravijo operacijo in vrnejo rezultat na sklad. 
 
 Kako bi naredili splo\v sen kalkulator, ki lahko uporablja poljubno predstavitev \v stevil?
 
 
 \end{ex} 
+
+
+
 %--- parametriz. razredi
 \begin{ex}
   Definiraj binarno drevo z objekti, ki predstavljajo vozli\v s\v
@@ -2641,37 +2981,38 @@ Kako bi naredili splo\v sen kalkulator, ki lahko uporablja poljubno predstavitev
 
   \begin{lstlisting}
   type `a option = Some of `a | None
-\end{lstlisting}
+  \end{lstlisting}
 
   Napi\v si metodo, ki vstavi novo vozli\v s\v ce v skrajno levo vejo
   drevesa.
-
- 
 \end{ex} 
+
+
+
 \begin{ex}
   V programskem jeziku Ocaml imamo definirano podatkovno strukturo
   seznam na naslednji na\v cin:
-\begin{lstlisting}
-type 'a element = { 
-    mutable vrednost:'a; 
-    mutable naslednji:'a seznam} 
-and 'a seznam = Prazen | Element of 'a element;; 
-\end{lstlisting}
+
+  type 'a element = { 
+     mutable vrednost:'a; 
+     mutable naslednji:'a seznam 
+  } 
+  and 'a seznam = Prazen | Element of 'a element ;; 
 
   Napi\v si funkcijo zdruzi : 'a seznam -> 'b seznam -> ('a * 'b)
   seznam, ki zdru\v zi elemente dveh seznamov v en sam seznam tako, da
   prepi\v se istole\v zne elemente v pare. \v ce ne obstaja istole\v
   zni par potem naj ima komponenta vrednost () : unit.
-
- 
 \end{ex} 
+
+
+
 \begin{ex}
   Napi\v si polimorfi\v cno funkcijo rapp :
-  \lstinline{('a->'a)->int->('a->'a)}. Klic \lstinline{rapp f n}  funkcijo $f$ applicira $n$-krat
+  ('a->'a)->int->('a->'a). Klic rapp f n applicira funkcijo f n-krat
   na danem parametru:
-\begin{lstlisting}
-rapp f n = (function x -> f (...(f x)...))     
-\end{lstlisting}
+
+  rapp f n = (function x -> f (...(f x)...))     
 
 \noindent\/Primer:            
 \begin{lstlisting}
@@ -2688,8 +3029,10 @@ Namig: Uporabi\v s lahko funkcijo compose:
 # let compose f g x = f (g x) ;; 
 val compose : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b = <fun> 
 \end{lstlisting}
-
 \end{ex} 
+
+
+
 \begin{ex}
   Definiraj uporabni\v ski tip 'a btree, ki predstavlja binarno drevo
   katerega vozli\v s\v ca vsebujejo vrednost tipa 'a.
@@ -2701,8 +3044,15 @@ val compose : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b = <fun>
 
 \end{ex} 
 
+
+
+
 \chapter{Modularni programski jeziki}
+
 %\section{Definicija modula}
+
+
+
 
 \begin{ex}
 Definiraj modul za delo s pari celih \v stevil. Tip par je definiran z
@@ -2719,10 +3069,11 @@ sestej (2,3) (1,2) -> (3,5)
 odstej (2,3) (1,2) -> (1,1)
 odstej (2,3) (1,2) -> (2,6)
 \end{lstlisting}
-
 \end{ex}
-\begin{ex}
 
+
+
+\begin{ex}
 Imlementiraj modul za delo z vrsto. V vrsto dodajamo na za\v cetek in
 odvzemamo objekte na koncu vrste. Bodi pozoren/a na naslednje vidike:
 
@@ -2733,8 +3084,10 @@ odvzemamo objekte na koncu vrste. Bodi pozoren/a na naslednje vidike:
   prazne vrste.
   
 - Za implementacijo vrste lahko uporabi\v s poljubno podatkovno strukturo.
-
 \end{ex}
+
+
+
 \begin{ex}
 Turisti\v cna Agencija po\v citni\v skih aran\v zmajev bo implementirala
 informacijski sistem.
@@ -2757,10 +3110,10 @@ Za aran\v zma definiraj modula \lstinline{Agent} in \lstinline{Stranka}, kjer \l
 lahko pogleda aran\v zma preimenuje destinacijo, dolo\v ci nov tip
 namestitve ter popravi trajanje in ceno. \lstinline{Stranka} lahko zgolj pogleda
 dolo\v ceni aran\v zma.
-
-
-
 \end{ex}
+
+
+
 \begin{ex}
 Novo leto je za nami, vendar se \v zelimo letos \v ze zgodaj pripraviti na
 naslednje novoletno praznovanje. V ta namen boste naredili modul, ki
@@ -2784,6 +3137,9 @@ na presledke.
    (-)
 \end{lstlisting}
 \end{ex}
+
+
+
 \begin{ex}
 Potrebujemo modul za delo s podatkovno strukturo, ki hrani urejeno sekvenco elementov danega parametri\v cnega tipa 'a v nara\v s\v cajo\v cem vrstnem redu. Modul bomo imenovali \lstinline{Usekvenca}. Tip podatkovne strukture, ki predstavlja urejeno sekvenco imenuj \lstinline{Usekvenca.t}.
 
@@ -2801,10 +3157,10 @@ Definiraj naslednje funkcije modula:
 
 Implementiraj funkcijo kreiraj, eno izmed funkcij dodaj in izbri\v si ter
 eno izmed funkcij min ali max.
-
-
-
 \end{ex}
+
+
+
 \begin{ex}
 Implementirati moramo enostaven kalkulator za ra\v cunanje s celimi
 \v stevili, ki uporablja poljsko notacijo. Kalkulator deluje na naslednji
@@ -2851,8 +3207,10 @@ deli: Poljski.t -> int
 b) Kako bi posplo\v sili kalkulator, da bi znal delati s poljubnim tipom \v stevil npr. tudi z realnimi \v stevili? Skiciraj na kratko re\v sitev. 
 
 c) Dodatna naloga: implementacija b)  
-
 \end{ex}
+
+
+
 \begin{ex}
 Napisati \v zelimo modul Slika za delo s slikami, ki so definirane z naslednjim parametri\v cnim tipom:
 
@@ -2872,8 +3230,10 @@ Napi\v si naslednje funkcije modula:
 - zrcali\_y: zrcali sliko po y osi.
 
 Definiraj vmesnik modula, ki omogo\v ca dostop do predstavljenih funkcij.
-
 \end{ex}
+
+
+
 \begin{ex}
 Definiraj modul za obdelovo dvodimenzionalnih slik Slika. 
 
@@ -2898,16 +3258,23 @@ Barva.enakost : Barva.tip -> Barva.tip -> bool,
 \end{lstlisting}
 ki pove ali sta dve barvi enaki. 
 Skiciraj definicijo funktorja Slika in modula Barva.
+\end{ex}
+
+
+
 
 \section{Funkcionali}
 
 
-\end{ex}
+
 \begin{ex}
 Implementiraj parametri\v cni modul za delo z urejenimi seznami UrejenSeznam. 
 
 Modul UrejenTip, ki slu\v zi kot parameter modulu UrejenSeznam naj bo uporabljen za definicijo tipa elementov seznama ter definicjo funkcije UrejenTip.primerjaj a b, ki vrne 0 v primeru a=b, 1 v primeru a>b in -1 v primeru a<b. Funkcija UrejenTip.primerjaj definira urejenost elementov urejenega seznama.
 \end{ex}
+
+
+
 \begin{ex}
 Podan je modul Stack, ki realizira sklad elementov tipa 'a.. 
 
@@ -2925,9 +3292,10 @@ end
 Definiraj modul Queue, ki s pomo\v cjo dveh skladov implementira vrsto. Prvi sklad predstavlja za\v cetek vrste in drugi sklad predstavlja konec vrste. Implementiraj funkciji enqueue and dequeue !
 
 Namig: \v ce je kateri izmed skladov prazen potem lahko drugega "obrnemo". 
-
-
 \end{ex} 
+
+
+
 \begin{ex}
 Definiraj modul, ki zna delati z enodimenzionalnimi polji poljubnega (!)
 tipa. Tip elementa polja je torej spremenljivka tipa.e
