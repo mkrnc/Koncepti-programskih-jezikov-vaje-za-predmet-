@@ -911,13 +911,13 @@ Primer:
   \begin{lstlisting}
   type 2seznam = {
      value: int;
-     mutable next: 2seznam;1
+     mutable next: 2seznam;
      mutable prev: 2seznam
   } ;;
   \end{lstlisting}
 
   Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem
-  redu. Napi\v si funkcijo \lstinline{odaj : 2seznam -> int -> 2seznam}
+  redu. Napi\v si funkcijo \lstinline{dodaj : 2seznam -> int -> 2seznam}
   ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
 
 
@@ -2230,9 +2230,9 @@ kjer predstavljata parametra premika po $x$ in $y$ osi.
 
 \end{ex}
 \begin{ex}
-Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati x=1..100 in y=1..100. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
+Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati $x=1..100$ in $y=1..100$. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
 
-1) Osnovni robot, ki je definiran z za\v cetno to\v cko x,y in odmikom dx po osi x in odmikom dy po osi y, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati x se dx zamenja z -dx in ko prispe do konca sveta po koordinati y se dy zamenja z -dy.
+1) Osnovni robot, ki je definiran z za\v cetno to\v cko $x,y$ in odmikom $dx$ po osi $x$ in odmikom $dy$ po osi $y$, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati $x$ se $dx$ zamenja z $-dx$ in ko prispe do konca sveta po koordinati $y$ se $dy$ zamenja z $-dy$.
 
 2) Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih k premikov ponikne in se ne nari\v se.
 
@@ -2242,7 +2242,7 @@ Definiraj svet robotov v programskem jeziku Ocaml.
 
 a) Vsak robot naj se predstavi ob kreaciji, tako da uporabnik vidi katerim razredom robot pripada.
 
-b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda premik najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko x,y) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
+b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda premik najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko $x,y$I’m ) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
 
 
 
@@ -2328,7 +2328,7 @@ Implementiraj razred class \lstinline{['tip\_sez] seznam}, ki naredi ovojnico ok
 
 \end{ex}
 \begin{ex}
-
+Naloga je sestavljena iz dveh delov:
 \begin{enumerate}
 \item Definiraj parametriziran razred \lstinline{['a] polje}, ki realizira ovojnico okoli tipa \lstinline{array}. Razred Polje naj ima definirane metode:
 
@@ -2394,22 +2394,24 @@ Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, 
 \end{ex} 
 \begin{ex}
   V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov:
-  x-robota, ki se premika samo po x-osi in y-robota, ki se premika
-  samo po y-osi. Svet ima dimenzije -10..10 po x-osi in -10..10 po
-  y-osi.
+  $x$-robota, ki se premika samo po $x$-osi in $y$-robota, ki se premika
+  samo po $y$-osi. Svet ima dimenzije $-10..10$ po $x$-osi
+  in $-10..10$ po $y$-osi.
 
-  Premik robota po x-osi implementiramo tako, da pri\v stejemo
-  x-koordinati 1 oz. -1, odvisno od tega ali se robot premika desno
-  ali levo. Ko robot pride do roba sveta zamenjamo premik iz 1 v -1
+  Premik robota po $x$-osi implementiramo tako, da pri\v stejemo
+  $x$-koordinati $1$ oz. $-1$, odvisno od tega ali 
+  se robot premika desno
+  ali levo. Ko robot pride do roba sveta zamenjamo premik iz $1$
+  v $-1$
   oz. obratno.
 
-  Premikanje robota po y-osi je definirano enako kot v primeru
-  premikanja po x-osi le da so osi zamenjane in se robot premika
+  Premikanje robota po $y$-osi je definirano enako kot v primeru
+  premikanja po $x$-osi le da so osi zamenjane in se robot premika
   navzgor in navzdol.
 
   \begin{enumerate}
-  \item Definiraj razrede s katerimi predstavimo x-robota in
-    y-robota. Definiraj skupen koren hierarhije razredov z uporabo
+  \item Definiraj razrede s katerimi predstavimo $x$-robota in
+    $y$-robota. Definiraj skupen koren hierarhije razredov z uporabo
     abstraktnega razreda.
 
   \item V abstraktnem razredu robot definiraj virtualno metodo
@@ -2431,7 +2433,7 @@ Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, 
     brisi_zacetek : int 
     dodaj_konec : int -> unit
     brisi_konec : int  
-    \end{lstlisting}
+\end{lstlisting}
 
   \item Razreda \lstinline{vrsta} (FIFO) in \lstinline{sklad} (FILO)
     implementiraj kot specializaciji razreda
@@ -2503,10 +2505,11 @@ c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
   stevil. Razred naj se inicializira s parametroma m in n.
 
   b) Definiraj naslednje metode razreda Matrika:
-
+\begin{lstlisting}
   get : int -> int -> float
   set : int -> int -> float -> unit
   mul : matrika -> unit
+\end{lstlisting}
 
   Vse metode spreminjajo matriko predstavljeno z objektom, ki izvr\v
   si metodo.  Na primer, metoda mul pomno\v zi dano matriko (objekt) z
@@ -2606,8 +2609,6 @@ dequeue : int.
 \end{lstlisting}
 V primeru, da je drugi sklad prazen in uporabimo operacijo dequeue, potem najprej obrnemo prvi sklad in ga shranimo kot drugi sklad.
 
-
-
 \end{ex}
 \begin{ex}
 Dan je razred sklad, ki realizira parametriziran sklad celih \v stevil
@@ -2621,7 +2622,7 @@ end
 \end{lstlisting}
 Definiraj razred Kalkulator, ki bo osnova za implementacijo enostavnega kalkulatorja, ki deluje z uporabo obrnjene poljske notacije. Kalkulator deluje na naslednji na\v cin.  
 
-\v stevilo, ki ga vnesemo da na vrh delovnega sklada. Operacije plus, minus, mnozi in deli vzamejo zadnja dva operanda iz sklada, opravijo operacijo in vrnejo rezultat na sklad. 
+\v Stevilo, ki ga vnesemo da na vrh delovnega sklada. Operacije plus, minus, mnozi in deli vzamejo zadnja dva operanda iz sklada, opravijo operacijo in vrnejo rezultat na sklad. 
 
 Kako bi naredili splo\v sen kalkulator, ki lahko uporablja poljubno predstavitev \v stevil?
 
@@ -2640,7 +2641,7 @@ Kako bi naredili splo\v sen kalkulator, ki lahko uporablja poljubno predstavitev
 
   \begin{lstlisting}
   type `a option = Some of `a | None
-  \end{lstlisting}
+\end{lstlisting}
 
   Napi\v si metodo, ki vstavi novo vozli\v s\v ce v skrajno levo vejo
   drevesa.
@@ -2650,12 +2651,12 @@ Kako bi naredili splo\v sen kalkulator, ki lahko uporablja poljubno predstavitev
 \begin{ex}
   V programskem jeziku Ocaml imamo definirano podatkovno strukturo
   seznam na naslednji na\v cin:
-
-  type 'a element = { 
-     mutable vrednost:'a; 
-     mutable naslednji:'a seznam 
-  } 
-  and 'a seznam = Prazen | Element of 'a element ;; 
+\begin{lstlisting}
+type 'a element = { 
+    mutable vrednost:'a; 
+    mutable naslednji:'a seznam} 
+and 'a seznam = Prazen | Element of 'a element;; 
+\end{lstlisting}
 
   Napi\v si funkcijo zdruzi : 'a seznam -> 'b seznam -> ('a * 'b)
   seznam, ki zdru\v zi elemente dveh seznamov v en sam seznam tako, da
@@ -2666,10 +2667,11 @@ Kako bi naredili splo\v sen kalkulator, ki lahko uporablja poljubno predstavitev
 \end{ex} 
 \begin{ex}
   Napi\v si polimorfi\v cno funkcijo rapp :
-  ('a->'a)->int->('a->'a). Klic rapp f n applicira funkcijo f n-krat
+  \lstinline{('a->'a)->int->('a->'a)}. Klic \lstinline{rapp f n}  funkcijo $f$ applicira $n$-krat
   na danem parametru:
-
-  rapp f n = (function x -> f (...(f x)...))     
+\begin{lstlisting}
+rapp f n = (function x -> f (...(f x)...))     
+\end{lstlisting}
 
 \noindent\/Primer:            
 \begin{lstlisting}
