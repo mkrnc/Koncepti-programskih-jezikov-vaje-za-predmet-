@@ -2493,58 +2493,63 @@ Napi\v si funkcijo \lstinline{oznaci : unit}, ki ozna\v ci vse komponente motorj
 Vrsto (FIFO) in sklad (LIFO) \v zelimo implementirati z uporabo polja. Uporabi hierarhijo razredov za implementacijo vrste in sklada. 
 
 Namig: Najprej definiraj razred, ki realizira vrsto kjer lahko dodajamo in odvzemamo elemente na za\v cetku in na koncu. Definiraj razreda vrsta in sklad kot specializacije tega razreda.
-
-
-
 \end{ex}
+
+
+
+
+
 \begin{ex}
 Definiraj hierarhijo razredov za predstavitev geometrijskih objektov: to\v cka, premica in krog. 
 
 Vsak geometrijski objekt naj ima funkcijo
-\lstinline{premakni_se : int -> int -> unit}, 
+\begin{lstlisting}
+premakni_se : int -> int -> unit,
+\end{lstlisting}
 kjer predstavljata parametra premika po $x$ in $y$ osi. 
-
 \end{ex}
+
+
+
+
+
 \begin{ex}
 Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati x=1..100 in y=1..100. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
 
-1) Osnovni robot, ki je definiran z za\v cetno to\v cko x,y in odmikom dx po osi x in odmikom dy po osi y, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati x se dx zamenja z -dx in ko prispe do konca sveta po koordinati y se dy zamenja z -dy.
+\begin{enumerate}
+\item Osnovni robot, ki je definiran z za\v cetno to\v cko x,y in odmikom dx po osi x in odmikom dy po osi y, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati x se dx zamenja z -dx in ko prispe do konca sveta po koordinati y se dy zamenja z -dy.
 
-2) Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih k premikov ponikne in se ne nari\v se.
+\item Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih k premikov ponikne in se ne nari\v se.
 
-3) Cikcak robot, ki se prav tako premika enako kot osnovni robot le da \v se ska\v ce po x osi dve to\v cki od premika osnovnega robota na levo in v naslednjem koraku dve to\v cki na desno in tako naprej.
+\item Cikcak robot, ki se prav tako premika enako kot osnovni robot le da \v se ska\v ce po x osi dve to\v cki od premika osnovnega robota na levo in v naslednjem koraku dve to\v cki na desno in tako naprej.
+\end{enumerate}
 
 Definiraj svet robotov v programskem jeziku Ocaml. 
+\begin{itemize}
+\item Vsak robot naj se predstavi ob kreaciji, tako da uporabnik vidi katerim razredom robot pripada.
 
-a) Vsak robot naj se predstavi ob kreaciji, tako da uporabnik vidi katerim razredom robot pripada.
-
-b) Napi\v si metodo premik, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda premik najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko x,y) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
-
-
-
+\item Napi\v si metodo \lstinline{premik : unit}, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda \texttt{premik} najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko x,y) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
+\end{itemize}
 \end{ex}
+
+
+
+
 \begin{ex}
 Definirati je potrebno hierarhijo razredov za predstavitev podatkov o \v studentih v informacijskem sistemu \v SIS. Splo\v sne podatke o \v studentih predstavimo v razredu Oseba. Bolj specifi\v cne podatke predstavimo v razredih Student, PodiplomskiStudent in Asistent.
 Asistent je poseben primer podiplomskega \v studenta. 
 
-V razredih bi \v zeleli hraniti naslednje podatke: 
-\begin{itemize}
-    \item  ime in priimek, 
-    \item  naslov, 
-    \item  tel.stevilka, 
-    \item  vpisan letnik, 
-    \item  vpisan program, 
-    \item  obstoje\v ca izobrazba in 
-    \item  povpre\v cna ocena. 
-\end{itemize}
+V razredih bi \v zeleli hraniti naslednje podatke: ime in priimek, naslov, tel.\v stevilka, vpisan letnik, vpisan program, obstoje\v ca izobrazba in povpre\v cna ocena. 
+
 Naloga ima tri dele:
 
-a) Definiraj razrede v programskem jeziku Ocaml.
+\begin{enumerate}
+\item Definiraj razrede v programskem jeziku Ocaml.
 
-b) Realiziraj razrede tako, da inicializatorji razreda inicializirajo objekt z za\v cetnimi vrednostmi.
+\item Realiziraj razrede tako, da inicializatorji razreda inicializirajo objekt z za\v cetnimi vrednostmi.
 
-c) V hierarhiji razredov implementiraj metodo predstavi, ki predstavi vse lastnosti poljubnega primerka razredov v hierarhiji. Uporabljaj dedovanje in prekrivanje metod!
-
+\item V hierarhiji razredov implementiraj metodo \lstinline{predstavi :unit}, ki predstavi vse lastnosti poljubnega primerka razredov v hierarhiji. Uporabljaj dedovanje in prekrivanje metod!
+\end{enumerate}
 \end{ex}
 
 
@@ -2555,11 +2560,17 @@ Hi\v sa je sestavljena iz N nadstropij in podstre\v sja. Vsako nadstropje ima M 
 
 V vsaki sobi in na podstre\v sju imamo termometer. Temperaturo hi\v se dolo\v cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah in na podstre\v sju. 
 
-Predpostavimo, da imamo dano funkcijo temperatura : int -> int -> int, ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. Podstre\v sje identificiramo kot N+1 nadstropje (soba=0).
+Predpostavimo, da imamo dano funkcijo 
+\begin{lstlisting}
+temperatura : int -> int -> int,
+\end{lstlisting} 
+ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. Podstre\v sje identificiramo kot N+1 nadstropje (soba=0).
 
-a) Definiraj razrede s katerimi predstavimo: sobe, nadstropja, podstre\v sje in celotno hi\v so.
-b) Vsak razred mora imeti metodo odcitajTemperaturo, ki vrne temperaturo objekta in postavi trenutno vrednost temperature za dan objekt.
-c) Razred hisa mora izra\v cunati temperaturo hise po zgoraj opisanem postopku.
+\begin{enumerate}
+\item Definiraj razrede s katerimi predstavimo: sobe, nadstropja, podstre\v sje in celotno hi\v so.
+\item Vsak razred mora imeti metodo \lstinline{odcitajTemperaturo : int}, ki vrne temperaturo objekta in postavi trenutno vrednost temperature za dan objekt.
+\item Razred \lstinline{Hisa} mora izra\v cunati temperaturo hi\v se po zgoraj opisanem postopku.
+\end{enumerate}
 \end{ex}
 
 
@@ -2570,18 +2581,17 @@ c) Razred hisa mora izra\v cunati temperaturo hise po zgoraj opisanem postopku.
 
 
 \begin{ex}
-Dano je drevo, ki je definirano z naslednjim razredom.
-
+Dano je drevo, ki je definirano z razredom \lstinline{vozel}. Vsako vozli\v s\v ce hrani vrednost klju\v ca \lstinline{kljuc}. Za predstavitev pod-dreves uporabimo tip \lstinline{'a option}.
 \begin{lstlisting}
-class Drevo {
- int elm;
- int vsota;
- Drevo levo = null;
- Drevo desno = null;
- }
+class vozel k = 
+object
+  val kljuc = k
+  val levo = None
+  val desno = None
+end
 \end{lstlisting}
 
-Napi\v si metodo preveriUrejenost(), ki preveri ali je dano drevo urejeno: za dano vozli\v s\v ce so vsa vozli\v s\v ca levega pod-drevesa manj\v sa od korena in vozli\v s\v ca desnega poddervesa ve\v cja od korena. 
+Napi\v si metodo \lstinline{preveriUrejenost : boolen}, ki preveri ali je dano drevo urejeno. V danem korenu imajo vsa vozli\v s\v ca v levem poddrevesu manj\v so vrednost klju\v ca in vsa vozli\v s\v ca v desnem poddrevesu ve\v cjo vrednost klju\v ca.
 
 Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, \v ce ima\v s dano metodo za vstavljanje v urejeno drevo?
 \end{ex}
@@ -2591,21 +2601,21 @@ Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, 
 
 %----n
 \begin{ex}
-Dano je drevo, ki je definirano z naslednjim razredom.
-
+Dano je drevo, ki je definirano z razredom \lstinline{vozel}. Vsako vozli\v s\v ce hrani vrednost klju\v ca \lstinline{kljuc}. Za predstavitev pod-dreves uporabimo tip \lstinline{'a option}.
 \begin{lstlisting}
-class Drevo {
-  int elm;
-  int vsota;
-  Drevo levo = null;
-  Drevo desno = null;
-}
+class vozel k = 
+object
+  val kljuc = k
+  val levo = None
+  val desno = None
+end
 \end{lstlisting}
 
-a) Napi\v si metodo vsote(), ki v vsakem vozli\v s\v cu izra\v cuna vsoto vseh vozli\v s\v c poddrevesa.
+\begin{enumerate}
+\item Napi\v si metodo \lstinline{vsota : 'a}, ki za dano vozli\v s\v ce izra\v cuna vsoto vseh klju\v cev vozli\v s\v c pod-drevesa.
 
-b) Izpi\v si korene poddreves s vsoto < 10.
-
+\item Izpi\v si korene poddreves s vsoto < 10.
+\end{enumerate}
 \end{ex}
 
 
@@ -2617,23 +2627,23 @@ b) Izpi\v si korene poddreves s vsoto < 10.
 
 
 \begin{ex}
-Geometrijski objekt je definiran z virtualnim razredom geo, ki vsebuje
-definiciji virtualnih metod:
+Geometrijski objekt je definiran z virtualnim razredom geo, ki vsebuje definiciji naslednjih virtualnih metod.
 
-- predstavi : string
-  predstavi geometrijski objekt z nizom znakov, in 
-- nari\v si : unit 
-  nari\v se objekt in izpi\v se niz s katerim je predstavljen objekt. 
-
-Definiraj abstraktni razred geo in razrede to\v cka, krog in premica kot
-implementacije abstraktnega razreda geo. Uporabi dedovanje kjer je mogo\v ce. 
-
-Implementiraj metodi predstavi in narisi za vse tri konkretne razrede. 
-Predpostavi, da imamo \v ze napisane funkcije: 
 \begin{lstlisting}
-- narisi_tocko : int*int -> unit
-- narisi_premico : int*int -> int*int -> unit
-- narisi_krog : int*int -> int -> unit
+method virtual predstavi : string
+method virtual narisi : unit 
+\end{lstlisting}
+
+Metoda \lstinline{predstavi} vrne niz znakov s katerim je opisan geometrijski objekt. Metoda \lstinline{narisi} nari\v se dani geometrijski objekt. 
+
+Definiraj abstraktni razred \lstinline{geo} in razrede \lstinline{tocka}, \lstinline{krog} in \lstinline{premica} kot
+implementacije abstraktnega razreda \texttt{geo}. Uporabi dedovanje kjer je mogo\v ce. 
+
+Implementiraj metodi predstavi in narisi za vse tri konkretne razrede. Predpostavi, da imamo \v ze napisane naslednje funkcije.
+\begin{lstlisting}
+narisi_tocko : int*int -> unit
+narisi_premico : int*int -> int*int -> unit
+narisi_krog : int*int -> int -> unit
 \end{lstlisting}
 
 Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode uporabijo prekrite metode, kjer je mogo\v ce.
@@ -2647,48 +2657,55 @@ Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode u
 
 
 
+
+
 \begin{ex}
-Implementiraj razred class \lstinline{['tip\_sez] seznam}, ki naredi ovojnico okoli vgrajenega tipa list. Implementiraj metode, ki realizirajo obi\v cajne operacije nad seznami: ::, @, member, itd.
-
-
-
+Implementiraj razred class \lstinline{'a seznam}, ki naredi ovojnico okoli vgrajenega tipa \texttt{list}. Implementiraj metode, ki realizirajo obi\v cajne operacije nad seznami vključno z operacijo \texttt{::} (\texttt{cons}), operacijo \texttt{@} in testom vsebovanosti \texttt{member : 'a -> 'a seznam -> boolean}.
 \end{ex}
+
+
+
+
+
+
 \begin{ex}
-
-
-
-\begin{enumerate}
-\item Definiraj parametriziran razred \lstinline{['a] polje}, ki realizira ovojnico okoli tipa \lstinline{array}. Razred Polje naj ima definirane metode:
-
-- popravi, ki za dan indeks in vrednost tipa 'a postavi vsebino elementa polja z danim indeksom na novo vrednost in
-
-- preberi, ki vrne za dan indeks vsebino elementa polja. 
+Definiraj parametriziran razred \lstinline{'a polje}, ki realizira ovojnico okoli tipa \lstinline{array}. Razred \texttt{'a polje} naj ima definirane naseldnje metode.
+\begin{lstlisting}
+method popravi : int -> 'a -> unit
+method preberi : 'a 
+\end{lstlisting}
+Metoda \texttt{popravi} za dan indeks in vrednost tipa 'a postavi vsebino elementa polja z danim indeksom na novo vrednost. Metoda \texttt{preberi} vrne za dan indeks vsebino elementa polja. 
 
 Polje naj bo kreirano ob kreaciji objekta. Ob kreaciji podamo tudi velikost polja.
 
-\item Z uporabo prej definiranega razreda Polje definiraj razred RealPolje, ki vsebuje realna \v stevila. Re-definiraj metodo preberi tako, da vrne samo celo vrednost realnega \v stevila.
-\end{enumerate}
-
-
-
+Z uporabo prej definiranega razreda \lstinline{polje} definiraj razred \lstinline{real_polje}, ki vsebuje realna \v stevila. Re-definiraj metodo preberi tako, da vrne samo celo vrednost realnega \v stevila.
 \end{ex}
+
+
+
+
+
+
+
 \begin{ex}
-Slika je predstavljena s trojicami, ki vsebujejo x in y koordinati ter barvo.
+Slika naj bo predstavljena s trojicami, ki vsebujejo x in y koordinati ter barvo.
 
-a) Definiraj parametriziran abstraktni razred class ['a] tocka, s katero definiramo to\v cke predstavljene z dvema koordinatama tipa int in barvo tipa 'a. 
+\begin{enumerate}
+\item Definiraj parametriziran abstraktni razred \lstinline{'a tocka}, s katero definiramo to\v cke predstavljene z dvema koordinatama tipa int in barvo tipa 'a. 
 
-Definiraj abstraktno metodo 
-\begin{lstlisting}
-enakost : ['a] tocka -> bool, 
-\end{lstlisting}
-ki primerja dano to\v cko s to\v cko, ki je podana kot parameter metode enakost. 
+Definiraj abstraktno metodo \lstinline{enakost : 'a tocka -> bool}, ki primerja dano to\v cko s to\v cko, ki je podana kot parameter metode \texttt{enakost}.
 
-Definiraj konkreten razred itocka, kjer je tip barve celo \v stevilo (int). Razred itocka podeduje vse lastnosti razreda tocka in implementira metodo enakost.
+Definiraj konkreten razred \lstinline{itocka}, kjer je tip barve celo \v stevilo (\texttt{int}). Razred \texttt{itocka} podeduje vse lastnosti razreda \texttt{tocka} in implementira metodo \texttt{enakost}.
 
-b) Z uporabo pred definiranega abstraktnega razreda tocka definiraj parametriziran razred class ['a] slika, kjer tip 'a spet predstavlja tip barve to\v ck slike. 
+\item Z uporabo pred definiranega abstraktnega razreda tocka definiraj parametriziran razred \lstinline{'a slika}, kjer tip \texttt{'a} spet predstavlja tip barve to\v ck slike. 
 
-Skiciraj konkretizacijo parametriziranega razreda ['a] slika v razred intslika, kjer je spremenljivka tipa 'a enaka tipu int.
+Skiciraj konkretizacijo parametriziranega razreda \lstinline{'a slika} v razred \lstinline{intslika}, kjer je spremenljivka tipa \texttt{'a} enaka tipu \texttt{int}.
+\end{enumerate}
 \end{ex}
+
+
+
+
 
 
 
