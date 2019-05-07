@@ -2486,13 +2486,26 @@ Napi\v si funkcijo \lstinline{oznaci : unit}, ki ozna\v ci vse komponente motorj
 
 
 
+
+
+
 \section{Hierarhije razredov}
 
 
-\begin{ex}
-Vrsto (FIFO) in sklad (LIFO) \v zelimo implementirati z uporabo polja. Uporabi hierarhijo razredov za implementacijo vrste in sklada. 
 
-Namig: Najprej definiraj razred, ki realizira vrsto kjer lahko dodajamo in odvzemamo elemente na za\v cetku in na koncu. Definiraj razreda vrsta in sklad kot specializacije tega razreda.
+
+
+\begin{ex}
+Vrsto (FIFO) in sklad (LIFO) celih \v stevil \v zelimo implementirati z uporabo polja. 
+
+Najprej definiraj razred \lstinline{zbirka}, ki realizira vrsto kjer lahko dodajamo in odvzemamo elemente na za\v cetku in na koncu vrste. 
+Razreda \lstinline{vrsta} in \lstinline{sklad} implementiraj kot specializaciji razreda zbirka. 
+
+\begin{itemize}
+\item Vrsta naj ima operaciji \texttt{enqueue} in \texttt{dequeue}. Prva operacija doda nov element na za\v cetek vrste in druga odvzame element iz konca vrste. 
+
+\item Sklad naj ima operaciji \texttt{push} in \texttt{pop}. Operacija \texttt{push} doda nov element na vrh sklada in \texttt{pop} odvzame elemet iz vrha sklada.
+\end{itemize}
 \end{ex}
 
 
@@ -2508,6 +2521,7 @@ premakni_se : int -> int -> unit,
 \end{lstlisting}
 kjer predstavljata parametra premika po $x$ in $y$ osi. 
 \end{ex}
+
 
 
 
@@ -2535,6 +2549,23 @@ Definiraj svet robotov v programskem jeziku Ocaml.
 
 
 
+
+\begin{ex}
+V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov: x-robota, ki se premika samo po x-osi in y-robota, ki se premika samo po y-osi. Svet je definiran na področjih [-10..10] po x-osi in [-10..10¸] po y-osi. x-robot je definiran na lokaciji, ki je na y-osi, medtem ko ima y-robot lokacijo na x-osi. 
+
+Premik robota po x-osi implementiramo tako, da pri\v stejemo x-koordinati 1 oz. -1, odvisno od tega ali se robot premika desno ali levo. Ko robot pride do roba sveta, se obrne v nasprotno smer. Premikanje robota po y-osi je definirano enako kot v primeru premikanja po x-osi le da so osi zamenjane in se robot premika navzgor in navzdol.
+
+\begin{enumerate}
+\item Definiraj razrede s katerimi predstavimo x-robota in y-robota. Uporabi skupen koren hierarhije razredov \lstinline{robot}, ki realizira skupne značilnosti robotov.
+
+\item Vsi razredi naj imajo definirano metodo \lstinline{premik : unit}. 
+\end{enumerate}
+\end{ex} 
+
+
+
+
+
 \begin{ex}
 Definirati je potrebno hierarhijo razredov za predstavitev podatkov o \v studentih v informacijskem sistemu \v SIS. Splo\v sne podatke o \v studentih predstavimo v razredu Oseba. Bolj specifi\v cne podatke predstavimo v razredih Student, PodiplomskiStudent in Asistent.
 Asistent je poseben primer podiplomskega \v studenta. 
@@ -2555,23 +2586,43 @@ Naloga ima tri dele:
 
 
 
+%\begin{ex}
+%Hi\v sa je sestavljena iz N nadstropij in podstre\v sja. Vsako nadstropje ima M sob.
+%
+%V vsaki sobi in na podstre\v sju imamo termometer. Temperaturo hi\v se dolo\v cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah in na podstre\v sju. 
+%
+%Predpostavimo, da imamo dano funkcijo 
+%\begin{lstlisting}
+%temperatura : int -> int -> int,
+%\end{lstlisting} 
+%ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. Podstre\v sje identificiramo kot N+1 nadstropje (soba=0).
+%
+%\begin{enumerate}
+%\item Definiraj razrede s katerimi predstavimo: sobe, nadstropja, podstre\v sje in celotno hi\v so.
+%\item Vsak razred mora imeti metodo \lstinline{odcitajTemperaturo : int}, ki vrne temperaturo objekta in postavi trenutno vrednost temperature za dan objekt.
+%\item Razred \lstinline{Hisa} mora izra\v cunati temperaturo hi\v se po zgoraj opisanem postopku.
+%\end{enumerate}
+%\end{ex}
+
+
+
 \begin{ex}
-Hi\v sa je sestavljena iz N nadstropij in podstre\v sja. Vsako nadstropje ima M sob.
+Hi\v sa je sestavljena iz \texttt{N} nadstropij. Vsako nadstropje ima \texttt{M} sob. V vsaki sobi imamo termometer. Temperaturo hi\v se dolo\v\/cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah. 
 
-V vsaki sobi in na podstre\v sju imamo termometer. Temperaturo hi\v se dolo\v cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah in na podstre\v sju. 
+Predpostavimo, da imamo dano funkcijo \lstinline{temperatura : int -> int -> int}, ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. 
 
-Predpostavimo, da imamo dano funkcijo 
-\begin{lstlisting}
-temperatura : int -> int -> int,
-\end{lstlisting} 
-ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. Podstre\v sje identificiramo kot N+1 nadstropje (soba=0).
+\begin{itemize}
+\item Predstavi opisano okolje z razredi \lstinline{soba}, \lstinline{nadstropje} in \lstinline{hisa}.
 
-\begin{enumerate}
-\item Definiraj razrede s katerimi predstavimo: sobe, nadstropja, podstre\v sje in celotno hi\v so.
-\item Vsak razred mora imeti metodo \lstinline{odcitajTemperaturo : int}, ki vrne temperaturo objekta in postavi trenutno vrednost temperature za dan objekt.
-\item Razred \lstinline{Hisa} mora izra\v cunati temperaturo hi\v se po zgoraj opisanem postopku.
-\end{enumerate}
-\end{ex}
+\item Vsak razred mora imeti metodo \lstinline{odcitaj_temp : int -> int -> int}, ki vrne temperaturo objekta in  postavi trenutno vrednost temperature za dan objekt.
+
+\item Razred \lstinline{hisa} naj vsebuje metodo \lstinline{povprecna_temp : int}, ki izra\v cuna povpre\v cno teperaturo hi\v se po zgoraj opisanem postopku.
+\end{itemize}
+\end{ex} 
+
+
+
+
 
 
 
@@ -2599,7 +2650,8 @@ Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, 
 
 
 
-%----n
+
+
 \begin{ex}
 Dano je drevo, ki je definirano z razredom \lstinline{vozel}. Vsako vozli\v s\v ce hrani vrednost klju\v ca \lstinline{kljuc}. Za predstavitev pod-dreves uporabimo tip \lstinline{'a option}.
 \begin{lstlisting}
@@ -2623,11 +2675,29 @@ end
 
 
 
+\begin{ex}
+Naprave so sestavljene iz manj\v sih naprav, ki so spet lahko sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje ime, tip in te\v\/zo.
+\begin{enumerate}[label=(\Alph*)]
+\item Definiraj razred \lstinline{naprava}. Bodi pozor-na/en na definicijo parametrov razreda in na inicializacijo razreda. 
+
+\item Definiraj metodo \lstinline{prestej : int}, ki za dano napravo vrne število vseh komponent. 
+
+\item Definiraj metodo \lstinline{listi : naprava list} razreda \lstinline{naprava}, ki v seznamu vrne liste drevesa vsebovanosti naprav za dano napravo (objekt).
+\end{enumerate}
+\end{ex} 
+
+
+
+
+
+
+
+
 \section{Abstraktni razredi}
 
 
 \begin{ex}
-Geometrijski objekt je definiran z virtualnim razredom geo, ki vsebuje definiciji naslednjih virtualnih metod.
+Geometrijski objekt je definiran z virtualnim razredom \lstinline{geo}, ki vsebuje definiciji naslednjih virtualnih metod.
 
 \begin{lstlisting}
 method virtual predstavi : string
@@ -2653,6 +2723,24 @@ Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode u
 
 
 
+\begin{ex}
+Definiraj hierarhijo razredov za geometrijske objekte to\v cko, krog in kvadrat. Poskusi v \v cim ve\v cji meri uporabiti gradnike objektnega modela za u\v cinkovito predstavitev hierarhije. 
+
+\begin{enumerate}
+\item Definiraj razrede \lstinline{tocka}, \lstinline{krog} in \lstinline{kvadrat}. Uporabi abstraktni razred za vrh hierarhije razredov.
+
+\item Za vse geometrijske objekte definiraj metodo \lstinline{premakni}, ki premakne dan geometrijski objekt. Uporabi dedovanje in prekrivanje metod!
+
+\item Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
+\end{enumerate}
+\end{ex} 
+
+
+
+
+
+
+
 \section{Parametri\v cni razredi}
 
 
@@ -2662,7 +2750,6 @@ Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode u
 \begin{ex}
 Implementiraj razred class \lstinline{'a seznam}, ki naredi ovojnico okoli vgrajenega tipa \texttt{list}. Implementiraj metode, ki realizirajo obi\v cajne operacije nad seznami vključno z operacijo \texttt{::} (\texttt{cons}), operacijo \texttt{@} in testom vsebovanosti \texttt{member : 'a -> 'a seznam -> boolean}.
 \end{ex}
-
 
 
 
@@ -2685,6 +2772,48 @@ Z uporabo prej definiranega razreda \lstinline{polje} definiraj razred \lstinlin
 
 
 
+\begin{ex}
+Definiraj razred \lstinline{queue}, ki implementira obi\v cajno vrsto z uporabo polja. Vrsta naj vsebuje elemente tipa \texttt{'a}. Razred naj vsebuje naslednje metode.
+
+\begin{lstlisting}
+enqueue : 'a -> unit
+dequeue : 'a
+\end{lstlisting}
+
+Metoda \texttt{enqueue} dodaja elemente po vrsti v polje. V primeru, da pridemo do konca polja za\v cnemo dodajati spet na za\v cetku. Pri dodajanju preveri ali je vrsta \v ze polna.
+           
+Metoda \texttt{dequeue} jemlje elemente po vrsti iz za\v cetka polja. Ko pridemo do konca polja, za\v cnemo od za\v cetka. Pri jemanju elementov iz vrste preveri ali je vrsta prazna.
+
+Velikost vrste naj bo parameter razreda, ki se takoj pri kreaciji objekta zaokro\v zi navzgor na KB.
+
+Inicializator razreda naj takoj po kreaciji objekta vstavi v vrsto 10 ni\v cel.
+\end{ex}
+
+
+
+
+
+
+
+
+\begin{ex}
+\begin{enumerate}
+\item Definiraj razred \lstinline{zbirka}, ki hrani zbirko vrednosti tipa \texttt{'a}. Implementiraj naslednje metode.
+\begin{lstlisting}
+dodaj_zacetek : 'a -> unit
+beri_zacetek : 'a 
+dodaj_konec : 'a -> unit
+beri_konec : 'a  
+\end{lstlisting}
+
+\item Razreda \lstinline{vrsta} (FIFO) in \lstinline{sklad} (FILO) implementiraj kot specializaciji razreda \lstinline{zbirka}. Definiraj ustrezne metode razredov \lstinline{vrsta} (\texttt{enqueue} in \texttt{dequeue}) in \lstinline{sklad} (\texttt{push} in \texttt{pop}).
+\end{enumerate}
+\end{ex} 
+
+
+
+
+
 
 
 \begin{ex}
@@ -2697,7 +2826,7 @@ Definiraj abstraktno metodo \lstinline{enakost : 'a tocka -> bool}, ki primerja 
 
 Definiraj konkreten razred \lstinline{itocka}, kjer je tip barve celo \v stevilo (\texttt{int}). Razred \texttt{itocka} podeduje vse lastnosti razreda \texttt{tocka} in implementira metodo \texttt{enakost}.
 
-\item Z uporabo pred definiranega abstraktnega razreda tocka definiraj parametriziran razred \lstinline{'a slika}, kjer tip \texttt{'a} spet predstavlja tip barve to\v ck slike. 
+\item Z uporabo prej definiranega abstraktnega razreda \texttt{'a tocka} definiraj parametriziran razred \lstinline{'a slika}, kjer tip \texttt{'a} spet predstavlja tip barve to\v ck slike. 
 
 Skiciraj konkretizacijo parametriziranega razreda \lstinline{'a slika} v razred \lstinline{intslika}, kjer je spremenljivka tipa \texttt{'a} enaka tipu \texttt{int}.
 \end{enumerate}
@@ -2711,240 +2840,100 @@ Skiciraj konkretizacijo parametriziranega razreda \lstinline{'a slika} v razred 
 
 %--- nekateg.
 \begin{ex}
-  V svetu eno-dimenzionalnih robotov se roboti pomikajo po premici
-  levo in desno. Premica ima izhodi\v s\v ce, ki ima vrednost
-  0. Roboti se lahko pomikajo za korak levo ali korak desno. 
+V svetu eno-dimenzionalnih robotov se roboti pomikajo po premici levo in desno. Premica ima izhodi\v s\v ce, ki ima vrednost 0. Roboti se lahko pomikajo za korak levo ali korak desno. 
 
-  Imamo dve vrsti robotov, ki se premikajo po podro\v cju [-100..100]:
+Imamo dve vrsti robotov, ki se premikajo po podro\v cju [-100..100]:
 
-  \begin{enumerate}
-  \item Robot se premakne za eno enoto v izbrano smer. Ko pride do
-    meje se obrne. To vrsto robota predstavimo z razredom
-    \lstinline{robot1}.
+\begin{enumerate}
+\item Robot se premakne za eno enoto v izbrano smer. Ko pride do meje se obrne. To vrsto robota predstavimo z razredom \lstinline{robot1}.
 
-  \item Robot se premika naklju\v cno za eno enoto desno ali levo. To
-    vrsto robota predstavimo z razredom \lstinline{robot2}.
-  \end{enumerate}
+\item Robot se premika naklju\v cno za eno enoto desno ali levo. To vrsto robota predstavimo z razredom \lstinline{robot2}.
+\end{enumerate}
 
-  \begin{enumerate}[label=(\roman*)]
-  \item Definiraj robote z razredi povezanimi v hierarhijo
-    dedovanja. Vrh hierarhije dedovanja naj bo razred \lstinline{robot}.
+\begin{enumerate}[label=(\roman*)]
+\item Definiraj robote z razredi povezanimi v hierarhijo dedovanja. Vrh hierarhije dedovanja naj bo razred \lstinline{robot}.
 
-  \item Definiraj za vse robote metodo \lstinline{premik}, ki naredi
-    naslednji premik robota.
+\item Definiraj za vse robote metodo \lstinline{premik}, ki naredi naslednji premik robota.
 
-  \item Definiraj razred \lstinline{robot3} kot podrazred razreda
-    \lstinline{robot1}. Z uporabo prekrivanja definiraj premik tega
-    robota kot dvakraten premik robota iz razreda \lstinline{robot1}.
-  \end{enumerate}
+\item Definiraj razred \lstinline{robot3} kot podrazred razreda \lstinline{robot1}. Z uporabo prekrivanja definiraj premik tega robota kot dvakraten premik robota iz razreda \lstinline{robot1}.
+\end{enumerate}
 \end{ex} 
 
 
 
-\begin{ex}
-  V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov:
-  x-robota, ki se premika samo po x-osi in y-robota, ki se premika
-  samo po y-osi. Svet ima dimenzije -10..10 po x-osi in -10..10 po
-  y-osi.
 
-  Premik robota po x-osi implementiramo tako, da pri\v stejemo
-  x-koordinati 1 oz. -1, odvisno od tega ali se robot premika desno
-  ali levo. Ko robot pride do roba sveta zamenjamo premik iz 1 v -1
-  oz. obratno.
-
-  Premikanje robota po y-osi je definirano enako kot v primeru
-  premikanja po x-osi le da so osi zamenjane in se robot premika
-  navzgor in navzdol.
-
-  \begin{enumerate}
-  \item Definiraj razrede s katerimi predstavimo x-robota in
-    y-robota. Definiraj skupen koren hierarhije razredov z uporabo
-    abstraktnega razreda.
-
-  \item V abstraktnem razredu robot definiraj virtualno metodo
-    \lstinline{premik}. Implementiraj metodo \lstinline{premik} v
-    okviru obeh konkretnih razredov.
-  \end{enumerate}
-\end{ex} 
+%\begin{ex}
+%Imamo naprave, ki so sestavljene iz manj\v sih naprav, ki so spet lahko sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje ime in %tip. Naprave definiramo z naslednjim razredom \lstinline{naprava}.
+%
+%\begin{lstlisting}
+%class naprava (im:string) (tp:string) (ln:naprava list) = 
+%object 
+%  val ime = im 
+%  val tip = tp 
+%  val mutable komponente = ln 
+%end 
+%\end{lstlisting}
+%
+%Napi\v si metodo \lstinline{izpisi_liste}, ki izpi\v se imena in tipe vseh listov--naprav, ki nimajo nobene komponente.
+%\end{ex} 
 
 
 
 \begin{ex}
+\begin{enumerate}[label=(\Alph*)]
+\item Definiraj razred \lstinline{matrika}, ki predstavlja \texttt{mxn} matrike realnih \v stevil. Razred naj se inicializira s parametroma \texttt{m} in \texttt{n}.
 
-  \begin{enumerate}
-  \item Definiraj razred \lstinline{zbirka}, ki hrani zbirko celih \v
-    stevil urejeno po vrstnem redu dolo\v cenim z uporabo funkcij za
-    dodajanje elementov. Implementiraj naslednje metode:
-
-    \begin{lstlisting}
-    dodaj_zacetek : int -> unit
-    brisi_zacetek : int 
-    dodaj_konec : int -> unit
-    brisi_konec : int  
-    \end{lstlisting}
-
-  \item Razreda \lstinline{vrsta} (FIFO) in \lstinline{sklad} (FILO)
-    implementiraj kot specializaciji razreda
-    \lstinline{zbirka}. Definiraj ustrezne metode razredov \lstinline{vrsta}
-    (enqueue in dequeue) in \lstinline{sklad} (push in pop).
-  \end{enumerate}
-
-  \emph{Nasvet}: Za implementacijo razreda \lstinline{zbirka} uporabi \v
-  cim bolj enostavno podatkovno strukturo!
-\end{ex} 
-
-
-
-\begin{ex}
-  Naprave so sestavljene iz manj\v sih naprav, ki so spet lahko
-  sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje ime,
-  tip in te\v zo.
-  
-  \begin{enumerate}[label=(\Alph*)]
-  \item Definiraj razred \lstinline{naprava}.
-
-  \item Definiraj metodo \lstinline{listi : naprava list} razreda
-    \lstinline{naprava}, ki v seznamu vrne liste drevesa vsebovanosti
-    naprav za dano napravo (objekt).
-  \end{enumerate}
-\end{ex} 
-
-
-
-\begin{ex}
-  Imamo naprave, ki so sestavljene iz manj\v sih naprav, ki so spet
-  lahko sestavljene iz manj\v sih naprav, itd. Vsaka naprava ima svoje
-  ime in tip. Naprave definiramo z naslednjim razredom naprava.
-
+\item Definiraj naslednje metode razreda \lstinline{matrika}.
 \begin{lstlisting}
-# class naprava (im:string) (tp:string) (ln:naprava list) = 
-object 
-    val ime = im 
-    val tip = tp 
-    val mutable komponente = ln 
-end;; 
-class naprava : 
-  string -> 
-  string -> 
-  naprava list -> 
-  object 
-    val ime : string 
-    val mutable komponente : naprava list 
-    val tip : string 
-  end 
+get : int -> int -> float
+set : int -> int -> float -> unit
+mul : matrika -> unit
 \end{lstlisting}
 
-  Napi\v si metodo \lstinline{izpisi_liste}, ki izpi\v se imena in tipe
-  vseh listov--naprav, ki nimajo nobene komponente.
+Vse metode spreminjajo matriko predstavljeno z objektom, ki izvr\v si metodo.  Na primer, metoda mul pomno\v zi dano matriko (objekt) z matriko, ki je podana kot parameter. Rezultat je shranjen v matriko (objekt), ki izvr\v si metodo.
+
+\item Definiraj podrazred \lstinline{kmatrika}, ki predstavlja kvadratno matriko \texttt{nxn}.
+\end{enumerate}
 \end{ex} 
 
 
 
 \begin{ex}
-Definiraj hierarhijo razredov za geometrijske objekte to\v cko, krog in kvadrat. Poskusi v \v cim ve\v cji meri uporabiti gradnike objektno-usmerjenega modela za u\v cinkovito predstavitev hierarhije. 
+Kalkulatorji, ki uporabljajo obrnjeno poljsko notacijo shranjujejo operande na skladu.
 
-a) Definiraj razrede tocka, krog in kvadrat. Uporabi abstraktni razred za vrh hierarhije razredov.
+Definiraj abstraktni razred \lstinline{rp_calc}, ki implementira kalkulator osnovan na obrnjeni poljski notaciji. Uporabnik komunicira z kalkulatorjem preko vmesnika \lstinline{rp_calc}. Vrednosti s katerimi dela kalkulator naj bodo poljubnega tipa 'a. 
 
-b) Za vse geometrijske objekte definiraj metodo premakni, ki premakne dan geometrijski objekt. Uporabi dedovanje in prekrivanje metod!
+Operacije kalkulatorja so \texttt{plus}, \texttt{minus}, \texttt{mult} in \texttt{divide}. Vsaka operacija vzame iz sklada vrhnje dve vrednosti, izra\v cuna operacijo in vrne rezultat na vrh sklada.
 
-c) Opi\v si potek inicializacije objekta ob kreiranju novega objekta.
+Razred \lstinline{rp_calc} naj implementira tudi operaciji \texttt{push} in \texttt{pop}. 
+
+Definiraj konkreten razred \lstinline{int_rpc} kot implementacijo razreda \lstinline{rp_calc} for za konkreten tip \texttt{'a=int}.
 \end{ex} 
 
 
 
+
+
+%\begin{ex}
+%Naloga je sestavljena iz dveh delov:
+%
+%  a) Definiraj razred vmesnik, ki implementira FIFO vrsto elementov
+%  poljubnega tipa 'a. Razred naj vsebuje dve metodi:
+%
+%  1) dodajanje n novih elementov na konec vrste, in
+%       
+%  2) odvzemanje k elementov iz za\v cetka vrste.
+%
+%  b) Na osnovi razreda vmesnik definiraj podrazred float\_vmesnik, ki
+%  implementira vmesnik elementov tipa float.
+%\end{ex} 
+
+
+
+
+%*****************HERE********************
 \begin{ex}
-  a) Definiraj razred matrika, ki predstavlja mxn matrike realnih \v
-  stevil. Razred naj se inicializira s parametroma m in n.
-
-  b) Definiraj naslednje metode razreda Matrika:
-
-  get : int -> int -> float
-  set : int -> int -> float -> unit
-  mul : matrika -> unit
-
-  Vse metode spreminjajo matriko predstavljeno z objektom, ki izvr\v
-  si metodo.  Na primer, metoda mul pomno\v zi dano matriko (objekt) z
-  matriko, ki je podana kot parameter. Rezultat je shranjen v matriko
-  (objekt), ki izvr\v si metodo.
-
-  c) Definiraj podrazred kmatrika, ki predstavlja kvadratno matriko
-  nxn.
-\end{ex} 
-
-
-
-\begin{ex}
-  Kalkulatorji, ki uporabljajo obrnjeno poljsko notacijo shranjujejo
-  operande na skladu.
-
-  Operacije kalkulatorja so plus, minus, mult in divide. Vsaka
-  operacija vzame iz sklada vrhnje dve vrednosti, izra\v cuna
-  operacijo in vrne rezultat na vrh sklada.
-
-  a) Definiraj abstraktni razred rpc, ki implementira kalkulator
-  osnovan na obrnjeni poljski notaciji. Vrednosti s katerimi dela
-  kalkulator naj bodo poljubnega tipa 'a. Abstraktni razred rpc naj
-  implementira tudi operaciji push in pop. Bodi pozoren na
-  virtualne oz. konkretne metode !
-
-  b) Definiraj konkreten razred int\_rpc kot implementacijo razreda
-  rpc for za konkreten tip 'a=int.
-\end{ex} 
-
-
-
-\begin{ex}
-  Definiraj razred queue, ki implementira obi\v cajno vrsto z uporabo
-  polja. Vrsta naj vsebuje elemente tipa int. Razred naj vsebuje
-  naslednje metode.
-
-  \textbf{enqueue:} Elemente dodajajamo po vrsti v polje. V primeru,
-  da pridemo do konca polja za\v cnemo dodajati spet na za\v
-  cetku. Pri dodajanju preveri ali je vrsta \v ze polna.
-                 
-  \textbf{dequeue:} Elemente jemljemo po vrsti iz za\v cetka polja. Ko
-  pridemo do konca polja, za\v cnemo od za\v cetka. Pri jemanju
-  elementov iz vrste preveri ali je vrsta prazna.
-
-  Velikost vrste naj bo parameter razreda, ki se takoj pri kreaciji
-  objekta zaokr\v zi navzgor na KB.
-
-  Inicializator razreda naj takoj po kreaciji objekta vstavi v vrsto
-  10 ni\v cel.
-\end{ex}
-
-
-
-\begin{ex}
-Naloga je sestavljena iz dveh delov:
-
-  a) Definiraj razred vmesnik, ki implementira FIFO vrsto elementov
-  poljubnega tipa 'a. Razred naj vsebuje dve metodi:
-
-  1) dodajanje n novih elementov na konec vrste, in
-       
-  2) odvzemanje k elementov iz za\v cetka vrste.
-
-  b) Na osnovi razreda vmesnik definiraj podrazred float\_vmesnik, ki
-  implementira vmesnik elementov tipa float.
-\end{ex} 
-
-
-
-\begin{ex}
-Hi\v sa je sestavljena iz N nadstropij. Vsako nadstropje ima M sob. V vsaki sobi imamo termometer. Temperaturo hi\v se dolo\v cimo tako, da izra\v cunamo povpre\v cje meritev temperature v vseh sobah. 
-
-Predpostavimo, da imamo dano funkcijo temperatura : int -> int -> int, ki za dano nadstropje in \v stevilko sobe vrne vrednost temperature v stopinjah. 
-
-a) Definiraj razrede s katerimi predstavimo: sobe, nadstropja in celotno hi\v so.
-b) Vsak razred mora imeti metodo odcitajTemperaturo, ki vrne temperaturo objekta in  postavi trenutno vrednost temperature za dan objekt.
-c) Razred hi\v sa mora izra\v cunati temperaturo hi\v se po zgoraj opisanem postopku.
-\end{ex} 
-
-
-
-\begin{ex}
-Dan je razred Sklad, ki realizira obi\v cajen sklad celih \v stevil
+Dan je razred \lstinline{sklad}, ki realizira obi\v cajen sklad celih \v stevil.
 \begin{lstlisting}
 class Sklad =
 object 
@@ -2952,8 +2941,8 @@ object
      method push : int -> unit
      method pop : int
 end
-
 \end{lstlisting}
+
 Definiraj razred Vrsta, ki implementira vrsto z dvema skladoma. Prvi sklad predstavlja za\v cetek vrste in drugi sklad predstavlja konec vrste. Razred Vrsta naj vsebuje operaciji: 
 \begin{lstlisting}
 enqueue : int -> unit, 
