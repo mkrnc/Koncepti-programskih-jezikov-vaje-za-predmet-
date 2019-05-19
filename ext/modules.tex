@@ -1,0 +1,268 @@
+\chapter{Modularni programski jeziki}
+
+%\section{Definicija modula}
+
+
+
+
+\begin{ex}
+Definiraj modul za delo s pari celih \v stevil. Tip par je definiran z
+naslednjim stavkom: type par = int*int. Modul naj vsebuje funkcije:
+
+\begin{lstlisting}
+sestej a b: par -> par -> par
+odstej a b: par -> par -> par
+mnozi a b: par -> par -> par
+\end{lstlisting}
+Pomen operacij \emph{sestej, odstej} in \emph{mnozi} je obi\v cajen:
+\begin{lstlisting}
+sestej (2,3) (1,2) -> (3,5)
+odstej (2,3) (1,2) -> (1,1)
+odstej (2,3) (1,2) -> (2,6)
+\end{lstlisting}
+\end{ex}
+
+
+
+\begin{ex}
+Imlementiraj modul za delo z vrsto. V vrsto dodajamo na za\v cetek in
+odvzemamo objekte na koncu vrste. Bodi pozoren/a na naslednje vidike:
+
+- Tip elementa vrste naj se definira ob kreaciji vrste. Tip elementa
+  je torej poljuben tip \lstinline{'a} in vrsta je parametri\v cni tip \lstinline{'a vrsta}.
+  
+- Dodaj kodo, ki bo prepre\v cevala pisanje v polno vrsto ter branje iz
+  prazne vrste.
+  
+- Za implementacijo vrste lahko uporabi\v s poljubno podatkovno strukturo.
+\end{ex}
+
+
+
+\begin{ex}
+Turisti\v cna Agencija po\v citni\v skih aran\v zmajev bo implementirala
+informacijski sistem.
+Definirajte modul \lstinline{Aranzma}, ki vsebuje kodo za delo z
+aran\v zmaji. Aran\v zma je opisan z:
+
+- destinacija (opisno), 
+
+- tip\_namestitve (opisno), 
+
+- trajanje (\v stevilo), in 
+
+- cena (\v stevilo).
+
+Modul mora poleg same kreacije in ogleda aran\v zmaja omogo\v cati \v se
+popravljanje imena destinacije, popravljanje tipa namestitve, trajanja
+in cene.
+
+Za aran\v zma definiraj modula \lstinline{Agent} in \lstinline{Stranka}, kjer \lstinline{Agent} v aran\v zmaju
+lahko pogleda aran\v zma preimenuje destinacijo, dolo\v ci nov tip
+namestitve ter popravi trajanje in ceno. \lstinline{Stranka} lahko zgolj pogleda
+dolo\v ceni aran\v zma.
+\end{ex}
+
+
+
+\begin{ex}
+Novo leto je za nami, vendar se \v zelimo letos \v ze zgodaj pripraviti na
+naslednje novoletno praznovanje. V ta namen boste naredili modul, ki
+nam bo pomagal pri izbiri jelke. Jelka naj bo sestavljena iz krosnje
+in debla. Modul naj zna narediti jelko s poljubno visokim deblom in
+kro\v snjo.
+
+a) Naredi funkcijo \lstinline{ustvari()}, ki ustvari prazno jelko, funkcijo
+\lstinline{povejVisino}, ki vrne vsoto vi\v sine debla in kro\v snje, ter funkciji za
+nastavljanje vi\v sine debla in kro\v snje.
+
+b) Naredi funkcijo za izris jelke (glej primer). Krosnja naj bo
+sestavljena iz zvezdic \lstinline{(*)}, deblo pa iz minusov \lstinline{(-)}. Bodi pozoren/a
+na presledke.
+\begin{lstlisting}
+   (*)
+  (***)
+ (*****)
+(*******)
+   (-)
+   (-)
+\end{lstlisting}
+\end{ex}
+
+
+
+\begin{ex}
+Potrebujemo modul za delo s podatkovno strukturo, ki hrani urejeno sekvenco elementov danega parametri\v cnega tipa 'a v nara\v s\v cajo\v cem vrstnem redu. Modul bomo imenovali \lstinline{Usekvenca}. Tip podatkovne strukture, ki predstavlja urejeno sekvenco imenuj \lstinline{Usekvenca.t}.
+
+Ob kreiranju podatkovne strukture tipa Usekvenca.t podamo kot parameter funkcijo primerjaj : 'a -> 'a -> int, ki vrne -1 v primeru da je prvi parameter manj\v si od drugega, 0 v primeru, da sta parametra enaka in 1 v primeru, da je drugi parameter ve\v cji od prvega. Pozor, funkcijo primerjaj si mora modul zapomniti, ker jo potrebuje pri
+dodajanju, brisanju in iskanju elementov.
+
+Definiraj naslednje funkcije modula: 
+\begin{lstlisting}
+ kreiraj : ('a -> 'a -> int) -> Usekvenca.t 
+ dodaj : Usekvenca.t -> 'a -> unit 
+ izbrisi : Usekvenca.t -> 'a -> unit   
+ min : Usekvenca.t -> 'a 
+ max : Usekvenca.t -> 'a 
+\end{lstlisting}
+
+Implementiraj funkcijo kreiraj, eno izmed funkcij dodaj in izbri\v si ter
+eno izmed funkcij min ali max.
+\end{ex}
+
+
+
+\begin{ex}
+Implementirati moramo enostaven kalkulator za ra\v cunanje s celimi
+\v stevili, ki uporablja poljsko notacijo. Kalkulator deluje na naslednji
+na\v cin:
+
+V primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada, in \v ce
+vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva
+operanda iz sklada, izvede \v zeljeno operacijo in rezultat postavi na
+vrh sklada.
+
+Primer izvajanja kalkulatorja: 
+\begin{lstlisting}
+> 1 
+1 
+> 2 
+2 
+> plus 
+3 
+> 2 
+2 
+> minus 
+1 
+> 
+\end{lstlisting}
+
+a) Definiraj modul Poljski, ki implementira poljski kalkulator. Modul
+naj vsebuje naslednje funkcije:
+
+\begin{lstlisting}
+(*inicializacija: *)
+kreiraj: unit -> Poljski.t      
+(*vnese \v stevilo na sklad in ga vrne:*)
+vnos: Poljski.t -> int -> int   
+(*se\v steje vrhnja dva elem iz sklada in vrne rezultat:*)
+plus: Poljski.t -> int    
+(*od\v steje:  *)
+minus: Poljski.t -> int         
+(*zmno\v zi:  *)
+mnozi: Poljski.t -> int         
+(*deli:  *)
+deli: Poljski.t -> int          
+\end{lstlisting}
+
+b) Kako bi posplo\v sili kalkulator, da bi znal delati s poljubnim tipom \v stevil npr. tudi z realnimi \v stevili? Skiciraj na kratko re\v sitev. 
+
+c) Dodatna naloga: implementacija b)  
+\end{ex}
+
+
+
+\begin{ex}
+Napisati \v zelimo modul Slika za delo s slikami, ki so definirane z naslednjim parametri\v cnim tipom:
+
+\begin{lstlisting}
+type 'a slika = { mutable x: int; mutable y: int;
+					mutable p: 'a array array };; 
+\end{lstlisting}
+
+Slika je torej dvodimenzionalno polje tipa 'a array array. Posamezna to\v cka slike je predstavljena kot vrednost tipa 'a---uporabljamo lahko razli\v cne tipe za predstavitev ene to\v cke slike.
+
+Napi\v si naslednje funkcije modula:
+
+- kreiraj: kreira novo sliko z danimi parametri,
+
+- zrcali\_x: zrcali sliko po x osi in
+
+- zrcali\_y: zrcali sliko po y osi.
+
+Definiraj vmesnik modula, ki omogo\v ca dostop do predstavljenih funkcij.
+\end{ex}
+
+
+
+\begin{ex}
+Definiraj modul za obdelovo dvodimenzionalnih slik Slika. 
+
+a) Slika je predstavljena s trojicami, ki vsebujejo x in y koordinati ter barvo. Vse tri vrednosti so predstavljene s celimi \v stevili.   
+
+Definirati je potrebno tip Slika.tip, s katero predstavimo sliko.
+
+Definiraj funkcijo Slika.kreiraj s katero kreiramo novo sliko. Sam dolo\v ci parametre in rezultat funkcije Slika.kreiraj. 
+
+b) Vzorce lahko predstavimo z manj\v simi slikami. To\v cka na sliki se ujema s to\v cko vzorca, \v ce se ujemata v barvah. Napi\v si funkcijo 
+\begin{lstlisting}
+Slika.ujemanje : 'a Slika.tip -> 'a Slika.tip -> (init*int) -> bool, 
+\end{lstlisting}
+
+ki za dano sliko (1.parameter) in vzorec (2.parameter) ter koordinati (x,y) (3.parameter) vrne true v primeru, da se vzorec ujema s sliko na koordinatah (x,y) in false sicer.
+
+c) (dodatna naloga) Recimo, da bi \v zeleli definirati fleksibilen modul Slika, ki zna delati z razli\v cnimi predstavitvami barv. 
+
+Za delo z barvami si definiramo majhen modul \lstinline{Barva}, ki vsebuje definicijo tipa \lstinline{Barva.tip} in operacijo 
+\begin{lstlisting}
+Barva.enakost : Barva.tip -> Barva.tip -> bool, 
+\end{lstlisting}
+ki pove ali sta dve barvi enaki. 
+Skiciraj definicijo funktorja Slika in modula Barva.
+\end{ex}
+
+
+
+
+\section{Funkcionali}
+
+
+
+\begin{ex}
+Implementiraj parametri\v cni modul za delo z urejenimi seznami UrejenSeznam. 
+
+Modul UrejenTip, ki slu\v zi kot parameter modulu UrejenSeznam naj bo uporabljen za definicijo tipa elementov seznama ter definicjo funkcije UrejenTip.primerjaj a b, ki vrne 0 v primeru a=b, 1 v primeru a>b in -1 v primeru a<b. Funkcija UrejenTip.primerjaj definira urejenost elementov urejenega seznama.
+\end{ex}
+
+
+
+\begin{ex}
+Podan je modul Stack, ki realizira sklad elementov tipa 'a.. 
+
+\begin{lstlisting}
+module type Stack = 
+sig 
+   type 'a t 
+   exception Empty 
+   val create: unit -> 'a t 
+   val push: 'a -> 'a t -> unit 
+   val pop: 'a t -> 'a 
+end
+
+\end{lstlisting}
+Definiraj modul Queue, ki s pomo\v cjo dveh skladov implementira vrsto. Prvi sklad predstavlja za\v cetek vrste in drugi sklad predstavlja konec vrste. Implementiraj funkciji enqueue and dequeue !
+
+Namig: \v ce je kateri izmed skladov prazen potem lahko drugega "obrnemo". 
+\end{ex} 
+
+
+
+\begin{ex}
+Definiraj modul, ki zna delati z enodimenzionalnimi polji poljubnega (!)
+tipa. Tip elementa polja je torej spremenljivka tipa.e
+
+\textbf{Funkcije}: kreiranje, spajanje, uni\v cevanje, odvzem.
+\end{ex} 
+\begin{ex}
+Naredi modul "garaza", ki:
+
+a) odpira in zapira vrata gara\v ze z enim samim ukazom (\v ce so vrata
+odprta jih zapre, sicer naj jih odpre);
+
+b) parkira (odpelje/pripelje) avtomobile ali motorje, pri \v cemer je
+\v stevilo vozil omejeno, motor pa zasede polovico prostora avtomobila;
+
+c) izpi\v se \v stevilo in tip vozil v parkiranih v gara\v zi.
+\end{ex}
+
+

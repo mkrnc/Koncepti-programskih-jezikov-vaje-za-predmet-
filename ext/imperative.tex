@@ -1,0 +1,631 @@
+\chapter{Imperativni programski jeziki}
+
+
+\section{Nizi}
+
+
+
+
+\begin{ex}
+V programskem jeziku Ocaml napi\v site funkcijo 
+\begin{lstlisting}
+obrniBesede: string -> string
+\end{lstlisting}
+ki izpi\v se vse besede vhodnega niza v obratnem vrstnem redu!
+Primer:
+\begin{lstlisting}
+# obrniBesede "banana je lepa";;
+- : string = "ananab ej apel"
+\end{lstlisting}
+\end{ex}
+
+
+
+\begin{ex}
+Napi\v si funkcijo v Ocaml, ki preveri ali je nek niz podniz nekega drugega niza. Pri tem ni nujno, da znaki drugega niza v prvem stoje zaporedoma, ujemati se mora le vrstni red.
+
+Dva primera:                    
+\begin{lstlisting}
+MATI MATEMATIKA    |   SENO SOSEDNOST 
+     MAT    I      |        S  E NO 
+     MA    TI      |          SE NO 
+     M    ATI      |
+         MATI      |
+\end{lstlisting}
+\textbf{Dodatna naloga:} napi\v si funkcijo, ki vrne \v stevilo vseh tak\v snih podnizov v danem nizu.
+\end{ex}
+
+
+
+\begin{ex}
+Dan je niz znakov. Va\v sa naloga je izdelati metodo, ki za vhodni niz izpi\v se vse podnize danega niza.
+
+Podpis funkcije:
+\begin{lstlisting}
+podnizi: string -> unit 
+\end{lstlisting}
+
+Oglejmo si primer niza "miza":
+\begin{lstlisting}
+"miza"; "miz"; "mi"; "m"; "iza"; "iz"; "i"; "za"; "z"; "a" 
+\end{lstlisting}
+
+Iz primera lahko razberete enega od mo\v znih algoritmov.
+\end{ex}
+
+
+
+
+\begin{ex}
+Napi\v si funkcijo v ML, ki za dan vhodni niz znakov vrne true samo v primeru, da niz vsebuje vzorec "a+b+" t.j. enemu ali ve\v c znakov \lstinline{a} sledi eden ali ve\v c znakov \lstinline{b}.
+
+Primer pravilnega niza: \lstinline{"uzgaaabbbbdvcg"}
+
+\end{ex}
+
+
+
+
+
+\section{Polja in matrike}
+
+
+
+
+\begin{ex}
+Napi\v si funkcijo v programskem jeziku ML, ki vrne \v stevilo enic v polju poljubne dol\v zine sestavljeno iz ni\v cel in enic. Funkcija naj ima naslednjo signaturo: prestejEnice: int array -> int.
+
+\begin{sol}
+\begin{lstlisting}
+let stEnic polje = 
+let count = Array.make 1 0 in
+for i = 0 to Array.length polje - 1 do 
+if (polje.(i) = 1) then count.(0) <- count.(0) + 1 done; count.(0);;
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+Kreiraj dve celo\v stevilski polji a in b velikosti 5 in definiraj svojo vsebino polj. Napi\v si funkcijo produkt, ki izra\v cna novo polje velikosti 5, katerega vsebina so produkti istole\v znih komponent a in b.
+
+Primer: \begin{lstlisting}
+
+# let a = [|1;2;3;2;1|];;
+- : int array = [| 1; 2; 3; 2; 1 |]
+# let b = [|2;3;1;2;3|];;
+- : int array = [| 2; 3; 1; 2; 3 |]
+# produkt a b;; 
+- : [| 2; 6; 3; 4; 3 |]
+\end{lstlisting}
+
+\begin{sol}
+\begin{lstlisting}
+let produkt a b = 
+let polje = Array.make 5 0 in
+for i=0 to 4 do
+polje.(i) <- a.(i)*b.(i)
+done;
+polje;;
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+Zaslon mobilnega telefona ima dimenzijo 500x700 barvnih to\v ck. Barve ene to\v cke predstavimo z zapisom, ki ima tri komponente tipa int. Komponente to\v cke predstavljajo RGB zapis: intenzivnost rde\v ce, zelene in modre barve. 
+
+Napisati moramo funkcijo, ki na zaslonu prika\v ze delujo\v ce stanje mobilnega telefona med zagonom, izbiro operaterja, itd. Funkcija naj premika piko velikosti 3x3 po sredini zaslona od leve proti desni. 
+
+\begin{enumerate}
+\item  Definiraj podatkovne strukture v Ocaml s katerimi predstavimo zaslon mobilnega telefona.
+\item  Napi\v si funkcijo "delam", ki iterativno premika piko velikosti 3x3 po sredini zaslona od leve proti desni. Ko pika pride na rob desne strani se spet pojavi na robu leve strani.
+\end{enumerate}
+\end{ex}
+
+
+
+
+\begin{ex}
+Dana je matrika edit: char array, ki vsebuje tekst urejevalnika besedil. Predpostavljamo, da je tekst formatiran: besede so lo\v cene z enim samim presledkom in ni drugih kontrolnih znakov (npr. LF, CR,...).
+
+Definiraj funkcijo pre\v stej, ki izra\v cuna za vsako posamezno besedo iz polja edit \v stevilo znakov v predponi besede, ki se ujemajo z nizom \lstinline{zanka}. 
+
+\v Stevilo besed, ki se ujemajo v 0, 1, 2, ... znakih shranimo v polje rezultat: int array in \v stevilo ujemanj uporabimo za indeks polja. 
+
+Predpostavi, da sta obe polji \v ze definirani.
+
+Primer: \begin{lstlisting} 
+# prestej [|'z';'a';'n';'k';'a';' ';'j';'e';' ';
+          'z';'a';'d';'n';'j';'i';'\v c';' ';'b';'i';
+          'l';'a';' ';'z';'a';'n';'i';'\v c'|];;
+- : unit = ()
+# rezultat;;
+- : int array = [|2; 0; 1; 1; 0; 1|]
+\end{lstlisting}
+\end{ex}
+
+
+
+
+\begin{ex}
+Dano je dvodimenzionalno polje tipa int array array, ki predstavlja \v crno-belo sliko in posamezen element predstavlja intenziteto ene pike. Slika je predstavljena s tipom slika.
+\begin{lstlisting}
+type slika = { x: int; y: int; p: int array array};;
+\end{lstlisting}
+Vzorci so manj\v se slike (tipa slika), ki jih lahko i\v s\v cemo v kompletnih slikah. Vzorec se ujema z delom slike na lokaciji (i,j), \v ce se intenzitete vseh pik vzorca ujemajo s delom slike pokritim z vzorcem.
+
+a) Napi\v si funkcijo ujemanje : slika -> slika -> int*int, ki za dano sliko (prvi argument) poi\v s\v ce pojavitev vzorca (drugi argument) v sliki.
+
+b) Kako bi poiskali vsa ujemanja vzorca s sliko? Opi\v si v kontekstu re\v sitve naloge a).
+
+c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnosti posameznih pik. \v Ce se dve pike razlikujeta manj kot je vrednost konstante Toleranca, potem so pike enake. Kako bi raz\v sirili metodo tako, da bi iskala podobne vzorce?
+\end{ex}
+
+
+
+
+\begin{ex}
+  Slika ra\v cunalni\v ske naprave je definirana z naslednjim tipom
+
+  \begin{lstlisting}
+  type slika = int array array,
+\end{lstlisting}
+
+  kjer so pike, ki sestavljajo sliko predstaljene z 0 ali 1. Pika je
+  osvetljena, \v ce ima vrednost 1.
+
+  Napi\v si funkcijo
+
+  \begin{lstlisting}
+  xor : slika -> slika -> slika,
+\end{lstlisting}
+
+  ki dve slike kombinira tako, da naredi operacijo \lstinline{xor} nad
+  istole\v znimi pikami.
+
+  Predpostavimo, da so vhodne slike istih dimenzij.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
+  matriko znakov tipa \lstinline{tekst}.
+
+  \begin{lstlisting}
+  type tekst = char array array;;
+\end{lstlisting}
+  Napi\v si funkcijo 
+  \lstinline{poisci : tekst -> string -> int*int list}, 
+  ki vrne seznam koordinat kjer se 
+  za\v cne v tekstu iskani niz
+  podan kot drugi parameter. 
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Urejevalnik besedil ima tekst predstavljen z dvo-dimenzionalno
+  matriko znakov tipa \lstinline{tekst}.
+
+  \begin{lstlisting}
+  type tekst = char array array;;
+  \end{lstlisting}
+
+  Napi\v si funkcijo 
+  \lstinline{poisci\_vertikalno : tekst -> string -> int*int list}, 
+  ki vrne seznam koordinat kjer se v tekstu za\v cne
+  vertikalni niz znakov podan kot drugi parameter.
+\end{ex} 
+
+
+
+\begin{ex}
+  Slika neke ra\v cunalni\v ske naprave je definirana z naslednjim
+  tipom
+
+  \begin{lstlisting}
+  type slika = int array array,
+  \end{lstlisting}
+  kjer so pike, ki sestavljajo sliko predstavljene z 0 ali 1. Pika je
+  osvetljena, \v ce ima vrednost 1.
+
+  \begin{enumerate}[label=(\roman*)]
+  \item Napi\v si funkcijo \lstinline{zasukaj90 : slika -> slika}, ki
+    zasu\v ce sliko za 90 stopinj v smeri urinega kazalca.
+
+  \item Napi\v si funkcijo 
+  \lstinline{zasukaj90xn : slika -> int -> slika}, 
+  ki zasu\v ce sliko za kot \lstinline{n*90} v smeri urinega
+    kazalca, kjer je \lstinline{n} drugi parameter funkcije.
+  \end{enumerate}
+
+  Pazi na dimenzije slik!
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Definiraj tip \lstinline{slika} s katerim predstavimo sliko sestavljeno
+  iz 100x100 to\v ck. Vsaka to\v cka je predstavljana z intenziteto in
+  barvo---obe vrednosti predstavimo s celim \v stevilom.
+  Predpostavljamo, da imamo \v ze napisano funkcijo \lstinline{pika : int*int -> bool}, 
+  ki pove ali je na dani koordinati pika. Barva
+  pike ni pomembna.
+  Nekje na sliki je narisan krog z radijem 5. 
+  
+  \noindent Napi\v si funkcijo
+  \lstinline{poisci : slika -> (int*int)}, ki poi\v s\v ce sredi\v s\v ce
+  kroga.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
+  matriko znakov.
+
+  a) Definiraj tip tekst, ki predstavlja dvo-dimenzionalno matriko
+  znakov velikosti 100x1000 (1000 vrstic po 100 znakov)..
+
+  b) Napi\v si funkcijo
+
+\begin{lstlisting}
+    zamenjaj_navpicno : tekst -> string -> string -> tekst, 
+\end{lstlisting}
+  ki poi\v s\v ce vse pojavitve niza (2. parameter) vertikalno v
+  tekstu urejevalnika (1. parameter) in jih zamenja z drugim nizom
+  (3. parameter). Predpostavimo, da sta niza enako dolga.
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Definiraj parametri\v cni \lstinline{('k,'v) ppolje}, ki predstavlja
+  polje parov 'k*'v. Prva komponenta para je klju\v c tipa 'k in druga
+  vrednost tipa 'v.
+
+  \noindent\/Predpostavljaj:
+
+  a) Imamo dano funkcijo enako : 'k->'k->bool, ki definira enakost
+  klju\v cev, in funkcijo zdruzi : 'v->'v->'v, ki zdru\v zi dve
+  vrednosti tipa 'v v eno samo.
+
+  b) Polja tipa \lstinline{('k,'v) ppolje} so vedno sortirana po vrednosti klju\v
+  ca \lstinline{'k}!  Napi\v si funkcijo:
+\begin{lstlisting}
+  stik ('k,'v) ppolje -> ('k,'v) ppolje -> ('k,'v) ppolje,
+\end{lstlisting}
+  ki naredi stik polj tako, da s funkcijo zdruzi zdru\v zi vrednosti
+  vseh parov, ki se ujemajo v klju\v cu. Rezultat naj bo torej seznam
+  parov tipa ('k,'v).
+\end{ex}
+
+
+
+
+\begin{ex}
+Definiraj funkcijo 
+\begin{lstlisting}
+zmesaj : 'a array -> (int*int) array -> 'a array, 
+\end{lstlisting}
+ki kot prvi parameter sprejme polje vrednosti tipa 'a, kot drugi parameter pa polje parov s katerimi so definirane zamenjave elementov. Funkcija naj vrne zakodirano polje. 
+
+Polje parov vsebuje pare indeksov s katerimi je definirana zamenjava dveh elementov vhodnega polja. 
+\end{ex} 
+
+
+
+
+\begin{ex}
+Predpostavi, da je definiran razred Array, ki vsebuje polje elementov tipa 'a. 
+
+\begin{lstlisting}
+class ['a] Array (ini: 'a) =
+object 
+     method size : int
+     method set : int -> 'a -> unit
+     method get : int -> 'a
+end
+\end{lstlisting}
+Definiraj podrazred ArrayM, ki za dan indeks tipa int lahko vsebuje ve\v c kot eno vrednost tipa 'a.  Definiraj naslednje metode razreda. 
+\begin{lstlisting}
+get : int -> 'a list     (*vrni elemente z indeksom i*) 
+set : int -> 'a -> unit  (*dodaj element tipa 'a k elementom z indeksom i*)
+del : int -> 'a -> unit  (*izbri\v si el. tipa 'a iz  mnozice elementov z indeksom i*)
+\end{lstlisting}
+\v cim bolje uporabi metode razreda Array. 
+\end{ex} 
+
+
+
+
+\begin{ex}
+Matrika je predstavljena s tipom int array array. Napi\v si funkcijo 
+\begin{lstlisting}
+podniz : int array array -> int array -> bool,
+\end{lstlisting}
+ki preveri ali se niz celih \v stevil (2. parameter) pojavi v matriki (1. parameter) na kateri izmed diagonalnih \v crt, ki poteka iz to\v ck na levi in spodnji strani matrike navzgor proti desni in zgornji strani matrike.
+\end{ex} 
+
+
+
+
+\begin{ex}
+Dano imamo sortirano polje celih \v stevil. Definiraj funkcijo encode, ki vrne polje parov kjer je prva komponenta element vhodnega polja in druga komponenta \v stevilo pojavitev elementa v polju.   
+
+Primer:
+\begin{lstlisting}
+encode [|1;1;3;4;4;5|] -> [|(1,2);(3,1);(4,2);(5,1)|]
+\end{lstlisting}
+\end{ex} 
+
+
+
+
+\begin{ex} Naloga je sestavljena iz treh delov:
+\begin{enumerate}
+  \item  Definiraj razred matrix za predstavitev matrik, ki shranjujejo
+  elemente poljubnega tipa 'a.
+\begin{enumerate}
+    \item Argumenti razreda naj definirajo dimenzije matrike in za\v cetno
+  vrednost elementov.
+  \item Napi\v si metodo 
+  \lstinline{set : int*int -> 'a -> unit}, kjer prvi parameter
+  predstavlja indekse elementa in drugi parameter hrani novo vrednost
+  indeksiranega elementa.
+  \item Napi\v si metodo get : int*int -> 'a, ki vrne vrednost elementa
+  indeksiranega s prvim parametrom metode.
+\end{enumerate}
+       
+  \item Definiraj razred \lstinline{int\_matrix} kot podrazred razreda \lstinline{matrix}.
+
+  \item V razredih matrix in int\_matrix definiraj metodo 
+  
+\noindent  \lstinline{equals : int*int -> int*int -> bool},
+    ki primerja dva elementa matrike in vrne
+  boolovo vrednost true, \v ce sta enaka in false sicer.
+\end{enumerate}
+\end{ex} 
+
+
+
+
+\begin{ex}
+  Tekst urejevalnika je shranjen kot polje seznamov besed:
+
+\begin{lstlisting}
+type text = string list array;;
+\end{lstlisting}
+  
+  Definiraj funkcijo \lstinline{find\_replace : text -> string -> string -> text},
+  ki zamenja vse pojavitve niza podanega z drugim parametrom z nizom
+  znakov podanim s tretjim parametrom v tekstu podanim s prvim
+  parametrom. Rezutat je tekst z zamenjanim nizom.
+\end{ex} 
+
+
+
+
+\begin{ex}
+Definiraj parametri\v cni tip 
+\lstinline{'v ppolje}, ki predstavlja polje (array!) parov
+\lstinline{string*'v}. Prva komponenta para je klju\v c tipa string in druga vrednost tipa 'v.
+
+Predpostavljaj, da je polje tipa 'v ppolje sortirano po vrednosti klju\v ca tipa string!  
+
+Napi\v si funkcijo
+\begin{lstlisting}
+stik 'v ppolje -> 'v ppolje -> 'v ppolje, 
+\end{lstlisting}
+ki naredi stik dveh polj tako, da rezultat vsebuje pare obeh polj urejenih po klju\v cu tipa string. 
+Primer:
+
+\begin{lstlisting}
+# stik [|("ab",10),("de",9) |] [| ("bc",8),("cd",12)|];;
+- : int ppolje = [|("ab",10),("bc",8),("cd",12),("de",9)|]
+
+\end{lstlisting}
+
+\end{ex} 
+
+
+
+
+\section{Zapisi}
+
+
+
+
+\begin{ex}
+Dana je n-terica, ki predstavlja naslednje podatke \v studenta:
+\begin{enumerate}
+\item ime in priimek,
+\item letnik (1 - prvi, 2 - drugi, 3 - tretji),
+\item povpre\v cna ocena (6 - zadostno; 7 -dobro; 8,9 - prav dobro; 10 - odli\v cno) in
+\item hobiji.
+\end{enumerate}
+
+Tip n-terice je predstavljen z naslednjo definicijo.
+\begin{lstlisting}
+# type student = string*int*int*(string list);;
+type student = string * int * int * string list
+\end{lstlisting}
+
+Napi\v si funkcijo izpis: student -> unit, ki pretvori podatke o \v studentu v tekstovno obliko. Poskusite uporabiti vzorce, da bi dobili kratko in razumljivo kodo.
+Primer: 
+\begin{lstlisting}
+# izpis ("Tone Novak",20,1,8,("kolesarjenje"));; 
+\end{lstlisting}
+\v Student Tone Novak obiskuje prvi letnik. Njegova povre\v cna ocena je prav dobro. Hobiji studenta so: kolesarjenje.
+\end{ex}
+
+
+
+
+\begin{ex}
+Drevo a\_tree je definirano na naslednji na\v cin.
+\begin{lstlisting}
+type 'a a_tree = { mutable key:'a; 
+                   mutable trees: a_tree list }
+\end{lstlisting}
+
+Napi\v si funkcijo vi\v sjega reda
+\begin{lstlisting}
+tree_filter : 'a a_tree -> ('a -> bool) -> 'a list.
+\end{lstlisting}
+Funkcija vrne seznam vseh klju\v cev iz drevesa podanega s prvim parametrim, za katere vrne funkcija podana z drugim parametrom vrednost true.
+\end{ex} 
+
+
+
+
+
+
+\section{Klasi\v cne podatkovne strukture}
+
+
+
+
+\begin{ex}
+Dana je polimorfi\v cna izvedba sklada, ki je implementirana v ocaml modulu Stack. Osnovne operacije za delo s skladom so razvidne iz naslednjega primera uporabe modula Stack.
+
+\begin{lstlisting}
+# let s = Stack.create ();;
+val s : '_a Stack.t = <abstr>
+# Stack.push 'a' s; Stack.push 'b' s; Stack.push 'a' s;;
+- : unit = ()
+# Stack.iter print_char s;;
+aba- : unit = ()
+\end{lstlisting}
+
+Napi\v site program, ki s pomo\v cjo uporabe modula \lstinline{Stack} ugotovi ali predstavlja vne\v seni niz oklepajev pravilno gnezdeno zaporedje:
+
+\begin{lstlisting}
+() OK
+()() OK
+(())() OK
+())( NEOK
+()()(())) NEOK
+\end{lstlisting}
+\end{ex}
+
+
+
+\begin{ex}
+Implementirati moramo enostaven \emph{poljski} kalkulator (HP sintaksa), ki deluje na naslednji na\v cin.
+\begin{itemize}
+\item V primeru da vnesemo \v stevilo, ga da na vrh delovnega sklada.
+\item \v Ce vtipkamo operacijo (plus, minus, deli in mno\v zi) vzame! zadnja dva operanda iz sklada in izvede \v zeljeno operacijo in rezultat postavi na vrh sklada.
+\end{itemize}
+
+Primer izvajanja kalkulatorja:
+\begin{lstlisting}
+> 1
+1
+> 2
+2
+> plus
+3
+> 2
+2
+> minus
+1
+>
+\end{lstlisting}
+\end{ex}
+
+
+
+\section{Rekurzivni tipi}
+
+
+%----n
+\begin{ex}
+Dan je tip \lstinline{2seznam} s katerim je predstavljen dvojno povezan seznam.
+
+\begin{lstlisting}
+type 2seznam = {
+     value: int;
+     mutable next: 2seznam;
+     mutable prev: 2seznam
+}
+\end{lstlisting}
+
+Cela \v stevila hranimo po nara\v s\v cajo\v cem vrstnem redu. Napi\v si funkcijo \lstinline{odaj : 2seznam -> int -> 2seznam}, ki doda \v stevilo (2. parameter) na pravo mesto v seznam.
+\end{ex} 
+
+
+
+
+
+
+\section{Implementacija funckcij}
+
+
+
+
+%--
+\begin{ex}
+Dana je naslednja funkcija.
+\begin{lstlisting}
+let rec vsota a = match a with 0 -> 0 
+             | x -> x + vsota (x-1);;
+\end{lstlisting}
+
+Predstavi sklad aktivacijskih zapisov, ki se razvijejo ob klicu vsota 3;;
+
+\begin{sol}
+\begin{lstlisting}
+vsota(3) = 3 + vsota(2)
+vsota(2) = 2+ vsota(1)
+vsota(1) = 1+ vsota (0)
+vsota (0) = 0
+vsota(1) = 1+0=1
+vsota(2) = 2+1=3
+vsota(3) = 3+3=6
+\end{lstlisting}
+\end{sol}
+\end{ex}
+
+
+
+
+\begin{ex}
+Dana je funkcija fib, ki izra\v cuna Fibonaccijevo \v stevilo.
+
+\begin{lstlisting}
+# let rec fib n =
+    if n < 2 then 1 else fib(n-1) + fib(n-2);;
+val fib : int -> int = <fun>
+\end{lstlisting}
+Predstavi zaporedje aktivacijskih zapisov, ki se aktivirajo pri izvajanju funkcije fib 4.
+
+\begin{sol}
+\begin{lstlisting}
+fib(4) = fib(3) + fib(2)
+fib(3) = fib(2) + fib(1)
+fib(2) = fib(1) + fib(0)=1
+fib(2) = 1+0 = 1
+fib(3) = 1+1 = 2
+fib(4) = 2+1 = 3
+\end{lstlisting}
+\end{sol}
+
+\end{ex}
+
+
+
+
+
+

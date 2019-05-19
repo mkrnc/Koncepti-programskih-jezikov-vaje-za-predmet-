@@ -1,0 +1,84 @@
+\chapter{Lambda ra\v cun}
+
+
+\begin{ex}
+Napi\v si izraz v lambda ra\v cunu, ki za dana parametra x in y izra\v cuna povpre\v cno vrednost x in y.
+
+Apliciraj prej definiran lambda izraz na konkretnih parametrih in zapi\v si redukcijo izraza do vrednosti.
+\end{ex}
+
+
+
+
+\begin{ex}
+Uporabi alfa konverzijo in beta redukcijo za ovrednotenje naslednjega stavka zapisanega z $\lambda$-ra\v cunom
+$$(\lambda a.\lambda b.a (a b)) (\lambda a.a + 1)\,1.$$
+
+a) Izra\v cunaj vrednost izraza.
+
+b) Kaj naredi funkcija?
+\end{ex}
+
+
+
+
+\begin{ex}
+Evaluiraj naslednje lambda izraze do vrednosti.
+
+1) $( \lambda f.f( \lambda x.x))( \lambda x.x) $
+
+2) $( \lambda x. \lambda y.x) z w$
+
+\end{ex}
+
+
+
+\begin{ex}
+Dane imamo naslednje standardne kombinatorje lambda ra\v cuna.
+\begin{align*}
+I& \equiv \lambda x.x;\\
+K& \equiv \lambda x.\lambda y.x;\\
+K^*& \equiv \lambda x.\lambda y.y;\\
+S& \equiv \lambda x. \lambda y.\lambda z.xz(yz)
+\end{align*}
+Poenostavi naslednje izraze:
+\begin{align*}
+M &\equiv (\lambda x.\lambda y.\lambda z.zyx)aa(\lambda p.\lambda q.q);\\
+M &\equiv (\lambda y.\lambda z.zy)((\lambda x.xxx)(\lambda x.xxx))(\lambda w.I);\\
+M &\equiv SKSKSK
+\end{align*}
+\end{ex}
+
+
+
+\begin{ex}
+V naslednjih $\lambda$-izrazih prika\v zi vse oklepaje.  
+\begin{itemize}
+\item $(\lambda x.xa)ax$ 
+\item $(\lambda z.zxz)(\lambda y.yx)z$ 
+\end{itemize}
+\end{ex}
+
+
+
+
+\begin{ex}
+Poi\v s\v ci vse proste (nevezane) spremenljivke v naslednjih $\lambda$-izrazih. 
+\begin{itemize}
+\item $(\lambda b.xba)xb$ 
+\item $\lambda x.zy\lambda y.yx $
+\end{itemize}
+\end{ex}
+
+
+
+\begin{ex}
+Napi\v si naslednji izraz z \v cim manj oklepajev. 
+
+ \begin{itemize}
+ \item $((xy)(\lambda y.(\lambda z.(z(\lambda y.(xy)))x)y)) $
+ \end{itemize}
+\end{ex} 
+
+
+
