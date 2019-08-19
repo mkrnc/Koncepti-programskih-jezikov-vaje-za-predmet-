@@ -259,7 +259,29 @@ let rec sestej sez = match sez with
 \end{lstlisting}
 \end{sol}
 
+\end{ex}
+\begin{ex}
+Unimodalno zaporedje je vsako monotono nara\v s\v cujo\v ce zaporedje \v stevil,
+kateremu sledi monotono padajo\v ce zaporedje \v stevil.
+Katerokoli od obeh pod-zaporedij je lahko prazno.
 
+Napi\v si funkcijo  
+\lstinline{is_unimodal : int list -> bool}
+ki kot vhod vzame seznam \v stevil ter odgovori 
+pritrdilno \v ce je zaporedje \v stevil v vhodnem seznamu 
+unimodalno.
+\begin{sol}
+\begin{lstlisting}
+let rec is_unimodal lst =  match lst with
+| [_] -> true
+| h1::h2::tl when h1<=h2 -> is_unimodal (h2::tl)
+| _ -> let rec is_decr ls = (match ls with 
+  | [_] -> true 
+  | h1::h2::tl when h1>=h2 -> is_decr (h2::tl)
+  | _ -> false)
+in is_decr lst
+\end{lstlisting}
+\end{sol}
 
 \end{ex}
 \begin{ex}
@@ -430,7 +452,9 @@ let rec podseznam sez1 sez2 = match (sez1, sez2) with
 \end{ex}
 \begin{ex}
   Dan imamo seznam znakov tipa \lstinline{char list} v katerem se lahko
-  pojavijo samo znaka \lstinline{'a'} in \lstinline{'b'}. Napi\v si funkcijo
+  pojavijo samo znaka \lstinline{'a'} in \lstinline{'b'}. 
+  
+  Napi\v si funkcijo
   \lstinline{cnta : char list -> int list}, ki pretvori sekvence znakov v
   seznam celih \v stevil po naslednjih pravilih:
 
@@ -528,8 +552,10 @@ else [2; c]@(fja d)
 
 \end{ex}
 \begin{ex}
-  Napi\v si funkcijo cikli : int -> int -> int, ki za klic cikli m n
-  generira seznam n ciklov \v stevil od 0 do m-1.
+  Napi\v si funkcijo 
+  \lstinline{cikli : int -> int -> int}, ki za klic 
+  \lstinline{cikli m n} 
+  generira seznam n ciklov \v stevil od $0$ do $m-1$.
 
 \noindent\/Primer:
 \begin{lstlisting}
@@ -1179,7 +1205,7 @@ kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija p
 \end{ex}
 \begin{ex}
   Seznam definiramo z zapisom, ki ima dve komponenti: vrednost tipa
-  \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima še vsaj en element.
+  \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima \v se vsaj en element.
 
   \begin{lstlisting}
   type 'a element = { 
