@@ -1,0 +1,283 @@
+\begin{Odgovor}{2.1}
+\begin{lstlisting}
+function n -> n * (n + 1) * (2*n + 1)/6
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.2}
+\begin{lstlisting}
+
+let rec vsota_vrste n = match n with
+| 1 -> 1.
+| _ -> 1./.2.**(float_of_int n) +. (vsota_vrste (n-1))
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.3}
+\begin{lstlisting}
+let rec fib n = match n with
+| 0 -> 1
+| 1 -> 1
+| _ -> fib (n-2) + fib (n-1);;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.4}
+\begin{lstlisting}
+let rec jeVsota (a, b, c) = match b with
+| 0 -> if (a = c) then true
+else false
+| b -> jeVsota ((naslednjik a), b-1, c)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.5}
+\begin{lstlisting}
+let vsota (a,b)(c,d) = (a+c, b+d)
+
+let rec pfib (a,b) = match (a,b) with
+| (i, j) when i <= 0 && j<=0 -> (1,1)
+| (i, 0) -> pfib (i-1, 0)
+| (0, j) -> pfib (0, j-1)
+| (i, j) -> vsota (pfib (i-1, j-1)) (pfib (i-2, j-2))
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.7}
+\begin{lstlisting}
+sestej [1;2;3] = 1+ sestej [2;3]
+sestej [2;3] = 2+ sestej[1]
+sestej[1] = 1+ sestej []
+sestej[] = 0
+sestej[1] = 1+ 0=1
+sestej [2;3] = 2+ 1=3
+sestej [1;2;3] = 1+ 3=4
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.8}
+\begin{lstlisting}
+let rec sestej sez = match sez with
+| []->0
+| hd::tl -> hd+(sestej tl)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.9}
+\begin{lstlisting}
+let rec najdi e = function
+| [] -> false
+| h::t ->if( h == e) then true else najdi e t
+
+let rec unija l1 l2 =
+match l1 with
+| [] -> l2
+| h::t -> if najdi h l2 then unija t l2
+else unija t (h::l2)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.10}
+\begin{lstlisting}
+let zdruzi sez1 sez2 = sez1 @sez2
+
+(* ali *)
+
+let rec zdruzi sez1 sez2 = match (sez1, sez2) with
+| ([], s) -> s
+| (t, []) -> t
+| (a::b, c::d) -> if a<=c then [a]@ (zdruzi b (c::d))
+else [c]@(zdruzi (a::b) d)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.11}
+\begin{lstlisting}
+et rec zdruzi (sez1,sez2) = match (sez1,sez2) with
+| ([],x) -> x
+| (x,[]) -> x
+| (g1::[],g2::r2) -> g1::g2::r2
+| (g1::r1,g2::[]) -> g1::g2::r1
+| (g1::r1,g2::g22::r2) -> g1::g2::g22:: zdruzi (r1,r2);;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.12}
+\begin{lstlisting}
+let rec vecjeod sez n = match sez with
+| []->[]
+| hd::tl -> if(hd>n) then hd::(vecjeod tl n) else (vecjeod tl n)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.13}
+\begin{lstlisting}
+let rec seznamnm n m =
+if n > m then []
+else n :: seznamnm (n+1) m;;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.14}
+\begin{lstlisting}
+let palindrom sez =
+sez = List.rev sez
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.15}
+\begin{lstlisting}
+let rec vsotaSodeLihe sez = match sez with
+| [] -> (0, 0)
+| a::b -> let (l,s) = vsotaSodeLihe b in
+if (a mod 2 = 1) then
+(l+a, s)
+else
+(l, s+a)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.16}
+\begin{lstlisting}
+let rec podseznam sez1 sez2 = match (sez1, sez2) with
+| ([], _) -> true
+| (a::b, c::d) when List.length sez1 <= List.length sez2 -> if (a=c) then podseznam b d else false
+| _ -> false
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.17}
+\begin{lstlisting}
+let rec cnta sez = match sez with
+| [] -> []
+| 'a'::'a'::'a'::r -> 3 :: cnta r
+| 'a'::'a'::r -> 2 :: cnta r
+| 'a'::r -> 1 :: cnta r
+| _::r -> 0 :: cnta r;;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.19}
+\begin{lstlisting}
+let rec ace1 sez count = match sez with
+| [] -> false
+| a::b -> if (count = 0 && a = 'a') then ace1 b 1
+else if(count = 1 && a = 'c') then ace1 b 2
+else if (count = 2 && a = 'e') then true
+else ace1 b count
+
+let ace sez = ace1 sez 0
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.20}
+\begin{lstlisting}
+let rec fja list = match list with
+| [] -> []
+| a::[] -> [a]
+| a::b when a=0 -> a::(fja b)
+| a::b::c when a=1 && b=0 ->[a; b]@(fja c)
+| a::b::c when a=1 && b=1 && c=[] -> [2]@(fja c)
+| a::b::c::d when a=1 && b=1 -> if c=1 then [3]@(fja d)
+else [2; c]@(fja d)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.21}
+\begin{lstlisting}
+let rec stevila n m = let x=m-1 in
+if n > x then []
+else n :: stevila (n+1) m;;
+
+let rec cikli m n = match n with
+| 0 -> []
+| _ -> (stevila 0 m)@cikli m (n-1)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.26}
+  \begin{lstlisting}
+  let rec zdruzi list1 list2 = match (list1, list2) with
+  | ([], []) -> []
+  | (a, []) -> a
+  | ([], b) -> b
+  | (a::b, c::d) ->
+       if (a < c ) then a::(zdruzi b (c::d))
+       else if (c<a) then c::(zdruzi (a::b) d)
+            else a::(zdruzi b d)
+  \end{lstlisting}
+  
+\end{Odgovor}
+\begin{Odgovor}{2.42}
+Naloga (i):
+\begin{lstlisting}
+let rec prestej dr = match dr with
+| List x -> x
+| Drevo (a,b,c) -> prestej a + prestej c
+\end{lstlisting}
+Naloga (ii):
+\begin{lstlisting}
+let rec oznaci dr = match dr with
+| List a -> dr
+| Drevo (d,f,g) -> Drevo (oznaci d, prestej dr ,oznaci g)
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.56}
+\begin{lstlisting}
+let obrni polje = let len=Array.length polje in
+for i=0 to (len/2) do
+let temp = polje.(i) in
+polje.(i) <- polje.(len-i-1);
+polje.(len-i-1) <- temp
+done;
+polje;;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.58}
+\begin{lstlisting}
+let razcepi drevo =
+let a = ref[] in
+let b = ref[] in
+let rec raz dr = match dr with
+| Prazno ->(!a,!b)
+| Vozliscea(x,y) -> a := !a @ [x]; raz y
+| Vozlisceb(x,y) -> b := !b @ [x]; raz y
+in
+raz drevo;;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.71}
+\begin{lstlisting}
+let rec prestej sez geo_objekt= match sez with
+| [] -> 0
+| hd::tl -> if(hd = geo_objekt)then 1 + (prestej tl geo_objekt) else prestej tl geo_objekt;;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{2.75}
+\begin{lstlisting}
+type vrstaKarte = Kraljica | Kralj | Fant | Punca
+type barvaKarte = Srce | Kara | Pik | Kriz
+type simplKarta = Vrsta of vrstaKarte*barvaKarte
+let seznamKart = [(Punca,Srce);(Kralj,Kriz);(Fant,Pik)]
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{3.5}
+\begin{lstlisting}
+let stEnic polje =
+let count = Array.make 1 0 in
+for i = 0 to Array.length polje - 1 do
+if (polje.(i) = 1) then count.(0) <- count.(0) + 1 done; count.(0);;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{3.6}
+\begin{lstlisting}
+let produkt a b =
+let polje = Array.make 5 0 in
+for i=0 to 4 do
+polje.(i) <- a.(i)*b.(i)
+done;
+polje;;
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{3.29}
+\begin{lstlisting}
+vsota(3) = 3 + vsota(2)
+vsota(2) = 2+ vsota(1)
+vsota(1) = 1+ vsota (0)
+vsota (0) = 0
+vsota(1) = 1+0=1
+vsota(2) = 2+1=3
+vsota(3) = 3+3=6
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{3.30}
+\begin{lstlisting}
+fib(4) = fib(3) + fib(2)
+fib(3) = fib(2) + fib(1)
+fib(2) = fib(1) + fib(0)=1
+fib(2) = 1+0 = 1
+fib(3) = 1+1 = 2
+fib(4) = 2+1 = 3
+\end{lstlisting}
+\end{Odgovor}
