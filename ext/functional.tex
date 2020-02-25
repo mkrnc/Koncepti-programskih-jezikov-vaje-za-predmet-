@@ -482,11 +482,11 @@ let rec cikli m n = match n with
   Dano imamo sekvenco DNK v obliki seznama znakov tipa \lstinline{dnk list},
   kjer je tip \lstinline{dnk} definiran kot
 
-  \begin{lstlisting}
-  type dnk = A | C | T | G
-  \end{lstlisting}
-  Na primer, niz znakov "ACAAGT"  je predstavljen s seznamom 
-  \lstinline{[A;\-C;A;A;G;T]}. 
+\begin{lstlisting}
+type dnk = A | C | T | G
+\end{lstlisting}
+  Na primer, niz znakov "ACAAGT" je predstavljen s seznamom 
+  \lstinline{[A;C;A;A;G;T]}. 
 
   Napi\v si funkcijo \lstinline{najpodniz : dnk list -> int*int}, ki
   poi\v s\v ce najdalj\v si podniz istih znakov tipa \lstinline{dnk} ter
@@ -505,10 +505,10 @@ let rec cikli m n = match n with
   znaka.
 
   \emph{Primer}: 
-  \begin{lstlisting}
+\begin{lstlisting}
   # prestej [A;C;A;A;G;C;C];;
   val - : dnk*int list = [(A,1);(C,1);(A,2);(G,1);(C,2)]
-  \end{lstlisting}
+\end{lstlisting}
 \end{ex} 
 
 
@@ -528,9 +528,9 @@ let rec cikli m n = match n with
   Relacijo $\mathcal{R}$ predstavimo s seznamom parov celih \v
   stevil. Napi\v si funkcijo
 
-  \begin{lstlisting}
+\begin{lstlisting}
   razsiri : int*int list -> int list -> int list,
-  \end{lstlisting}
+\end{lstlisting}
 
   kjer je prvi parameter seznam parov \lstinline{r} in drugi parameter
   seznam celih \v stevil \lstinline{s}. Rezultat funkcije
@@ -544,7 +544,7 @@ let rec cikli m n = match n with
 \begin{ex}
   Napi\v si funkcijo
 
-  \begin{lstlisting}
+\begin{lstlisting}
   zdruzi : int list -> int list -> int list,
 \end{lstlisting}
 
@@ -552,7 +552,7 @@ let rec cikli m n = match n with
   urejen in hkrati izlo\v ci ve\v ckratne ponovite elementov.
 
   \begin{sol}
-  \begin{lstlisting}
+\begin{lstlisting}
   let rec zdruzi list1 list2 = match (list1, list2) with
   | ([], []) -> []
   | (a, []) -> a
@@ -561,7 +561,7 @@ let rec cikli m n = match n with
        if (a < c ) then a::(zdruzi b (c::d))
        else if (c<a) then c::(zdruzi (a::b) d)
             else a::(zdruzi b d)
-  \end{lstlisting}
+\end{lstlisting}
   \end{sol}
 \end{ex} 
 
@@ -677,9 +677,9 @@ Napi\v si primer uporabe funkcije zdruzi nad seznamoma celih \v stevil. Zdru\v z
 
 \begin{ex}
   Napi\v si polimorfi\v cno funkcijo
-  \begin{lstlisting}
+\begin{lstlisting}
   ostevilci : 'a list -> (int * 'a) list, 
-  \end{lstlisting}
+\end{lstlisting}
   ki o\v stevil\v ci elemente od $1$ do $n$, \v ce je n dol\v zina
   vhodnega seznama. Funkcija ostevilci naj vrne seznam parov, kjer je
   prva komponenta indeks in druga komponenta orginalna vrednost iz
@@ -798,9 +798,9 @@ val f : int -> bool = <fun>
 \begin{ex}
   Napi\v si funkcijo vi\v sjega reda
 
-  \begin{lstlisting}
+\begin{lstlisting}
   skrci : (int * int -> int) -> list int -> int,
-  \end{lstlisting}
+\end{lstlisting}
   katere prvi parameter \lstinline{f : int*int -> int} je funkcija, ki
   zdru\v zi dve vrednost iz seznama v en samo vrednost tipa
   \lstinline{int}. Drugi parameter \lstinline{skrci} je seznam celih \v
@@ -809,9 +809,9 @@ val f : int -> bool = <fun>
   Naj bo funkcija \lstinline{f} prvi parameter in seznam \lstinline{l = [i1; i2; ...; in] } drugi parameter. Pomen funkcije \lstinline{skrci}
   lahko zapi\v semo na naslednji na\v cin.
 
-  \begin{lstlisting}
+\begin{lstlisting}
   skrci f l = f i1 (f i2 f(...(f in-1 in)))
-  \end{lstlisting}
+\end{lstlisting}
   Predpostavi, da ima seznam \lstinline{l} vsaj dva elementa!
 \end{ex}
 
@@ -1013,13 +1013,13 @@ kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija p
   Seznam definiramo z zapisom, ki ima dve komponenti: vrednost tipa
   \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima še vsaj en element.
 
-  \begin{lstlisting}
+\begin{lstlisting}
   type 'a element = { 
      mutable vrednost:'a; 
      mutable naslednji:'a seznam 
   }
   and 'a seznam = Prazen | Element of 'a element ;;
-  \end{lstlisting}
+\end{lstlisting}
 
   Napi\v si funkcijo \lstinline{podvoji : 'a seznam -> 'a seznam}, ki
   podvoji vse vrednosti v seznamu.
@@ -1032,13 +1032,13 @@ kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija p
   Podatkovna struktura \lstinline{seznam} je definirana na naslednji na\v
   cin.
 
-  \begin{lstlisting}
+\begin{lstlisting}
   type 'a element = { 
      mutable vrednost: 'a; 
      mutable naslednji: 'a seznam 
   }
   and 'a seznam = Prazen | Element of 'a element ;;
-  \end{lstlisting}
+\end{lstlisting}
 
   Napi\v si funkcijo 
   \lstinline{zdruzi : 'a seznam -> 'a seznam -> 'a seznam}, ki ima za argumenta dva seznama tipa \lstinline{'a seznam}.
@@ -1079,14 +1079,14 @@ type 'a grm =
   Podan je tip \lstinline{'a drevo} s katerim je predstavljeno binarno
   drevo.
 
-  \begin{lstlisting}
+\begin{lstlisting}
   type 'a drevo = { 
       mutable levo:'a bin_drevo; 
       mutable vozlisce:'a; 
      mutable desno:'a bin_drevo 
   } 
   and 'a bin_drevo = Prazen | Vozlisce of 'a drevo ;;
-  \end{lstlisting}
+\end{lstlisting}
 
   Napi\v si funkcijo, ki izpi\v se vsa vozli\v s\v ca tretjega nivoja
   drevesa, ki obstajajo v drevesu.
@@ -1274,9 +1274,9 @@ Definiraj parametri\v cni tip \lstinline{slika}, ki predstavlja dvo dimenzionaln
 
 Napi\v si funkcijo vi\v sjega reda
 
-  \begin{lstlisting}
+\begin{lstlisting}
   zdruzi : 'a slika -> 'a slika -> ('a->'a->'a) -> 'a slika,
-  \end{lstlisting}
+\end{lstlisting}
 
 ki ima prva dva parametra sliki \lstinline{s1} in \lstinline{s2} ter tretji parameter funkcijo \lstinline{f : 'a->'a->'a}, ki zdru\v zi dve piki v eno piko. Funkcija \lstinline{zdruzi} zdru\v zi istole\v zne pike iz slik \lstinline{s1} in \lstinline{s2} z uporabo funkcije \lstinline{f}.
 \end{ex} 
@@ -1585,7 +1585,7 @@ b) Napi\v si funkcijo print : 'a element -> unit, ki izpi\v se elemente po pravi
    kar ustreza aritmeti\v cnem izrazu $1 + ((2 * 3) * 4)$. Izraze jezika
    TP lahko definiramo z naslednjimi tipi:
  
-   \begin{lstlisting}
+ \begin{lstlisting}
 # type operation = PLUS | TIMES;; 
 type operation = PLUS | TIMES 
 # type element = Val of int | Op of operation;; 
