@@ -220,7 +220,7 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 \end{lstlisting}
 
   Napi\v si funkcijo 
-  \lstinline{poisci\_vertikalno : tekst -> string -> int*int list}, 
+  \lstinline{poisci_vertikalno : tekst -> string -> int*int list}, 
   ki vrne seznam koordinat kjer se v tekstu za\v cne
   vertikalni niz znakov podan kot drugi parameter.
 \end{ex} 
@@ -254,17 +254,35 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 
 
 \begin{ex}
-  Definiraj tip \lstinline{slika} s katerim predstavimo sliko sestavljeno
-  iz 100x100 to\v ck. Vsaka to\v cka je predstavljana z intenziteto in
-  barvo---obe vrednosti predstavimo s celim \v stevilom.
-  Predpostavljamo, da imamo \v ze napisano funkcijo \lstinline{pika : int*int -> bool}, 
-  ki pove ali je na dani koordinati pika. Barva
-  pike ni pomembna.
-  Nekje na sliki je narisan krog z radijem 5. 
-  
-  \noindent Napi\v si funkcijo
+Ta naloga obravnava slike sestavljene iz $100\times 100$ to\v ck.
+Vsaka to\v cka je predstavljana z intenziteto in
+  barvo -- obe vrednosti predstavimo s celim \v stevilom.
+  \begin{itemize}
+      \item Definiraj tip \lstinline{slika} s katerim predstavimo sliko.
+      \item Na dani koordinati re\v cemo da je pika, \v ce je ustrezna intenziteta striktno ve\v cja od 0.  Barva pike ni pomembna.
+Napi\v si funkcijo \lstinline{pika : slika -> int*int -> bool}, 
+  ki pove ali je na dani koordinati pika.
+  \item   Nekje na sliki je iz pik narisan krog z radijem 5. Napi\v si funkcijo
   \lstinline{poisci : slika -> (int*int)}, ki poi\v s\v ce sredi\v s\v ce
   kroga.
+  \end{itemize}
+ 
+ \begin{sol}
+\begin{lstlisting}
+type piksel = {barva:int; intenziteta:int}
+type slika = piksel array array
+ 
+let pika s (i,j) = s.(i).(j)#intetnziteta > 0
+
+let poisci s = 
+    let ret=ref (0,0) in
+    for i = 0 to 100 do 
+        for j = 0 to 100 do
+            if pika s (i,j) then ret := (i,j-2)
+    done done; !ret
+\end{lstlisting}
+ \end{sol}
+ 
 \end{ex} 
 
 

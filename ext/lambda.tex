@@ -80,5 +80,34 @@ Napi\v si naslednji izraz z \v cim manj oklepajev.
  \end{itemize}
 \end{ex} 
 
+\begin{ex}
+For the following $\lambda$-expression: (i) determine free and bound variables, and (ii) evaluate it, if possible. If the evaluation does not end, demonstrate four steps of $\beta$-reduction. 
+    \begin{align*}
+        &((\lambda x.((\lambda y.(x y))x))(\lambda z.w))\\
+        &((\lambda x.(x x))(\lambda x.(x x)))\\
+        &((((\lambda f.(\lambda g.(\lambda x.((fx)(g x)))))(\lambda m.(\lambda n.(n m))))(\lambda n.z))p)\\
+        &(\lambda g.((\lambda f.((\lambda x.(f (x x)))(\lambda x.(f (x x))))) g))
+    \end{align*}
+    \end{ex}
+    \begin{ex}
+    In this exercise we emulate natural numbers with $\lambda$-expressions. 
+    Define a successor function
+    $$
+    \text{succ}=\lambda z.\lambda f.\lambda y.f(zfy)
+    $$
+    and let any  positive integer $x\in \mathbb N$ be defined as
+    $$
+    x=\begin{cases}
+\lambda f.\lambda y.fy, & \text{if }x=1;\\
+\text{succ }(x-1), & \text{otherwise}.
+\end{cases}
+    $$
+    \begin{enumerate}
+        \item Using those definitions, write the $\lambda$-expressions for numbers 2,3,5 and 11.
+        \item For $x,y\in \mathbb N$, let prefix multiplication $(*)$ be defined as
+        $$(*)MN=\lambda x.(M(Nx)).$$
+        Evaluate $(*)23$ and $(*)35$ by definition.
+    \end{enumerate}
+\end{ex}    
 
 
