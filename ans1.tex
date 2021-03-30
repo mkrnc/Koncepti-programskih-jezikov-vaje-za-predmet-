@@ -5,10 +5,9 @@ function n -> n * (n + 1) * (2*n + 1)/6
 \end{Odgovor}
 \begin{Odgovor}{2.2}
 \begin{lstlisting}
-
 let rec vsota_vrste n = match n with
 | 1 -> 1.
-| _ -> 1./.2.**(float_of_int n) +. (vsota_vrste (n-1))
+| _ -> 1./.2.**(float_of_int (n-1)) +. (vsota_vrste (n-1))
 \end{lstlisting}
 \end{Odgovor}
 \begin{Odgovor}{2.3}
@@ -177,7 +176,7 @@ let rec cikli m n = match n with
 \end{lstlisting}
 \end{Odgovor}
 \begin{Odgovor}{2.26}
-  \begin{lstlisting}
+\begin{lstlisting}
   let rec zdruzi list1 list2 = match (list1, list2) with
   | ([], []) -> []
   | (a, []) -> a
@@ -186,8 +185,17 @@ let rec cikli m n = match n with
        if (a < c ) then a::(zdruzi b (c::d))
        else if (c<a) then c::(zdruzi (a::b) d)
             else a::(zdruzi b d)
-  \end{lstlisting}
+\end{lstlisting}
   
+\end{Odgovor}
+\begin{Odgovor}{2.41}
+\begin{lstlisting}
+let rec eval i = match i with
+|Stevilo (x,Oper ('+',i1))  -> x + eval i1
+|Stevilo (x,Oper ('-',i1))  -> x - eval i1
+|Stevilo (x,Nil) -> x
+|_ -> 0;;
+\end{lstlisting}
 \end{Odgovor}
 \begin{Odgovor}{2.42}
 Naloga (i):
@@ -260,6 +268,85 @@ done;
 polje;;
 \end{lstlisting}
 \end{Odgovor}
+\begin{Odgovor}{3.14}
+\begin{lstlisting}
+type piksel = {barva:int; intenziteta:int}
+type slika = piksel array array
+
+let pika s (i,j) = s.(i).(j)#intetnziteta > 0
+
+let poisci s =
+    let ret=ref (0,0) in
+    for i = 0 to 100 do
+        for j = 0 to 100 do
+            if pika s (i,j) then ret := (i,j-2)
+    done done; !ret
+\end{lstlisting}
+ 
+\end{Odgovor}
+\begin{Odgovor}{3.15}
+
+\textbf{Resitev 1. podnaloge:}
+\begin{lstlisting}
+(* resitev od Kristofa *)
+type tekst = {mutable matrika: char array array};;
+
+(*primer instance tipa tekst*)
+let a = {matrika=Array.make_matrix 100 1000 ' '};;
+for i=0 to 99 do
+    for j=0 to 999 do
+        a.matrika.(i).(j) <- char_of_int((i+j) mod 256)
+    done
+done
+\end{lstlisting}
+
+\textbf{Resitev 2. podnaloge:}
+\begin{lstlisting}
+let zamenjaj_navpicno zaslon a b =
+    let n=(String.length a) in
+    for j=0 to 99 do (*za vsak stolpec*)
+        let i=ref 0 in
+        while !i < (1000-n) do
+            if preveri_ujemanje zaslon.matrika.(j) !i a then
+                (zamenjaj zaslon.matrika.(j) !i b;
+                i:=!i+n;)
+            else
+                i:=!i+1
+        done
+    done;;
+
+
+(* napisi funkcijo zamenjaj, ki v podanem stolpcu : char array
+na i-tem mestu zamenja podniz dolzine n z vhodnim nizom dolzine n*)
+(*resitev od Sebastijana*)
+let zamenjaj stolpec i niz =
+    let pos = ref 0 in
+    for j = i to i+(String.length niz)-1 do
+        stolpec.(j) <- niz.[!pos] ; pos := !pos + 1
+    done;;
+
+(*napisi funkcijo preveri_ujemanje, ki v podanem stolpcu : char array
+na i-tem mestu preveri ce se podniz dolzine n ujema z vhodnim nizom
+dolzine n*)
+
+(*resitev od Kristofa*)
+let preveri_ujemanje stolpec i niz =
+    let same = ref true and
+    str_index = ref 0 in
+    while !same && !str_index < (String.length niz) do
+        if (stolpec.(i + (!str_index)) == niz.[!str_index]) then
+            str_index := !str_index +1
+        else
+            same := false
+    done;
+    !same;;
+
+zamenjaj_navpicno a "nop" "XXX";;
+zamenjaj_navpicno a "rst" "XXX";;
+
+\end{lstlisting}
+
+\end{Odgovor}
 \begin{Odgovor}{3.29}
 \begin{lstlisting}
 vsota(3) = 3 + vsota(2)
@@ -280,4 +367,317 @@ fib(2) = 1+0 = 1
 fib(3) = 1+1 = 2
 fib(4) = 2+1 = 3
 \end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{4.1}
+\begin{lstlisting}
+class stevila st =
+object
+    val st=(st:int)
+    method vrednost = st
+    method sestej a = new integers (st+a)
+    method odstej a = new integers (st-a)
+    method pomnozi a = new integers (st*a)
+    method deljenje a = new integers (st/a)
+end
+
+class poz_st st =
+object (self)
+    inherit stevila st as super
+    method sestej a =
+        if a<0 then
+            super#sestej (abs(a)*100)
+        else
+            super#sestej a
+    method odstej a =
+        if a<0 then
+            super#odstej (abs(a)*100)
+        else
+            super#odstej a
+    method pomnozi a =
+        if a<0 then
+            super#pomnozi (abs(a)*100)
+        else
+            super#pomnozi a
+    method deljenje a =
+        if a<0 then
+            super#deljenje (abs(a)*100)
+        else
+            super#deljenje a
+end
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{4.14}
+\begin{lstlisting}
+(* predpostavimo da imamo
+narisi_tocko : int*int -> unit
+narisi_premico : int*int -> int*int -> unit
+narisi_krog : int*int -> int -> unit
+*)
+
+let narisi_tocko a b = ();;
+let narisi_premico a b = ();;
+let narisi_krog a b = ();;
+
+class virtual geo =
+object
+    method virtual predstavi : string
+    method virtual testiraj : float -> float -> bool
+    method virtual narisi : unit
+end;;
+
+class tocka x y =
+object
+    inherit geo
+    val x = (x:float)
+    val y = (y:float)
+    method predstavi = "Tocka s koordinatami ("^(string_of_float x)
+        ^","^(string_of_float x^").")
+    method testiraj tx ty = x=tx && y=ty
+    method narisi = narisi_tocko x y
+end;;
+
+let t1 = new tocka 1. 2.;;
+t1#predstavi;;
+t1#testiraj 1. 2.;;
+t1#testiraj 1. 2.2;;
+
+class premica k n = (* f(x)=kx+n*)
+object
+    inherit geo
+    val k = k
+    val n = n
+    method predstavi = "Premica s predpisom f(x)="^(string_of_float k)
+        ^"* x + "^(string_of_float n^".")
+    method testiraj tx ty = (ty = k *. tx +. n)
+    method narisi = narisi_premico (0.,n) (1.,n+.k)
+end;;
+
+let p1 = new premica 2. 0.;;
+p1#predstavi;;
+p1#testiraj 1. 2.2;;
+p1#testiraj 1. 2.;;
+
+class krog sx sy r =  (* krog polmera r s srediscem v (sx,sy)*)
+object
+    inherit geo
+    val sx=sx
+    val sy=sy
+    val r = r
+    method predstavi = "Krog s polmerom r="^(string_of_float r)
+        ^" ter srediscem v ("^(string_of_float sx)
+        ^","^(string_of_float sy)^")."
+    method testiraj tx ty = (tx-.sx)**2. +. (ty-.sy)**2. <= r**2.
+    method narisi = narisi_krog (sx,sy) r
+end
+
+let k1 = new krog 1. 1. 1.;;
+k1#predstavi;;
+k1#testiraj 1. (-0.);;
+k1#testiraj 1. (-0.000001);;
+\end{lstlisting}
+
+\end{Odgovor}
+\begin{Odgovor}{4.17}
+
+\begin{lstlisting}
+type 'a option =
+| None
+| Some of 'a;;
+
+class ['a] polje n =
+object
+    val p = ((Array.make n None) : 'a option array)
+    method popravi i a = p.(i) <- (Some a)
+    method preberi i = p.(i)
+end;;
+
+let p1 = new polje 12;;
+p1#preberi 2;;
+p1#popravi 2 3.14;;
+p1#preberi 2;;
+
+class real_polje n =
+object
+    inherit [float] polje n
+    method preberi i = match p.(i) with
+    |None -> Some 0.
+    |Some x -> Some (float_of_int (int_of_float x))
+end
+\end{lstlisting}
+\end{Odgovor}
+\begin{Odgovor}{5.3}
+
+\begin{lstlisting}
+module TAgencija =
+struct
+    type aranzma ={ mutable destinacija:string;
+                    mutable tip_namestitve:string;
+                    mutable trajanje:int;
+                    mutable cena:int}
+    let kreiraj dest tip trajanje cena = {destinacija=dest;
+                    tip_namestitve=tip;
+                    trajanje=trajanje;
+                    cena=cena}
+    let ogled a = a.destinacija,a.tip_namestitve, a.trajanje,a.cena
+    let popravi_dest a nova_dest = a.destinacija <- nova_dest
+    let popravi_t_n a nov_t_n = a.tip_namestitve <- nov_t_n
+    let popravi_trajanje a novo_trajanje = a.trajanje <- novo_trajanje
+    let popravi_ceno a nova_cena = a.cena <- nova_cena
+end;;
+
+module type AGENT =
+  sig
+    type aranzma
+    val kreiraj : string -> string -> int -> int -> aranzma
+    val ogled : aranzma -> string * string * int * int
+    val popravi_dest : aranzma -> string -> unit
+    val popravi_t_n : aranzma -> string -> unit
+    val popravi_trajanje : aranzma -> int -> unit
+    val popravi_ceno : aranzma -> int -> unit
+  end;;
+
+module type STRANKA =
+  sig
+    type aranzma
+    val ogled : aranzma -> string * string * int * int
+  end;;
+
+module Agent = (TAgencija:AGENT with type aranzma = TAgencija.aranzma);;
+module Stranka = (TAgencija:STRANKA with type aranzma = TAgencija.aranzma);;
+
+\end{lstlisting}
+
+\end{Odgovor}
+\begin{Odgovor}{5.4}
+
+\textbf{Naloga a)}
+\begin{lstlisting}
+module Jelka =
+struct
+    type drevo = {mutable deblo: int ; mutable krosnja : int}
+    let ustvari () = {deblo=0; krosnja=0}
+    let povejVisino drevo = (drevo.deblo + drevo.krosnja)
+    let dolociDeblo drevo v= drevo.deblo <- v
+    let dolociKrosnjo drevo v= drevo.krosnja <- v
+end
+\end{lstlisting}
+\textbf{Naloga b)}
+\begin{lstlisting}
+   (*)
+  (***)
+ (*****)
+(*******)
+   (-)
+   (-)
+\end{lstlisting}
+\textbf{Resitev:}
+\begin{lstlisting}
+    (*deblo vrne string ki predstavlja
+    rezino debla v jelki s polmerom krosnje i*)
+    let deblo i =
+        if i<0 then failwith "Parameter mora biti ne-negativen!" else
+        for k = 1 to i do
+            print_string " "
+        done; print_string "(-)\n"
+
+    (*krosnja vrne j-to vrstico krosnje s polmerom i*)
+    let krosnja i j =
+        if i<0 || j<1 then failwith "Napacni parametri krosnje!" else
+        for k = 1 to i-j+1 do  (*# presledkov*)
+            print_string " "
+        done; print_string "(";
+        for k = 1 to 2*j-1 do  (* # zvezdic *)
+            print_string "*"
+        done; print_string ")\n"
+
+    let izris d =
+        for j = 1 to d.krosnja do
+            krosnja (d.krosnja-1) j
+        done;
+        for j = 1 to d.deblo do
+            deblo (d.krosnja-1)
+        done
+\end{lstlisting}
+
+\end{Odgovor}
+\begin{Odgovor}{5.6}
+
+\textbf{Resitev:}
+\begin{lstlisting}
+module Poljski =
+struct
+    type t = {mutable sez:int list}
+    (*inicializacija: *)
+    let kreiraj () = {sez=[]}
+    (*vnese stevilo na sklad in ga vrne:*)
+    let vnos s i = s.sez <- i::s.sez; i
+    (*sesteje vrhnja dva elem iz sklada in vrne rezultat:*)
+    let plus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a+b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    (*odsteje:  *)
+    let minus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a-b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    (*zmnozi:  *)
+    let mnozi s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a*b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    (*deli:  *)
+    let deli s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a/b
+        | _ -> failwith "Na skladu je premalo stevil!"
+end
+\end{lstlisting}
+\textbf{Re\v sitev s poljubnim tipom ki podpira osnovne operacije:}
+\begin{lstlisting}
+module type BASICALGEBRA =
+sig
+    type aType
+    val ( +++ ) : aType -> aType -> aType
+    val ( --- ) : aType -> aType -> aType
+    val ( *** ) : aType -> aType -> aType
+    val ( /// ) : aType -> aType -> aType
+end
+
+module MakePoljski = functor (Algebra:BASICALGEBRA) ->
+struct
+    open Algebra
+    type t = {mutable sez : aType list}
+    let kreiraj () = {sez=[]}
+    let vnos s i = s.sez <- i::s.sez; i
+    let plus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a+++b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    let minus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a---b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    let mnozi s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a***b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    let deli s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a///b
+        | _ -> failwith "Na skladu je premalo stevil!"
+end
+
+module Reals =
+struct
+    type aType = float
+    let (+++) a b = a+.b
+    let (---) a b = a-.b
+    let ( *** ) a b = a*.b
+    let (///) a b = a/.b
+end
+
+module RealPoljski = MakePoljski(Reals);;
+open RealPoljski;;
+let ss=kreiraj ();;
+vnos ss 3.1;;
+vnos ss 3.14;;
+vnos ss 3.141;;
+vnos ss 3.1415;;
+plus ss;;
+ss;;
+\end{lstlisting}
+
 \end{Odgovor}
