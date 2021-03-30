@@ -16,6 +16,45 @@ Cela \v stevila bi radi obravnavali kot objekte. Definiraj osnovno aritmetiko za
 Pozitivna cela \v stevila skupaj z ni\v clo so poseben primer celih \v stevil, ki jih imenujemo naravna \v stevila. Vse operacije prilagodi tako, da v primeru, da je parameter operacije negativen, operacija najprej zamenja parameter z absolutno vrednostjo, ga pomno\v zi s 100 ter \v sele nato opravi \v zeljeno operacijo.
 \end{enumerate}
 Napi\v si tudi konstruktorja celih in naravnih \v stevil. Bodi pozoren na uporabo dedovanja pri konstrukciji re\v sitve.
+
+\begin{sol}
+\begin{lstlisting}
+class stevila st = 
+object
+    val st=(st:int)
+    method vrednost = st 
+    method sestej a = new integers (st+a)
+    method odstej a = new integers (st-a)
+    method pomnozi a = new integers (st*a)
+    method deljenje a = new integers (st/a)
+end
+
+class poz_st st =
+object (self)
+    inherit stevila st as super
+    method sestej a = 
+        if a<0 then 
+            super#sestej (abs(a)*100)
+        else
+            super#sestej a
+    method odstej a = 
+        if a<0 then 
+            super#odstej (abs(a)*100)
+        else
+            super#odstej a
+    method pomnozi a = 
+        if a<0 then 
+            super#pomnozi (abs(a)*100)
+        else
+            super#pomnozi a
+    method deljenje a = 
+        if a<0 then 
+            super#deljenje (abs(a)*100)
+        else
+            super#deljenje a
+end
+\end{lstlisting}
+\end{sol}
 \end{ex}
 
 
@@ -101,40 +140,39 @@ kjer predstavljata parametra premika po $x$ in $y$ osi.
 
 
 
-
+%vaje 20.5.2020
 \begin{ex}
-Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati x=1..100 in y=1..100. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
+Roboti \v zivijo v fiksnem vnaprej definiranem dvo-dimenzionalnem svetu to\v ck. Svet ima koordinati $x=1..100$ in $y=1..100$. Meje sveta so vgrajene v robote. Na svetu imamo tri vrste robotov.
 
 \begin{enumerate}
-\item Osnovni robot, ki je definiran z za\v cetno to\v cko x,y in odmikom dx po osi x in odmikom dy po osi y, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati x se dx zamenja z -dx in ko prispe do konca sveta po koordinati y se dy zamenja z -dy.
+\item Osnovni robot, ki je definiran z za\v cetno to\v cko $x,y$ in odmikom dx po osi $x$ in odmikom dy po osi $y$, ki ga naredi ob premiku. Ko pride do konca sveta po koordinati $x$ se $dx$ zamenja z $-dx$ in ko prispe do konca sveta po koordinati $y$ se $dy$ zamenja z $-dy$.
 
-\item Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih k premikov ponikne in se ne nari\v se.
+\item Ponikajo\v ci robot, ki se premika na enak na\v cin kot osnovni robot le da vsakih $k$ premikov ponikne in se ne nari\v se.
 
-\item Cikcak robot, ki se prav tako premika enako kot osnovni robot le da \v se ska\v ce po x osi dve to\v cki od premika osnovnega robota na levo in v naslednjem koraku dve to\v cki na desno in tako naprej.
+\item Cikcak robot, ki se prav tako premika enako kot osnovni robot, z dodatnim kon\v cnim skokom po $x$ osi dve to\v cki od premika osnovnega robota na levo in v naslednjem koraku dve to\v cki na desno in tako naprej.
 \end{enumerate}
 
 Definiraj svet robotov v programskem jeziku Ocaml. 
 \begin{itemize}
 \item Vsak robot naj se predstavi ob kreaciji, tako da uporabnik vidi katerim razredom robot pripada.
 
-\item Napi\v si metodo \lstinline{premik : unit}, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda \texttt{premik} najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko x,y) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
+\item Napi\v si metodo \lstinline{premik : unit}, ki premakne robota na naslednjo pozicijo v odvisnosti od vrste robota. Metoda \lstinline{premik} najprej izra\v cuna naslednjo pozicijo robota in jo nato izpi\v se (t.j. izpi\v se to\v cko $x,y$) oz. je tudi ne izpi\v se v primeru ponikajo\v cega robota.
 \end{itemize}
 \end{ex}
 
 
 
-
-
 \begin{ex}
-V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov: x-robota, ki se premika samo po x-osi in y-robota, ki se premika samo po y-osi. Svet je definiran na področjih [-10..10] po x-osi in [-10..10¸] po y-osi. x-robot je definiran na lokaciji, ki je na y-osi, medtem ko ima y-robot lokacijo na x-osi. 
+V dvo-dimenzionalnem svetu robotov imamo dve vrsti robotov: x-robota, ki se premika samo po x-osi in y-robota, ki se premika samo po y-osi. Svet je definiran na podro\v cjih $[-10..10]$ po x-osi in $[-10..10]$ po y-osi. x-robot je definiran na lokaciji, ki je na y-osi, medtem ko ima y-robot lokacijo na x-osi. 
 
 Premik robota po x-osi implementiramo tako, da pri\v stejemo x-koordinati 1 oz. -1, odvisno od tega ali se robot premika desno ali levo. Ko robot pride do roba sveta, se obrne v nasprotno smer. Premikanje robota po y-osi je definirano enako kot v primeru premikanja po x-osi le da so osi zamenjane in se robot premika navzgor in navzdol.
 
 \begin{enumerate}
-\item Definiraj razrede s katerimi predstavimo x-robota in y-robota. Uporabi skupen koren hierarhije razredov \lstinline{robot}, ki realizira skupne značilnosti robotov.
+\item Definiraj razrede s katerimi predstavimo x-robota in y-robota. Uporabi skupen koren hierarhije razredov \lstinline{robot}, ki realizira skupne zna\v cilnosti robotov.
 
 \item Vsi razredi naj imajo definirano metodo \lstinline{premik : unit}. 
 \end{enumerate}
+
 \end{ex} 
 
 
@@ -205,21 +243,31 @@ Predpostavimo, da imamo dano funkcijo \lstinline{temperatura : int -> int -> int
 \section{Rekurzivne strukture objektov}
 
 
-
+%vaje 20.5.2020
 \begin{ex}
-Dano je drevo, ki je definirano z razredom \lstinline{vozel}. Vsako vozli\v s\v ce hrani vrednost klju\v ca \lstinline{kljuc}. Za predstavitev pod-dreves uporabimo tip \lstinline{'a option}.
+Podano je drevo, definirano z razredom \lstinline{vozel}. Vsako vozli\v s\v ce hrani vrednost klju\v ca \lstinline{kljuc}. Za predstavitev pod-dreves uporabimo tip \lstinline{'a option}.
 \begin{lstlisting}
 class vozel k = 
 object
-  val kljuc = k
-  val levo = None
-  val desno = None
+  val mutable kljuc = k
+  val mutable levo = None
+  val mutable desno = None
 end
+
+type 'a option = 
+|	None
+|	Some of 'a
+
 \end{lstlisting}
 
 Napi\v si metodo \lstinline{preveriUrejenost : boolen}, ki preveri ali je dano drevo urejeno. V danem korenu imajo vsa vozli\v s\v ca v levem poddrevesu manj\v so vrednost klju\v ca in vsa vozli\v s\v ca v desnem poddrevesu ve\v cjo vrednost klju\v ca.
 
-Dodatna naloga: Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo, \v ce ima\v s dano metodo za vstavljanje v urejeno drevo?
+\paragraph{Dodatna naloga:} 
+\begin{itemize}
+    \item Implementiraj metodo za vstavljanje v urejeno drevo.
+    \item Kako bi sproti pri preverjanju urejenosti ponovno uredil drevo?
+\end{itemize}
+
 \end{ex}
 
 
@@ -292,6 +340,79 @@ narisi_krog : int*int -> int -> unit
 \end{lstlisting}
 
 Uporabi prekrivanje metod in kodo razporedi tako, da bolj specifi\v cne metode uporabijo prekrite metode, kjer je mogo\v ce.
+
+\begin{sol}
+\begin{lstlisting}
+(* predpostavimo da imamo
+narisi_tocko : int*int -> unit
+narisi_premico : int*int -> int*int -> unit
+narisi_krog : int*int -> int -> unit
+*)
+
+let narisi_tocko a b = ();;
+let narisi_premico a b = ();;
+let narisi_krog a b = ();;
+
+class virtual geo =
+object
+    method virtual predstavi : string
+    method virtual testiraj : float -> float -> bool
+    method virtual narisi : unit
+end;;
+
+class tocka x y =
+object 
+    inherit geo
+    val x = (x:float)
+    val y = (y:float)
+    method predstavi = "Tocka s koordinatami ("^(string_of_float x)
+        ^","^(string_of_float x^").")
+    method testiraj tx ty = x=tx && y=ty
+    method narisi = narisi_tocko x y 
+end;;
+
+let t1 = new tocka 1. 2.;;
+t1#predstavi;;
+t1#testiraj 1. 2.;;
+t1#testiraj 1. 2.2;;
+
+class premica k n = (* f(x)=kx+n*)
+object
+    inherit geo
+    val k = k
+    val n = n
+    method predstavi = "Premica s predpisom f(x)="^(string_of_float k)
+        ^"* x + "^(string_of_float n^".")
+    method testiraj tx ty = (ty = k *. tx +. n)
+    method narisi = narisi_premico (0.,n) (1.,n+.k)
+end;;
+
+let p1 = new premica 2. 0.;;
+p1#predstavi;;
+p1#testiraj 1. 2.2;;
+p1#testiraj 1. 2.;;
+
+class krog sx sy r =  (* krog polmera r s srediscem v (sx,sy)*)
+object
+    inherit geo
+    val sx=sx
+    val sy=sy
+    val r = r
+    method predstavi = "Krog s polmerom r="^(string_of_float r)
+        ^" ter srediscem v ("^(string_of_float sx)
+        ^","^(string_of_float sy)^")."
+    method testiraj tx ty = (tx-.sx)**2. +. (ty-.sy)**2. <= r**2.
+    method narisi = narisi_krog (sx,sy) r
+end
+
+let k1 = new krog 1. 1. 1.;;
+k1#predstavi;;
+k1#testiraj 1. (-0.);;
+k1#testiraj 1. (-0.000001);;
+\end{lstlisting}
+
+\end{sol}
+
 \end{ex}
 
 
@@ -334,13 +455,45 @@ Implementiraj razred class \lstinline{'a seznam}, ki naredi ovojnico okoli vgraj
 Definiraj parametriziran razred \lstinline{'a polje}, ki realizira ovojnico okoli tipa \lstinline{array}. Razred \texttt{'a polje} naj ima definirane naseldnje metode.
 \begin{lstlisting}
 method popravi : int -> 'a -> unit
-method preberi : 'a 
+method preberi : int -> 'a 
 \end{lstlisting}
 Metoda \texttt{popravi} za dan indeks in vrednost tipa 'a postavi vsebino elementa polja z danim indeksom na novo vrednost. Metoda \texttt{preberi} vrne za dan indeks vsebino elementa polja. 
 
 Polje naj bo kreirano ob kreaciji objekta. Ob kreaciji podamo tudi velikost polja.
 
 Z uporabo prej definiranega razreda \lstinline{polje} definiraj razred \lstinline{real_polje}, ki vsebuje realna \v stevila. Re-definiraj metodo preberi tako, da vrne samo celo vrednost realnega \v stevila.
+
+\begin{sol}
+
+\begin{lstlisting}
+type 'a option = 
+| None
+| Some of 'a;;
+
+class ['a] polje n =
+object
+    val p = ((Array.make n None) : 'a option array)
+    method popravi i a = p.(i) <- (Some a)
+    method preberi i = p.(i)
+end;;
+
+let p1 = new polje 12;;
+p1#preberi 2;;
+p1#popravi 2 3.14;;
+p1#preberi 2;;
+
+class real_polje n = 
+object
+    inherit [float] polje n
+    method preberi i = match p.(i) with
+    |None -> Some 0.
+    |Some x -> Some (float_of_int (int_of_float x))
+end
+\end{lstlisting}
+\end{sol}
+
+
+
 \end{ex}
 
 

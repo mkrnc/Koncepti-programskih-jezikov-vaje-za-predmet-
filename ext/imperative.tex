@@ -251,8 +251,6 @@ c) Dodatna naloga: Podobnost med dvema vzorcema je definirana na osnovi podobnos
 \end{ex} 
 
 
-
-
 \begin{ex}
 Ta naloga obravnava slike sestavljene iz $100\times 100$ to\v ck.
 Vsaka to\v cka je predstavljana z intenziteto in
@@ -287,26 +285,87 @@ let poisci s =
 
 
 
-
+% vaje 20.5.2020 
 \begin{ex}
-  Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno
-  matriko znakov.
-
-  a) Definiraj tip tekst, ki predstavlja dvo-dimenzionalno matriko
-  znakov velikosti 100x1000 (1000 vrstic po 100 znakov)..
-
-  b) Napi\v si funkcijo
+  Urejevalnik besedil ima tekst predstavljen z dvo dimenzionalno  matriko znakov.
+\begin{itemize}
+    \item Definiraj tip tekst, ki predstavlja dvo-dimenzionalno matriko
+  znakov velikosti 100x1000 (1000 vrstic po 100 znakov).
+  \item Napi\v si funkcijo
 
 \begin{lstlisting}
-    zamenjaj_navpicno : tekst -> string -> string -> tekst, 
+zamenjaj_navpicno : tekst -> string -> string -> tekst
 \end{lstlisting}
   ki poi\v s\v ce vse pojavitve niza (2. parameter) vertikalno v
   tekstu urejevalnika (1. parameter) in jih zamenja z drugim nizom
   (3. parameter). Predpostavimo, da sta niza enako dolga.
+\end{itemize}
+
+\begin{sol}
+
+\textbf{Resitev 1. podnaloge:}
+\begin{lstlisting}
+(* resitev od Kristofa *)
+type tekst = {mutable matrika: char array array};;
+
+(*primer instance tipa tekst*)
+let a = {matrika=Array.make_matrix 100 1000 ' '};;
+for i=0 to 99 do 
+    for j=0 to 999 do
+        a.matrika.(i).(j) <- char_of_int((i+j) mod 256)
+    done
+done
+\end{lstlisting}
+
+\textbf{Resitev 2. podnaloge:}
+\begin{lstlisting}
+let zamenjaj_navpicno zaslon a b =
+    let n=(String.length a) in
+    for j=0 to 99 do (*za vsak stolpec*)
+        let i=ref 0 in
+        while !i < (1000-n) do
+            if preveri_ujemanje zaslon.matrika.(j) !i a then
+                (zamenjaj zaslon.matrika.(j) !i b;
+                i:=!i+n;)
+            else
+                i:=!i+1
+        done
+    done;;
+        
+        
+(* napisi funkcijo zamenjaj, ki v podanem stolpcu : char array 
+na i-tem mestu zamenja podniz dolzine n z vhodnim nizom dolzine n*)
+(*resitev od Sebastijana*)
+let zamenjaj stolpec i niz = 
+    let pos = ref 0 in
+    for j = i to i+(String.length niz)-1 do
+        stolpec.(j) <- niz.[!pos] ; pos := !pos + 1
+    done;;
+    
+(*napisi funkcijo preveri_ujemanje, ki v podanem stolpcu : char array 
+na i-tem mestu preveri ce se podniz dolzine n ujema z vhodnim nizom 
+dolzine n*)
+
+(*resitev od Kristofa*)
+let preveri_ujemanje stolpec i niz =
+    let same = ref true and
+    str_index = ref 0 in
+    while !same && !str_index < (String.length niz) do
+        if (stolpec.(i + (!str_index)) == niz.[!str_index]) then 
+            str_index := !str_index +1
+        else
+            same := false
+    done;
+    !same;;
+
+zamenjaj_navpicno a "nop" "XXX";;
+zamenjaj_navpicno a "rst" "XXX";;
+
+\end{lstlisting}
+
+\end{sol}
+
 \end{ex} 
-
-
-
 
 \begin{ex}
   Definiraj parametri\v cni \lstinline{('k,'v) ppolje}, ki predstavlja

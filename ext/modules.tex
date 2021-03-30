@@ -61,6 +61,51 @@ Za aran\v zma definiraj modula \lstinline{Agent} in \lstinline{Stranka}, kjer \l
 lahko pogleda aran\v zma preimenuje destinacijo, dolo\v ci nov tip
 namestitve ter popravi trajanje in ceno. \lstinline{Stranka} lahko zgolj pogleda
 dolo\v ceni aran\v zma.
+
+\begin{sol}
+
+\begin{lstlisting}
+module TAgencija = 
+struct
+    type aranzma ={ mutable destinacija:string;
+                    mutable tip_namestitve:string;
+                    mutable trajanje:int;
+                    mutable cena:int}
+    let kreiraj dest tip trajanje cena = {destinacija=dest;
+                    tip_namestitve=tip;
+                    trajanje=trajanje;
+                    cena=cena}
+    let ogled a = a.destinacija,a.tip_namestitve, a.trajanje,a.cena
+    let popravi_dest a nova_dest = a.destinacija <- nova_dest
+    let popravi_t_n a nov_t_n = a.tip_namestitve <- nov_t_n
+    let popravi_trajanje a novo_trajanje = a.trajanje <- novo_trajanje
+    let popravi_ceno a nova_cena = a.cena <- nova_cena
+end;;
+
+module type AGENT =
+  sig
+    type aranzma
+    val kreiraj : string -> string -> int -> int -> aranzma
+    val ogled : aranzma -> string * string * int * int
+    val popravi_dest : aranzma -> string -> unit
+    val popravi_t_n : aranzma -> string -> unit
+    val popravi_trajanje : aranzma -> int -> unit
+    val popravi_ceno : aranzma -> int -> unit
+  end;;
+  
+module type STRANKA =
+  sig
+    type aranzma
+    val ogled : aranzma -> string * string * int * int
+  end;;
+
+module Agent = (TAgencija:AGENT with type aranzma = TAgencija.aranzma);;
+module Stranka = (TAgencija:STRANKA with type aranzma = TAgencija.aranzma);;
+
+\end{lstlisting}
+
+\end{sol}
+
 \end{ex}
 
 
@@ -87,6 +132,60 @@ na presledke.
    (-)
    (-)
 \end{lstlisting}
+
+\begin{sol}
+
+\textbf{Naloga a)}
+\begin{lstlisting}
+module Jelka =
+struct
+    type drevo = {mutable deblo: int ; mutable krosnja : int}
+    let ustvari () = {deblo=0; krosnja=0}
+    let povejVisino drevo = (drevo.deblo + drevo.krosnja)
+    let dolociDeblo drevo v= drevo.deblo <- v
+    let dolociKrosnjo drevo v= drevo.krosnja <- v
+end
+\end{lstlisting}
+\textbf{Naloga b)}
+\begin{lstlisting}
+   (*)
+  (***)
+ (*****)
+(*******)
+   (-)
+   (-)
+\end{lstlisting}
+\textbf{Resitev:}
+\begin{lstlisting}
+    (*deblo vrne string ki predstavlja 
+    rezino debla v jelki s polmerom krosnje i*)
+    let deblo i =
+        if i<0 then failwith "Parameter mora biti ne-negativen!" else
+        for k = 1 to i do 
+            print_string " "
+        done; print_string "(-)\n"
+        
+    (*krosnja vrne j-to vrstico krosnje s polmerom i*)
+    let krosnja i j =
+        if i<0 || j<1 then failwith "Napacni parametri krosnje!" else
+        for k = 1 to i-j+1 do  (*# presledkov*)
+            print_string " "
+        done; print_string "(";
+        for k = 1 to 2*j-1 do  (* # zvezdic *)
+            print_string "*"
+        done; print_string ")\n"
+        
+    let izris d = 
+        for j = 1 to d.krosnja do
+            krosnja (d.krosnja-1) j
+        done;
+        for j = 1 to d.deblo do
+            deblo (d.krosnja-1)
+        done
+\end{lstlisting}
+
+\end{sol}
+
 \end{ex}
 
 
@@ -158,6 +257,89 @@ deli: Poljski.t -> int
 b) Kako bi posplo\v sili kalkulator, da bi znal delati s poljubnim tipom \v stevil npr. tudi z realnimi \v stevili? Skiciraj na kratko re\v sitev. 
 
 c) Dodatna naloga: implementacija b)  
+
+\begin{sol}
+
+\textbf{Resitev:}
+\begin{lstlisting}
+module Poljski = 
+struct
+    type t = {mutable sez:int list}
+    (*inicializacija: *)
+    let kreiraj () = {sez=[]}
+    (*vnese stevilo na sklad in ga vrne:*)
+    let vnos s i = s.sez <- i::s.sez; i
+    (*sesteje vrhnja dva elem iz sklada in vrne rezultat:*)
+    let plus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a+b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    (*odsteje:  *)
+    let minus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a-b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    (*zmnozi:  *)
+    let mnozi s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a*b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    (*deli:  *)
+    let deli s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a/b
+        | _ -> failwith "Na skladu je premalo stevil!"
+end
+\end{lstlisting}
+\textbf{Re\v sitev s poljubnim tipom ki podpira osnovne operacije:}
+\begin{lstlisting}
+module type BASICALGEBRA = 
+sig
+    type aType
+    val ( +++ ) : aType -> aType -> aType
+    val ( --- ) : aType -> aType -> aType
+    val ( *** ) : aType -> aType -> aType
+    val ( /// ) : aType -> aType -> aType
+end
+
+module MakePoljski = functor (Algebra:BASICALGEBRA) ->
+struct
+    open Algebra
+    type t = {mutable sez : aType list}
+    let kreiraj () = {sez=[]}
+    let vnos s i = s.sez <- i::s.sez; i
+    let plus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a+++b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    let minus s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a---b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    let mnozi s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a***b
+        | _ -> failwith "Na skladu je premalo stevil!"
+    let deli s = match s.sez with
+        | a::b::rep -> s.sez<- rep; a///b
+        | _ -> failwith "Na skladu je premalo stevil!"
+end
+
+module Reals =
+struct
+    type aType = float
+    let (+++) a b = a+.b
+    let (---) a b = a-.b
+    let ( *** ) a b = a*.b
+    let (///) a b = a/.b
+end
+
+module RealPoljski = MakePoljski(Reals);;
+open RealPoljski;;
+let ss=kreiraj ();;
+vnos ss 3.1;;
+vnos ss 3.14;;
+vnos ss 3.141;;
+vnos ss 3.1415;;
+plus ss;;
+ss;;
+\end{lstlisting}
+
+\end{sol}
+
 \end{ex}
 
 

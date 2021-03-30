@@ -26,10 +26,9 @@ $$\sum_{x=0}^n 1/(2^x) = 1/1+1/2+1/4+1/8+1/16+...+1/(2^n).$$
 Preveri delovanje funkcije z implementacijo v Ocaml.
 \begin{sol}
 \begin{lstlisting}
-    
 let rec vsota_vrste n = match n with
 | 1 -> 1.
-| _ -> 1./.2.**(float_of_int n) +. (vsota_vrste (n-1))
+| _ -> 1./.2.**(float_of_int (n-1)) +. (vsota_vrste (n-1))
 \end{lstlisting}
 \end{sol}
 \end{ex}
@@ -857,14 +856,27 @@ type izraz =
     | Stevilo of int * izraz 
     | Oper of char * izraz ;; 
 \end{lstlisting}
-Izraz vsebuje aritmeti\v cne izraze, ki so lahko sestavljeni iz \v stevil (Stevilo) in operacij (Oper). Dovoljene operacije so plus '+' in minus '-'. Predpostavljamo, da izrazi opisujejo pravilne aritmeti\v cne izraze.
-
-Napi\v si funkcijo ovrednoti : izraz -> int, ki izra\v cuna vrednost izraza.
-Primer: 
+Izraz vsebuje aritmeti\v cne izraze, ki so lahko sestavljeni iz \v stevil (Stevilo) in operacij (Oper). Dovoljene operacije so plus \lstinline{+} in minus \lstinline{-}. Predpostavljamo, da izrazi opisujejo pravilne aritmeti\v cne izraze.
+Kot primer navedemo izraz $e = 10 + 5 - 3$, ki ustreza zapisu:
 \begin{lstlisting} 
-    e = 10 + 5 - 3
+let e = Stevilo (10, Oper ('+', Stevilo (5, Oper ('-', Stevilo (3, Nil)))));;
 \end{lstlisting}
 
+Napi\v si funkcijo ovrednoti : \lstinline{izraz -> int}, ki izra\v cuna vrednost izraza.
+Primer:
+\begin{lstlisting}
+eval e;;
+- : int = 12
+\end{lstlisting}
+\begin{sol}
+\begin{lstlisting}
+let rec eval i = match i with
+|Stevilo (x,Oper ('+',i1))  -> x + eval i1
+|Stevilo (x,Oper ('-',i1))  -> x - eval i1
+|Stevilo (x,Nil) -> x
+|_ -> 0;;
+\end{lstlisting}
+\end{sol}
 \end{ex}
 
 
@@ -1011,7 +1023,7 @@ kjer je prvi parameter seznam v katerega dodajamo, drugi parameter je funkcija p
 
 \begin{ex}
   Seznam definiramo z zapisom, ki ima dve komponenti: vrednost tipa
-  \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima še vsaj en element.
+  \lstinline{'a} in kazalec na naslednji element seznama tipa \lstinline{'a seznam}, ki je bodisi prazen ali pa ima \v se vsaj en element.
 
 \begin{lstlisting}
   type 'a element = { 
@@ -1628,7 +1640,7 @@ Napi\v si funkcijo calc : expr -> int, ki izra\v cuna vrednost danega izraza.
 
 
 
-
+%vaje 27.5.2020
 \begin{ex}
 Boolovi izrazi so predstavljeni z naslednjim rekurzivnim tipom.   
 
@@ -1642,18 +1654,15 @@ type bool_exp =
 \end{lstlisting}
 Napi\v si funkcijo
 \begin{lstlisting}
-
 eval : bool_exp -> bool, 
 \end{lstlisting}
 
 ki evaluira boolov izraz v vrednost.   
 
-Dodatna naloga: Napi\v si funkcijo, ki izpi\v se pravilnostno tabelo za dan boolov izraz.
+\textbf{Dodatna naloga:} Napi\v si funkcijo, ki izpi\v se pravilnostno tabelo za dan boolov izraz.
 \end{ex} 
 
-
-
-
+%vaje 27.5.2020
 \begin{ex}
 Tip text definira predstavitev teksta v urejevalniku besedil. Primerek tipa text je sestavljen iz vrstic, ki so sestavljene iz besed.
 
@@ -1664,9 +1673,3 @@ and line = Eol | Word of string * line
 
 Napi\v si funkcijo search : text -> line -> bool, ki vrne true, \v ce je sekvenca besed definirana z drugim parametrom pod-sekvenca v tekstu, ki je podan kot prvi parameter. Predostavimo, da je iskana sekvenca vedno v eni vrstici.
 \end{ex} 
-
-
-
-
-
-
